@@ -154,15 +154,12 @@ export default {
         email: this.form.email,
         password: this.form.pw
       }
-      this.registerUser(data).then((res) => {
-        if (res === 'Email has been registered') {
-          alert(res)
-        } else {
-          alert(res)
-          this.$router.push('/login')
-        }
+      this.registerUser(data)
+      .then((res) => {
+        alert(res);
+        this.$router.push('/login');
       }).catch((err) => {
-        alert(err)
+        alert(err);
       })
     },
   },

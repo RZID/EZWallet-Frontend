@@ -19,10 +19,9 @@ const modulAuth = {
     registerUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/register`, data).then((response) => {
-          // console.log(response.data.message)
           resolve(response.data.message)
-        }).catch((error) => {
-          reject(error)
+        }).catch((err) => {
+          reject(err.response.data.message)
         })
       })
     },
@@ -33,6 +32,19 @@ const modulAuth = {
           localStorage.setItem('token', response.data.token)
           context.commit('setID', response.data.id)
           context.commit('setToken', response.data.token)
+          // console.log(response.data.message)
+          resolve(response.data.message)
+        }).catch((err) => {
+          reject(err.response.data.message)
+        })
+      })
+    },
+    actionSetPin (context, data) {
+      // console.log(context.state.token)
+      // console.log(context.state.id)
+      // console.log(data)
+      return new Promise((resolve, reject) => {
+        axios.patch(`${context.rootState.setURL}/api/user/${context.state.id}`, data, { headers: { token: context.state.token } }).then((response) => {
           resolve(response.data.message)
         }).catch((err) => {
           reject(err)

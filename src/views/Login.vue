@@ -142,16 +142,16 @@ export default {
         password: this.form.pw
       }
       this.loginUser(data).then((res) => {
-        console.log(res)
-        if (res === 'Email not found') {
-          alert('Email tidak ada!')
-        } else if (res === 'Login failed, please check your password') {
-          alert('Password salah!')
-        } else {
-          alert('Login Success')
-        }
+        alert(res);
+        this.$router.push('/setPin');
       }).catch((err) => {
-        alert(err)
+        if (err === 'Email not found') {
+          alert('Email tidak terdaftar');
+        } else if (err === 'Login failed, please check your password') {
+          alert('Password Salah');
+        } else {
+          console.log(err);
+        }
       })
     },
   },
