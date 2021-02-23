@@ -14,9 +14,9 @@
           </h5>
           <div class="pr-5">
             <p class="text-light">
-              Zwallet is an application that focussing in banking needs for all
+              EZwallet is an application that focussing in banking needs for all
               users in the world. Always updated and always following world
-              trends. 5000+ users registered in Zwallet everyday with worldwide
+              trends. 5000+ users registered in EZwallet everyday with worldwide
               users coverage.
             </p>
           </div>
@@ -39,7 +39,7 @@
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span
-                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0"
+                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0 rounded-0"
                       id="basic-addon1"
                     >
                       <i class="far fa-user"></i>
@@ -47,7 +47,7 @@
                   </div>
                   <input
                     type="text"
-                    class="form-control border-top-0 border-left-0 border-right-0"
+                    class="form-control border-top-0 border-left-0 border-right-0 rounded-0"
                     placeholder="Enter your username"
                     v-model="form.username"
                     required
@@ -56,7 +56,7 @@
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span
-                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0"
+                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0 rounded-0"
                       id="basic-addon1"
                     >
                       <i class="far fa-envelope"></i>
@@ -64,7 +64,7 @@
                   </div>
                   <input
                     type="email"
-                    class="form-control border-top-0 border-left-0 border-right-0"
+                    class="form-control border-top-0 border-left-0 border-right-0 rounded-0"
                     placeholder="Enter your e-mail"
                     v-model="form.email"
                     required
@@ -73,7 +73,7 @@
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span
-                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0"
+                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0 rounded-0"
                       id="basic-addon1"
                     >
                       <i class="fas fa-lock"></i>
@@ -81,14 +81,14 @@
                   </div>
                   <input
                     :type="revealPass ? 'text' : 'password'"
-                    class="form-control border-top-0 border-left-0 border-right-0"
+                    class="form-control border-top-0 border-left-0 border-right-0 rounded-0"
                     placeholder="Enter your password"
                     v-model="form.pw"
                     required
                   />
                   <div class="input-group-append">
                     <span
-                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0"
+                      class="input-group-text bg-white border-top-0 border-left-0 border-right-0 rounded-0"
                       id="basic-addon1"
                     >
                       <b-link

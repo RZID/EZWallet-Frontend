@@ -14,30 +14,81 @@
           </h5>
           <div class="pr-5">
             <p class="text-light">
-              Zwallet is an application that focussing in banking needs for all
+              EZwallet is an application that focussing in banking needs for all
               users in the world. Always updated and always following world
-              trends. 5000+ users registered in Zwallet everyday with worldwide
+              trends. 5000+ users registered in EZwallet everyday with worldwide
               users coverage.
             </p>
           </div>
         </div>
       </div>
       <div class="col h-100 overflow-auto d-flex">
-        <div class="container align-self-center">
-          <div class="px-4">
+        <div class="container align-self-center" v-if="role === 'fill'">
+          <div class="px-5">
             <h4 class="font-weight-bold">
               Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN
               That You Created Yourself.
             </h4>
             <p class="text-muted">
               Create 6 digits pin to secure all your money and your data in
-              Zwallet app. Keep it secret and don’t tell anyone about your
-              Zwallet account password and the PIN.
+              EZwallet app. Keep it secret and don’t tell anyone about your
+              EZwallet account password and the PIN.
             </p>
-            <div>
-              <PincodeInput v-model="form.code" placeholder="_" length="6" />
-            </div>
+            <form @submit.prevent="toConfirm()">
+              <div class="px-5">
+                <div class="pt-4">
+                  <PincodeInput
+                    v-model="form.code"
+                    required
+                    placeholder="_"
+                    :length="6"
+                  />
+                </div>
+                <div class="pt-5">
+                  <button
+                    class="btn btn-block btn-blue"
+                    :disabled="form.code.length < 6"
+                    type="submit"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
+        </div>
+        <div class="container align-self-center" v-else-if="role === 'success'">
+          <div class="px-5 mx-3">
+            <h1 class="font-weight-bold display-4 text-success">
+              <i class="fas fa-check-circle"></i>
+            </h1>
+            <h4 class="font-weight-bold pt-3">
+              Your PIN Was Successfully Created
+            </h4>
+            <p class="text-muted pt-3">
+              Your PIN was successfully created and you can now access all the
+              features in EZwallet. Login to your new account and start
+              exploring!
+            </p>
+            <button
+              type="button"
+              class="btn btn-block btn-blue font-weight-bold mt-5"
+              style="border-radius: 12px"
+              @click="$router.push('/login').catch(() => {})"
+            >
+              Login Now
+            </button>
+          </div>
+        </div>
+        <div
+          class="container align-self-center text-center"
+          v-else-if="role === 'loading'"
+        >
+          <div class="spinner-grow text-blue" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <h4 class="font-weight-bold pt-2">Please wait</h4>
+          <p class="text-muted">We're verifying your PIN for safety reason</p>
         </div>
       </div>
     </div>
@@ -50,18 +101,18 @@ export default {
   components: { PincodeInput },
   data: () => {
     return {
-      revealPass: false,
       form: {
         code: "",
       },
+      role: "fill",
     };
   },
   methods: {
-    toForgotPass() {
-      alert("Forgot pass");
-    },
-    signUp() {
-      alert("signUp");
+    toConfirm() {
+      this.role = "loading";
+      setTimeout(() => {
+        this.role = "success";
+      }, 5000);
     },
   },
 };
@@ -70,6 +121,25 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+.text-blue {
+  color: #6379f4;
+}
+.btn-blue {
+  background-color: #6379f4;
+  color: white;
+}
+.btn-blue:hover {
+  background-color: #5265cf;
+  color: white;
+}
+.btn-blue:disabled {
+  background-color: #dadada;
+  color: #88888f;
+}
+.btn-blue:disabled:hover {
+  background-color: #dadada;
+  color: #88888f;
+}
 .bg-accent {
   background-image: url("/assets/Vector1.svg");
   background-repeat: no-repeat;
@@ -84,10 +154,20 @@ input:focus {
 </style>
 <style>
 div.vue-pincode-input-wrapper {
-  width: 53px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-
-/* input.vue-pincode-input { */
-/* // any styles you want for each cell */
-/* } */
+input.vue-pincode-input:invalid {
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid #a9a9a9;
+  padding: 12px;
+}
+input.vue-pincode-input:valid {
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid #6379f4;
+  padding: 12px;
+}
 </style>
