@@ -1,0 +1,10 @@
+@font-face{
+    font-family: Nunito;
+    src: url('../font/NunitoSans-Regular.ttf');
+}
+*{
+    font-family: Nunito;
+}
+.bg-blue {
+  background: #6379f4;
+}
