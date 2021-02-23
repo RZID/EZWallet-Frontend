@@ -41,6 +41,8 @@ const modulAuth = {
     }
   },
   getters: {
+    getID: state => state.id,
+    getToken: state => state.token
   }
 }
 export default modulAuth
