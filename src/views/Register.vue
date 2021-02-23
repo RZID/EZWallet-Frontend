@@ -129,6 +129,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: () => {
     return {
@@ -141,11 +142,28 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      registerUser : 'auth/registerUser'
+    }),
     toForgotPass() {
       alert("Forgot pass");
     },
     signUp() {
-      alert("signUp");
+      const data = {
+        name: this.form.username,
+        email: this.form.email,
+        password: this.form.pw
+      }
+      this.registerUser(data).then((res) => {
+        if (res === 'Email has been registered') {
+          alert(res)
+        } else {
+          alert(res)
+          this.$router.push('/login')
+        }
+      }).catch((err) => {
+        alert(err)
+      })
     },
   },
 };
