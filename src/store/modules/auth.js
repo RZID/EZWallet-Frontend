@@ -4,7 +4,7 @@ const modulAuth = {
   state: () => {
     return {
       id: localStorage.getItem('id') || null,
-      token: ''
+      token: localStorage.getItem('token') || null,
     }
   },
   mutations: {
@@ -29,10 +29,9 @@ const modulAuth = {
     loginUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/login`, data).then((response) => {
-          // console.log(response.data)
-          // localStorage.setItem('id', response.data.data.id)
+          localStorage.setItem('id', response.data.id)
           localStorage.setItem('token', response.data.token)
-          // context.commit('setID', response.data.id)
+          context.commit('setID', response.data.id)
           context.commit('setToken', response.data.token)
           resolve(response.data.message)
         }).catch((err) => {
