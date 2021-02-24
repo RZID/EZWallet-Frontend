@@ -6,7 +6,13 @@
           <div>
             <div
               class="container mt-5 text-muted"
-              :class="$route.path === '/dashboard' ? 'active' : ''"
+              :class="
+                $route.path === '/dashboard'
+                  ? 'active'
+                  : $route.path === '/history'
+                  ? 'active'
+                  : ''
+              "
             >
               <h4 @click="dasboard()" class="m-0 mx-3 pointer">
                 <b-icon icon="grid"></b-icon>

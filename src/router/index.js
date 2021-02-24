@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Pin from '../views/Pin.vue'
 import Dashboard from '../views/Dashboard.vue'
+import History from '../views/History.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,14 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    meta: {
+      for: 'logged'
+    }
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History,
     meta: {
       for: 'logged'
     }
