@@ -143,8 +143,12 @@ export default {
       };
       this.loginUser(data)
         .then((res) => {
-          alert(res);
-          this.$router.push("/setPin").catch(() => {});
+          if (res.pin === false) {
+            this.$router.push("/setPin");
+          } else {
+            alert("Arahkan ke halaman Dasbord");
+            // this.$router.push('/setPin');
+          }
         })
         .catch((err) => {
           if (err === "Email not found") {
