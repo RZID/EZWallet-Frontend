@@ -142,8 +142,13 @@ export default {
         password: this.form.pw
       }
       this.loginUser(data).then((res) => {
-        alert(res);
-        this.$router.push('/setPin');
+        console.log(res.pin)
+        if (res.pin === false) {
+          this.$router.push('/setPin');
+        } else {
+          alert('Arahkan ke halaman Dasbord');
+          // this.$router.push('/setPin');
+        }
       }).catch((err) => {
         if (err === 'Email not found') {
           alert('Email tidak terdaftar');

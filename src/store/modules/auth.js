@@ -33,7 +33,7 @@ const modulAuth = {
           context.commit('setID', response.data.id)
           context.commit('setToken', response.data.token)
           // console.log(response.data.message)
-          resolve(response.data.message)
+          resolve(response.data)
         }).catch((err) => {
           reject(err.response.data.message)
         })
