@@ -6,103 +6,123 @@
         <h6 class="font-weight-bold text-muted">This Week</h6>
         <div>
           <!-- Item -->
-          <div class="item">
-            <div class="row">
-              <div class="col-2">
-                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-              </div>
-              <div class="col d-flex">
-                <div class="align-self-center w-100">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h6 class="font-weight-bold m-0">Samsul Soebekti</h6>
-                      <p class="text-muted m-0">Transfer</p>
-                    </div>
-                    <div>
-                      <h4 class="font-weight-bold text-success">+Rp100.000</h4>
+          <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
+            <div class="item">
+              <div class="row">
+                <div class="col-4 col-md-3 col-lg-2">
+                  <img class="imgTransaction" src="/assets/people/samsul.jpg" />
+                </div>
+                <div class="col d-flex">
+                  <div class="align-self-center w-100">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h6 class="font-weight-bold m-0">Samsul Soebekti</h6>
+                        <p class="text-muted m-0">Transfer</p>
+                      </div>
+                      <div>
+                        <h5 class="font-weight-bold text-success">
+                          +Rp100.000
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </b-link>
           <!-- End Of Item -->
 
           <!-- Item -->
-          <div class="item">
-            <div class="row">
-              <div class="col-2">
-                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-              </div>
-              <div class="col d-flex">
-                <div class="align-self-center w-100">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h6 class="font-weight-bold m-0">Samsul Singapur</h6>
-                      <p class="text-muted m-0">Transfer</p>
-                    </div>
-                    <div>
-                      <h4 class="font-weight-bold text-danger">-Rp1.000.000</h4>
+          <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
+            <div class="item">
+              <div class="row">
+                <div class="col-4 col-md-3 col-lg-2">
+                  <img class="imgTransaction" src="/assets/people/samsul.jpg" />
+                </div>
+                <div class="col d-flex">
+                  <div class="align-self-center w-100">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h6 class="font-weight-bold m-0">Samsul Singapur</h6>
+                        <p class="text-muted m-0">Transfer</p>
+                      </div>
+                      <div>
+                        <h5 class="font-weight-bold text-danger">
+                          -Rp1.000.000
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </b-link>
           <!-- End Of Item -->
         </div>
         <h6 class="font-weight-bold text-muted">This Month</h6>
         <!-- Item -->
-        <div class="item">
-          <div class="row">
-            <div class="col-2">
-              <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-            </div>
-            <div class="col d-flex">
-              <div class="align-self-center w-100">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <h6 class="font-weight-bold m-0">Samsul Supriatna</h6>
-                    <p class="text-muted m-0">Transfer</p>
-                  </div>
-                  <div>
-                    <h4 class="font-weight-bold text-danger">-Rp1.000.000</h4>
+        <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
+          <div class="item">
+            <div class="row">
+              <div class="col-4 col-md-3 col-lg-2">
+                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
+              </div>
+              <div class="col d-flex">
+                <div class="align-self-center w-100">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h6 class="font-weight-bold m-0">Samsul Supriatna</h6>
+                      <p class="text-muted m-0">Transfer</p>
+                    </div>
+                    <div>
+                      <h5 class="font-weight-bold text-danger">-Rp1.000.000</h5>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </b-link>
         <!-- End Of Item -->
         <!-- Item -->
-        <div class="item">
-          <div class="row">
-            <div class="col-2">
-              <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-            </div>
-            <div class="col d-flex">
-              <div class="align-self-center w-100">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <h6 class="font-weight-bold m-0">Tatang</h6>
-                    <p class="text-muted m-0">Transfer</p>
-                  </div>
-                  <div>
-                    <h4 class="font-weight-bold text-success">+Rp1.500.000</h4>
+        <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
+          <div class="item">
+            <div class="row">
+              <div class="col-4 col-md-3 col-lg-2">
+                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
+              </div>
+              <div class="col d-flex">
+                <div class="align-self-center w-100">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h6 class="font-weight-bold m-0">Tatang</h6>
+                      <p class="text-muted m-0">Transfer</p>
+                    </div>
+                    <div>
+                      <h5 class="font-weight-bold text-success">
+                        +Rp1.500.000
+                      </h5>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </b-link>
         <!-- End Of Item -->
       </div>
     </div>
+    <modalHistory />
   </div>
 </template>
 
 <script>
-export default {};
+import modalHistory from "./ModalHistory";
+export default {
+  components: {
+    modalHistory,
+  },
+};
 </script>
 
 <style scoped src="../assets/css/style.css">
