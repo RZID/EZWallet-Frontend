@@ -8,15 +8,15 @@ const modulAuth = {
     }
   },
   mutations: {
-    setID (state, payload) {
+    setID(state, payload) {
       state.id = payload
     },
-    setToken (state, payload) {
+    setToken(state, payload) {
       state.token = payload
     }
   },
   actions: {
-    registerUser (context, data) {
+    registerUser(context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/register`, data).then((response) => {
           resolve(response.data.message)
@@ -25,21 +25,21 @@ const modulAuth = {
         })
       })
     },
-    loginUser (context, data) {
+    loginUser(context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/login`, data).then((response) => {
           localStorage.setItem('id', response.data.id)
           localStorage.setItem('token', response.data.token)
           context.commit('setID', response.data.id)
           context.commit('setToken', response.data.token)
-          // console.log(response.data.message)
+          console.log(response.data)
           resolve(response.data.message)
         }).catch((err) => {
           reject(err.response.data.message)
         })
       })
     },
-    actionSetPin (context, data) {
+    actionSetPin(context, data) {
       // console.log(context.state.token)
       // console.log(context.state.id)
       // console.log(data)

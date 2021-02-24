@@ -74,7 +74,7 @@
               type="button"
               class="btn btn-block btn-blue font-weight-bold mt-5"
               style="border-radius: 12px"
-              @click="$router.push('/login').catch(() => {})"
+              @click="$router.push('/dashboard').catch(() => {})"
             >
               Login Now
             </button>
@@ -97,7 +97,7 @@
 
 <script>
 import PincodeInput from "vue-pincode-input";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   components: { PincodeInput },
   data: () => {
@@ -110,18 +110,20 @@ export default {
   },
   methods: {
     ...mapActions({
-      actionSetPin: 'auth/actionSetPin'
+      actionSetPin: "auth/actionSetPin",
     }),
     toConfirm() {
       this.role = "loading";
-      const data = { pin: this.form.code }
+      const data = { pin: this.form.code };
       setTimeout(() => {
-        this.actionSetPin(data).then((res) => {
-          this.role = "success";
-          alert(res)
-        }).catch((err) => {
-          alert(err)
-        })
+        this.actionSetPin(data)
+          .then((res) => {
+            this.role = "success";
+            alert(res);
+          })
+          .catch((err) => {
+            alert(err);
+          });
       }, 5000);
     },
   },
@@ -131,9 +133,6 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
-.text-blue {
-  color: #6379f4;
-}
 .btn-blue {
   background-color: #6379f4;
   color: white;

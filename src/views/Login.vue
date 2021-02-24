@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   data: () => {
     return {
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      loginUser: 'auth/loginUser'
+      loginUser: "auth/loginUser",
     }),
     toForgotPass() {
       alert("Forgot pass");
@@ -139,20 +139,22 @@ export default {
     login() {
       const data = {
         email: this.form.email,
-        password: this.form.pw
-      }
-      this.loginUser(data).then((res) => {
-        alert(res);
-        this.$router.push('/setPin');
-      }).catch((err) => {
-        if (err === 'Email not found') {
-          alert('Email tidak terdaftar');
-        } else if (err === 'Login failed, please check your password') {
-          alert('Password Salah');
-        } else {
-          console.log(err);
-        }
-      })
+        password: this.form.pw,
+      };
+      this.loginUser(data)
+        .then((res) => {
+          alert(res);
+          this.$router.push("/setPin").catch(() => {});
+        })
+        .catch((err) => {
+          if (err === "Email not found") {
+            alert("Email tidak terdaftar");
+          } else if (err === "Login failed, please check your password") {
+            alert("Password Salah");
+          } else {
+            console.log(err);
+          }
+        });
     },
   },
 };

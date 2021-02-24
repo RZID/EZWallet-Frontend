@@ -1,0 +1,43 @@
+<template>
+  <div class="h-navbar bg-white shadow">
+    <div class="container d-flex h-100">
+      <div class="row w-100 d-flex">
+        <div class="col align-self-center">
+          <h3 class="text-blue font-weight-bold m-0">EZWallet</h3>
+        </div>
+        <div class="col align-self-center d-none d-md-block">
+          <div class="d-flex justify-content-end">
+            <img
+              class="img-user bg-dark mr-3 align-self-center"
+              src="/assets/default-user.svg"
+              alt=""
+            />
+            <div class="align-self-center">
+              <h5 class="font-weight-bold m-0">Robert Chandler</h5>
+              <small class="text-muted">+62 8139 3877 7946</small>
+            </div>
+            <h3 class="far fa-bell ml-3 align-self-center text-muted m-0"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped src="../assets/css/style.css">
+</style>
+
+<style>
+.img-user {
+  max-height: 50px;
+  border-radius: 12px;
+}
+.h-navbar {
+  height: 100px;
+  border-radius: 0px 0px 20px 20px;
+}
+</style>

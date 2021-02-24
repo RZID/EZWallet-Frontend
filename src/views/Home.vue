@@ -8,12 +8,14 @@
             <button
               class="btn btn-outline-light font-weight-bold mr-4"
               style="border-radius: 12px"
+              @click="$router.push('/login').catch(() => {})"
             >
               Login
             </button>
             <button
               class="btn btn-light font-weight-bold text-blue"
               style="border-radius: 12px"
+              @click="$router.push('/register').catch(() => {})"
             >
               Sign Up
             </button>
@@ -21,7 +23,7 @@
         </div>
         <div class="d-flex h-100 justify-content-center text-center">
           <div class="align-self-center">
-            <h1 class="font-weight-bold display-5 text-white">
+            <h1 class="font-weight-bold display-4 text-white">
               Awesome App<br />For Saving Time.
             </h1>
             <p class="text-light pt-4">
@@ -291,9 +293,6 @@ export default {
   background-image: url("/assets/Vector2.svg");
   background-repeat: no-repeat;
   background-size: auto;
-}
-.text-blue {
-  color: #6379f4;
 }
 .bg-lighter {
   background: #fafcff;
