@@ -146,8 +146,8 @@ export default {
           if (res.pin === false) {
             this.$router.push("/setPin");
           } else {
-            alert("Arahkan ke halaman Dasbord");
-            // this.$router.push('/setPin');
+            alert(res.message);
+            this.$router.push("/dashboard");
           }
         })
         .catch((err) => {

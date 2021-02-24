@@ -120,6 +120,7 @@ export default {
           .then((res) => {
             this.role = "success";
             alert(res);
+            this.$router.push("/dashboard");
           })
           .catch((err) => {
             alert(err);

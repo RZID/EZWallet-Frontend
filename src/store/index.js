@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import modulAuth from './modules/auth'
+import modulUsers from './modules/users'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    auth: modulAuth
+    auth: modulAuth,
+    users: modulUsers
   }
 })

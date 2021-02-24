@@ -40,15 +40,21 @@ const modulAuth = {
       })
     },
     actionSetPin(context, data) {
-      // console.log(context.state.token)
-      // console.log(context.state.id)
-      // console.log(data)
       return new Promise((resolve, reject) => {
         axios.patch(`${context.rootState.setURL}/api/user/${context.state.id}`, data, { headers: { token: context.state.token } }).then((response) => {
           resolve(response.data.message)
         }).catch((err) => {
           reject(err)
         })
+      })
+    },
+    actionLogout(context) {
+      return new Promise((resolve) => {
+        localStorage.removeItem('id')
+        localStorage.removeItem('token')
+        context.commit('setID', null)
+        context.commit('setToken', null)
+        resolve(true)
       })
     }
   },
