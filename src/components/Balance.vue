@@ -5,8 +5,8 @@
         <div class="d-flex justify-content-between">
           <div>
             <p>Balance</p>
-            <h2 class="font-weight-bold">Rp. {{ balance }}</h2>
-            <p class="m-0">{{ phone }}</p>
+            <h2 class="font-weight-bold">Rp. {{ detailUser.balance }}</h2>
+            <p class="m-0">{{ detailUser.phone }}</p>
           </div>
           <div class="d-flex">
             <div class="align-self-center">
@@ -25,6 +25,36 @@
         </div>
       </div>
     </div>
+    <!-- modal topup -->
+    <b-modal ref="my-modal" hide-footer title="Top Up">
+      <div class="d-block text-left">
+        <label for="form-balance" class="font-weight-bold font-title"
+          >Nominal</label
+        >
+        <form action="" @submit.prevent="btnTopUp()">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text font-weight-bold">Rp.</span>
+            </div>
+            <input
+              v-model="form.nominal"
+              class="form-control"
+              id="form-balance"
+              type="text"
+              :placeholder="detailUser.balance"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-block bt-blue f-white mt-3">
+            <b-icon icon="plus"></b-icon>
+            Top Up
+          </button>
+        </form>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
+        >Cancel</b-button
+      >
+    </b-modal>
   </div>
 </template>
 
@@ -33,35 +63,69 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      balance: '',
-      phone: ''
+      form: {
+        nominal: ''
+      }
     }
   },
   computed: {
     ...mapGetters({
       idUser: 'auth/getID',
-      token: 'auth/getToken'
+      token: 'auth/getToken',
+      detailUser: 'users/getDetailUser'
     })
   },
   methods: {
     ...mapActions({
-      dataUser: 'users/actionGetUser'
+      dataUser: 'users/actionGetUser',
+      getTopUp: 'users/actionTopUp',
+      getHistory: 'history/postHistory'
     }),
     getDetailUser () {
+      this.detailUser
       const data = {
-      id: this.idUser,
-      token: this.token
+        id: this.idUser,
+        token: this.token
       }
-      this.dataUser(data).then((res) => {
-        this.balance = res.balance
-        this.phone = res.phone
-      })
+      this.dataUser(data)
     },
     transfer () {
       alert('Transfer')
     },
     topup () {
-      alert('Topup')
+      this.$refs['my-modal'].show()
+    },
+    btnTopUp () {
+      // data to tb user
+      const sum = Number(this.detailUser.balance) + Number(this.form.nominal)
+      const newData = {
+        id: this.idUser,
+        token: this.token,
+        data: {
+          balance: sum
+        }
+      }
+      // data to tb history
+      const postData = {
+        from_id: 1,
+        to_id: this.idUser,
+        amount: Number(this.form.nominal),
+        status: 4,
+        notes: 'topup'
+      }
+      this.getTopUp(newData).then((res) => {
+        alert(res)
+        this.getHistory(postData) // send data
+        this.getDetailUser()
+        this.form.nominal = ''
+        this.$refs['my-modal'].hide()
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    hideModal () {
+      this.form.nominal = ''
+      this.$refs['my-modal'].hide()
     }
   },
   mounted () {
@@ -75,5 +139,21 @@ export default {
 <style scoped>
 div.card {
   border-radius: 15px;
+}
+
+.font-title {
+  font-size: 24px;
+}
+.bt-blue {
+  background: #6379f4;
+}
+
+.bt-blue:hover {
+  color: #fff;
+  background: #425be7;
+}
+
+.f-white {
+  color: #fff;
 }
 </style>

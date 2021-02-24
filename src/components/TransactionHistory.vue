@@ -2,7 +2,9 @@
   <div class="card shadow border-0">
     <div class="card-body d-flex justify-content-between pb-0">
       <h5 class="font-weight-bold">Transaction History</h5>
-      <b-link class="text-blue text-decoration-none">See All</b-link>
+      <b-link @click="seeAll()" class="text-blue text-decoration-none"
+        >See All</b-link
+      >
     </div>
     <!-- Item -->
     <div class="container py-2">
@@ -92,7 +94,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    seeAll () {
+      this.$router.push('/history')
+    }
+  }
+};
 </script>
 
 <style scoped src="../assets/css/style.css">

@@ -1,5 +1,4 @@
 import axios from "axios"
-// import axios from 'axios'
 const modulUsers = {
   namespaced: true,
   state: () => {
@@ -8,14 +7,26 @@ const modulUsers = {
     }
   },
   mutations: {
+    setUserDetail(state, payload) {
+      state.userDetail = payload
+    }
   },
   actions: {
     actionGetUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.get(`${context.rootState.setURL}/api/user/${data.id}`, { headers: { token: data.token } })
         .then((response) => {
-          // console.log(response.data.data)
+          context.commit('setUserDetail', response.data.data)
           resolve(response.data.data)
+        }).catch((err) => {
+          reject(err.response.data.message)
+        })
+      })
+    },
+    actionTopUp (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.patch(`${context.rootState.setURL}/api/user/${data.id}`, data.data, { headers: { token: data.token } }).then((response) => {
+          resolve(response.data.message)
         }).catch((err) => {
           reject(err.response.data.message)
         })
@@ -23,6 +34,7 @@ const modulUsers = {
     }
   },
   getters: {
+    getDetailUser: state => state.userDetail
   }
 }
 export default modulUsers
