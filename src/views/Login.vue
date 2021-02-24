@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: () => {
     return {
@@ -129,11 +130,29 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      loginUser: 'auth/loginUser'
+    }),
     toForgotPass() {
       alert("Forgot pass");
     },
     login() {
-      alert("Login");
+      const data = {
+        email: this.form.email,
+        password: this.form.pw
+      }
+      this.loginUser(data).then((res) => {
+        alert(res);
+        this.$router.push('/setPin');
+      }).catch((err) => {
+        if (err === 'Email not found') {
+          alert('Email tidak terdaftar');
+        } else if (err === 'Login failed, please check your password') {
+          alert('Password Salah');
+        } else {
+          console.log(err);
+        }
+      })
     },
   },
 };

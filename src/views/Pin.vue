@@ -97,6 +97,7 @@
 
 <script>
 import PincodeInput from "vue-pincode-input";
+import { mapActions } from 'vuex'
 export default {
   components: { PincodeInput },
   data: () => {
@@ -108,10 +109,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      actionSetPin: 'auth/actionSetPin'
+    }),
     toConfirm() {
       this.role = "loading";
+      const data = { pin: this.form.code }
       setTimeout(() => {
-        this.role = "success";
+        this.actionSetPin(data).then((res) => {
+          this.role = "success";
+          alert(res)
+        }).catch((err) => {
+          alert(err)
+        })
       }, 5000);
     },
   },
