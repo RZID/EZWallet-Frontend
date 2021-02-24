@@ -6,12 +6,14 @@
           <h4 class="text-white font-weight-bold">EZWallet</h4>
           <div class="d-none d-md-block">
             <button
+              @click="login()"
               class="btn btn-outline-light font-weight-bold mr-4"
               style="border-radius: 12px"
             >
               Login
             </button>
             <button
+              @click="signUp()"
               class="btn btn-light font-weight-bold text-blue"
               style="border-radius: 12px"
             >
@@ -282,6 +284,14 @@
 <script>
 export default {
   name: "Home",
+  methods: {
+    login () {
+      this.$router.push('/login');
+    },
+    signUp () {
+      this.$router.push('/register');
+    }
+  }
 };
 </script>
 <style scoped src="../assets/css/style.css">

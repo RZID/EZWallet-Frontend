@@ -142,7 +142,6 @@ export default {
         password: this.form.pw
       }
       this.loginUser(data).then((res) => {
-        console.log(res.pin)
         if (res.pin === false) {
           this.$router.push('/setPin');
         } else {
