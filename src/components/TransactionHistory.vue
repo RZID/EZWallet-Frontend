@@ -128,37 +128,37 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      idUser: 'auth/getID',
-      token: 'auth/getToken',
-      allHistory: 'history/getDataAllUser',
-      getURL: 'history/getURL'
-    })
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      allHistory: "history/getDataAllUser",
+      getURL: "history/getURL",
+    }),
   },
   methods: {
     ...mapActions({
-      getAllHistoryUser: 'history/getAllHistoryUser'
+      getAllHistoryUser: "history/getAllHistoryUser",
     }),
-    allHistoryUser () {
+    allHistoryUser() {
       const data = {
         id: this.idUser,
-        token: this.token
-      }
-      this.getAllHistoryUser(data)
+        token: this.token,
+      };
+      this.getAllHistoryUser(data);
     },
-    seeAll () {
-      this.$router.push('/history')
-    }
+    seeAll() {
+      this.$router.push("/history");
+    },
   },
-  beforeMount () {
-    this.allHistoryUser()
+  beforeMount() {
+    this.allHistoryUser();
   },
-  mounted () {
-    this.allHistoryUser()
-  }
+  mounted() {
+    this.allHistoryUser();
+  },
 };
 </script>
 

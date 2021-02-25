@@ -9,7 +9,7 @@ const modulHistory = {
     }
   },
   mutations: {
-    setDataAllUser (state, payload) {
+    setDataAllUser(state, payload) {
       state.dataAllUser = payload
     }
   },
@@ -33,7 +33,7 @@ const modulHistory = {
     }
   },
   getters: {
-    getDataAllUser: state => state.dataAllUser,    
+    getDataAllUser: state => state.dataAllUser,
     getURL: state => state.imgURL
   }
 }
