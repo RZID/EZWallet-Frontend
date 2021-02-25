@@ -8,6 +8,7 @@ import Pin from '../views/Pin.vue'
 import Dashboard from '../views/Dashboard.vue'
 import History from '../views/History.vue'
 import Transfer from '../views/Transfer.vue'
+import TopUp from '../views/HowToTopUp.vue'
 
 Vue.use(VueRouter)
 
@@ -67,7 +68,15 @@ const routes = [
     meta: {
       for: 'logged'
     }
-  }
+  },
+  {
+    path: '/topup',
+    name: 'How To Top Up',
+    component: TopUp,
+    meta: {
+      for: 'logged'
+    }
+  },
 ]
 
 const router = new VueRouter({

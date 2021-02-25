@@ -5,7 +5,9 @@
         <div class="d-flex justify-content-between">
           <div>
             <p>Balance</p>
-            <h2 class="font-weight-bold">Rp. {{ detailUser.balance }}</h2>
+            <h2 class="font-weight-bold" v-if="detailUser.balance">
+              Rp. {{ toRupiah(detailUser.balance) }}
+            </h2>
             <p class="m-0">{{ detailUser.phone }}</p>
           </div>
           <div class="d-flex">
@@ -62,8 +64,10 @@
 </template>
 
 <script>
+import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
 export default {
+  mixins: [currency],
   data() {
     return {
       form: {
@@ -80,10 +84,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      dataUser: 'users/actionGetUser',
-      getTopUp: 'users/actionTopUp',
-      getHistory: 'history/postHistory',
-      getAllHistoryUser: 'history/getAllHistoryUser'
+      dataUser: "users/actionGetUser",
+      getTopUp: "users/actionTopUp",
+      getHistory: "history/postHistory",
+      getAllHistoryUser: "history/getAllHistoryUser",
     }),
     getDetailUser() {
       this.detailUser;
@@ -93,8 +97,8 @@ export default {
       };
       this.dataUser(data);
     },
-    transfer () {
-      this.$router.push('/transfer')
+    transfer() {
+      this.$router.push("/transfer");
     },
     topup() {
       this.$refs["my-modal"].show();
@@ -115,34 +119,36 @@ export default {
         to_id: this.idUser,
         amount: Number(this.form.nominal),
         status: 4,
-        notes: 'topup'
-      }
-      this.getTopUp(newData).then((res) => {
-        alert(res)
-        this.getHistory(postData) // send data
-        this.getDetailUser() // get ulang data
-        this.allHistoryUser() //get ulang history
-        this.form.nominal = ''
-        this.$refs['my-modal'].hide()
-      }).catch((err) => {
-        alert(err)
-      })
+        notes: "topup",
+      };
+      this.getTopUp(newData)
+        .then((res) => {
+          alert(res);
+          this.getHistory(postData); // send data
+          this.getDetailUser(); // get ulang data
+          this.allHistoryUser(); //get ulang history
+          this.form.nominal = "";
+          this.$refs["my-modal"].hide();
+        })
+        .catch((err) => {
+          alert(err);
+        });
     },
-    hideModal () {
-      this.form.nominal = ''
-      this.$refs['my-modal'].hide()
+    hideModal() {
+      this.form.nominal = "";
+      this.$refs["my-modal"].hide();
     },
-    allHistoryUser () {
+    allHistoryUser() {
       const data = {
         id: this.idUser,
-        token: this.token
-      }
-      this.getAllHistoryUser(data)
-    }
+        token: this.token,
+      };
+      this.getAllHistoryUser(data);
+    },
   },
-  mounted () {
+  mounted() {
     // this.allHistoryUser()
-  }
+  },
 };
 </script>
 

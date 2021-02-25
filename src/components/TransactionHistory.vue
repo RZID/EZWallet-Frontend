@@ -42,24 +42,26 @@
           </div>
           <div class="align-self-center">
             <h6 v-if="itm.status === 1" class="font-weight-bold c-pending">
-              +Rp{{ itm.amount }}
+              +Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6
               v-else-if="itm.status === 2 && itm.to_id !== idUser"
               class="font-weight-bold c-transfer"
             >
-              -Rp{{ itm.amount }}
+              -Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6
               v-else-if="itm.status === 2"
               class="font-weight-bold text-success"
             >
-              +Rp{{ itm.amount }}
+              +Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6 v-else-if="itm.status === 3" class="font-weight-bold c-cancel">
-              +Rp{{ itm.amount }}
+              +Rp{{ toRupiah(itm.amount) }}
             </h6>
-            <h6 v-else class="font-weight-bold c-topup">+Rp{{ itm.amount }}</h6>
+            <h6 v-else class="font-weight-bold c-topup">
+              +Rp{{ toRupiah(itm.amount) }}
+            </h6>
           </div>
         </div>
       </div>
@@ -134,8 +136,10 @@
 </template>
 
 <script>
+import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
 export default {
+  mixins: [currency],
   computed: {
     ...mapGetters({
       idUser: "auth/getID",
