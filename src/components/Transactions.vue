@@ -11,6 +11,7 @@
             :key="idx"
             class="text-decoration-none text-dark"
             v-b-modal.modalHistory
+            @click="test(itm)"
           >
             <div class="item">
               <div class="row">
@@ -157,7 +158,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAllHistoryUser: 'history/getAllHistoryUser'
+      getAllHistoryUser: 'history/getAllHistoryUser',
+      detailHistory: 'history/detailHistory'
     }),
     allHistoryUser () {
       const data = {
@@ -165,6 +167,9 @@ export default {
         token: this.token
       }
       this.getAllHistoryUser(data)
+    },
+    test (data) {
+      this.detailHistory(data)
     },
     seeAll () {
       this.$router.push('/history')

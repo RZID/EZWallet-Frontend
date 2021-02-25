@@ -23,7 +23,9 @@
       <div class="card shadow border-0 mb-3">
         <div class="card-body">
           <p>Amount</p>
-          <h5 class="font-weight-bold m-0">Rp{{ toRupiah(data.amount) }}</h5>
+          <h5 class="font-weight-bold m-0">
+            Rp{{ toRupiah(detailTreansfer.amount) }}
+          </h5>
         </div>
       </div>
       <div class="card shadow border-0 mb-3">
@@ -45,16 +47,27 @@
       <div class="card shadow border-0 mb-4">
         <div class="card-body">
           <p>Notes</p>
-          <h5 class="font-weight-bold m-0">Buat jajan sebulan</h5>
+          <h5 class="font-weight-bold m-0">{{ detailTreansfer.notes }}</h5>
         </div>
       </div>
       <h5 class="font-weight-bold">Transfer to</h5>
       <div class="card shadow border-0">
         <div class="card-body d-flex">
-          <img class="img-people mr-4" src="/assets/people/samsul.jpg" alt="" />
+          <img
+            v-if="!image"
+            class="img-people mr-4"
+            :src="`${getURL}/images/default.png`"
+            alt=""
+          />
+          <img
+            v-else
+            class="img-people mr-4"
+            :src="`${getURL}/images/${image}`"
+            alt=""
+          />
           <div class="align-self-center">
-            <h5 class="font-weight-bold">Samsul Bahri</h5>
-            <p class="text-muted m-0">+62 813-8492-9994</p>
+            <h5 class="font-weight-bold">{{ name }}</h5>
+            <p class="text-muted m-0">{{ phone }}</p>
           </div>
         </div>
       </div>
@@ -83,6 +96,7 @@
 
 <script>
 import currency from "../helper/currency";
+import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [currency],
   data: () => {
@@ -95,9 +109,41 @@ export default {
       failed: {
         reason: "Your balance isn't enough!",
       },
-      role: "failed",
-    };
+      role: '',
+      name: '',
+      phone: '',
+      image: ''
+    }
   },
+  computed: {
+    ...mapGetters({
+      detailTreansfer: 'history/getDetailTreansfer',
+      token: 'auth/getToken',
+      getURL: 'history/getURL'
+    })
+  },
+  methods: {
+    ...mapActions({
+      actionGetUser: 'users/actionGetUser'
+    }),
+    getDetail () {
+      const data = {
+        id: this.$route.query.id.toString(),
+        token: this.token
+      }
+      this.actionGetUser(data).then((res) => {
+        this.name = res.name
+        this.phone = res.phone
+        this.image = res.image
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  },
+  mounted () {
+    this.role = this.$route.query.sts
+    this.getDetail()
+  }
 };
 </script>
 

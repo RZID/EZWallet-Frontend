@@ -4,12 +4,31 @@
       <template #modal-title> Transaction History </template>
       <div class="row">
         <div class="col-4">
-          <img class="imageHistory" src="/assets/people/samsul.jpg" alt="" />
+          <img
+            v-if="detailHistory.to_id !== idUser"
+            class="imageHistory"
+            :src="`http://localhost:4001/images/${detailHistory.to_image}`"
+          />
+          <img
+            v-else
+            class="imageHistory"
+            :src="`http://localhost:4001/images/${detailHistory.from_image}`"
+          />
         </div>
         <div class="col d-flex">
           <div class="align-self-center">
-            <h5 class="font-weight-bold">Samsul Supriatna</h5>
-            <p class="text-muted m-0">+62 123 1231 3211</p>
+            <h5 v-if="detailHistory.to_id !== idUser" class="font-weight-bold">
+              {{ detailHistory.to_name }}
+            </h5>
+            <h5 v-else class="font-weight-bold">
+              {{ detailHistory.from_name }}
+            </h5>
+            <p v-if="detailHistory.to_id !== idUser" class="text-muted m-0">
+              {{ detailHistory }}
+            </p>
+            <p v-else class="text-muted m-0">
+              {{ detailHistory }}
+            </p>
           </div>
         </div>
       </div>
@@ -17,17 +36,45 @@
       <div class="container">
         <div class="d-flex justify-content-between mb-2">
           <h5 class="m-0">Amount</h5>
-          <h5 class="m-0 text-success font-weight-bold">+Rp50.000</h5>
+          <h5
+            v-if="detailHistory.status === 1"
+            class="m-0 c-pending font-weight-bold"
+          >
+            {{ detailHistory.amount }}
+          </h5>
+          <h5
+            v-else-if="
+              detailHistory.status === 2 && detailHistory.to_id !== idUser
+            "
+            class="m-0 c-transfer font-weight-bold"
+          >
+            {{ detailHistory.amount }}
+          </h5>
+          <h5
+            v-else-if="detailHistory.status === 2"
+            class="m-0 text-success font-weight-bold"
+          >
+            {{ detailHistory.amount }}
+          </h5>
+          <h5
+            v-else-if="detailHistory.status === 3"
+            class="m-0 c-cancel font-weight-bold"
+          >
+            {{ detailHistory.amount }}
+          </h5>
+          <h5 v-else class="m-0 c-topup font-weight-bold">
+            {{ detailHistory.amount }}
+          </h5>
         </div>
         <hr />
         <div class="d-flex justify-content-between mb-2">
           <h5 class="m-0">Date & Time</h5>
-          <h5 class="m-0">23 Jul 2020</h5>
+          <h5 class="m-0">{{ detailHistory.created_at }}</h5>
         </div>
         <hr />
         <div class="mb-2">
           <h6 class="m font-weight-bold">Notes :</h6>
-          <h6 class="m-0">Buat jajan</h6>
+          <h6 class="m-0">{{ detailHistory.notes }}</h6>
         </div>
       </div>
     </b-modal>
@@ -35,7 +82,15 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters({
+      idUser: 'auth/getID',
+      detailHistory: 'history/getDetailHistory'
+    })
+  }
+};
 </script>
 
 <style scoped src="../assets/css/style.css">
@@ -46,5 +101,15 @@ export default {};
   width: 100%;
   object-fit: cover;
   border-radius: 15px;
+}
+.c-transfer,
+.c-cancel {
+  color: red;
+}
+.c-pending {
+  color: orange;
+}
+.c-topup {
+  color: #6379f4;
 }
 </style>

@@ -74,7 +74,8 @@ export default {
   computed: {
     ...mapGetters({
       getID: 'auth/getID',
-      token: 'auth/getToken'
+      token: 'auth/getToken',
+      DetailUser: 'users/getDetailUser'
     }),
   },
   methods: {
@@ -96,17 +97,20 @@ export default {
           alert(res)
           this.form.code = "";
           this.$bvModal.hide("getPin");
-          this.$router.push("/dashboard");
+          this.$router.push(`/transfer?role=history&sts=success&id=${this.DetailUser.id}`);
         }).catch((err) => {
           alert(err)
           this.form.code = "";
           this.$bvModal.hide("getPin");
-          this.$router.push("/transfer?role=history");
+          this.$router.push(`/transfer?role=history&sts=failed&id=${this.DetailUser.id}`);
         })
       }, 5000);
     },
   },
   components: { PincodeInput },
+  mounted () {
+    this.DetailUser
+  }
 };
 </script>
 

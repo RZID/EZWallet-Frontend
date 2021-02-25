@@ -6,7 +6,8 @@ const modulHistory = {
       imgURL: process.env.VUE_APP_BACKEND,
       tokenAdmin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2MTQxNzgyMTB9.lrJrAqxQeIwiKpj-u8-KiBYas1po-AjM7yrcX9_5aZA',
       dataAllUser: [],
-      detailTransfer: {}
+      detailTransfer: {},
+      detailHistory: {}
     }
   },
   mutations: {
@@ -15,6 +16,9 @@ const modulHistory = {
     },
     setDetailTransfer(state, payload) {
       state.detailTransfer = payload
+    },
+    setDetailHistory(state, payload) {
+      state.detailHistory = payload
     }
   },
   actions: {
@@ -36,12 +40,16 @@ const modulHistory = {
     },
     detailTransfer(context, data) {
       context.commit('setDetailTransfer', data)
+    },
+    detailHistory(context, data) {
+      context.commit('setDetailHistory', data)
     }
   },
   getters: {
     getDataAllUser: state => state.dataAllUser,
     getURL: state => state.imgURL,
-    getDetailTreansfer: state => state.detailTransfer
+    getDetailTreansfer: state => state.detailTransfer,
+    getDetailHistory: state => state.detailHistory
   }
 }
 export default modulHistory
