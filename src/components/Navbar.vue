@@ -8,10 +8,16 @@
         <div class="col align-self-center d-none d-md-block">
           <div class="d-flex justify-content-end">
             <img
+              v-if="!image"
               class="img-user bg-dark mr-3 align-self-center"
-              :src="`http://localhost:4001/images/${image}`"
+              :src="`${getURL}/images/default.png`"
               alt=""
-              @onerror="'this.onerror=null; this.src=' + image('default.png')"
+            />
+            <img
+              v-else
+              class="img-user bg-dark mr-3 align-self-center"
+              :src="`${getURL}/images/${image}`"
+              alt=""
             />
             <!-- src="/assets/default-user.svg" -->
             <div class="align-self-center">
@@ -39,7 +45,8 @@ export default {
   computed: {
     ...mapGetters({
       idUser: 'auth/getID',
-      token: 'auth/getToken'
+      token: 'auth/getToken',
+      getURL: 'history/getURL'
     })
   },
   methods: {
@@ -59,6 +66,9 @@ export default {
     }
   },
   mounted () {
+    this.getDetailUser()
+  },
+  updated () {
     this.getDetailUser()
   }
 };

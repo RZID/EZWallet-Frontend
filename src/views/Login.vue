@@ -158,9 +158,9 @@ export default {
           } else {
             console.log(err);
           }
-        });
-    },
-  },
+      })
+    }
+  }
 };
 </script>
 

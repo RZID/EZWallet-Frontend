@@ -56,110 +56,27 @@
         </div>
       </div>
     </div>
-    <!-- modal topup -->
-    <b-modal ref="my-modal" hide-footer title="Top Up">
-      <div class="d-block text-left">
-        <label for="form-balance" class="font-weight-bold font-title"
-          >Nominal</label
-        >
-        <form action="" @submit.prevent="btnTopUp()">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text font-weight-bold">Rp.</span>
-            </div>
-            <input
-              v-model="form.nominal"
-              class="form-control"
-              id="form-balance"
-              type="text"
-              :placeholder="detailUser.balance"
-              required
-            />
-          </div>
-          <button type="submit" class="btn btn-block bt-blue f-white mt-3">
-            <b-icon icon="plus"></b-icon>
-            Top Up
-          </button>
-        </form>
-      </div>
-      <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
-        >Cancel</b-button
-      >
-    </b-modal>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      form: {
-        nominal: "",
-      },
     };
   },
   computed: {
-    ...mapGetters({
-      idUser: "auth/getID",
-      token: "auth/getToken",
-      detailUser: "users/getDetailUser",
-    }),
   },
   methods: {
     ...mapActions({
-      dataUser: "users/actionGetUser",
-      getTopUp: "users/actionTopUp",
-      getHistory: "history/postHistory",
       actionLogout: "auth/actionLogout",
     }),
-    getDetailUser() {
-      this.detailUser;
-      const data = {
-        id: this.idUser,
-        token: this.token,
-      };
-      this.dataUser(data);
-    },
     dasboard() {
       alert("Dasboard");
     },
     topup() {
-      this.$refs["my-modal"].show();
-    },
-    btnTopUp() {
-      // data to tb user
-      const sum = Number(this.detailUser.balance) + Number(this.form.nominal);
-      const newData = {
-        id: this.idUser,
-        token: this.token,
-        data: {
-          balance: sum,
-        },
-      };
-      // data to tb history
-      const postData = {
-        from_id: 1,
-        to_id: this.idUser,
-        amount: Number(this.form.nominal),
-        status: 4,
-        notes: "topup",
-      };
-      this.getTopUp(newData)
-        .then((res) => {
-          alert(res);
-          this.getHistory(postData); // send data
-          this.getDetailUser();
-          this.form.nominal = "";
-          this.$refs["my-modal"].hide();
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    },
-    hideModal() {
-      this.form.nominal = "";
-      this.$refs["my-modal"].hide();
+      alert("Topup");
     },
     profile() {
       alert("Profile");
@@ -174,7 +91,6 @@ export default {
     },
   },
   mounted() {
-    this.getDetailUser();
   },
 };
 </script>

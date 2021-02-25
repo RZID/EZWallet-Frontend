@@ -16,19 +16,57 @@
               <div class="row">
                 <div class="col-4 col-md-3 col-lg-2">
                   <img
+                    v-if="itm.to_id !== idUser"
                     class="imgTransaction"
-                    :src="`http://localhost:4001/images/${itm.image}`"
+                    :src="`http://localhost:4001/images/${itm.to_image}`"
+                  />
+                  <img
+                    v-else
+                    class="imgTransaction"
+                    :src="`http://localhost:4001/images/${itm.from_image}`"
                   />
                 </div>
                 <div class="col d-flex">
                   <div class="align-self-center w-100">
                     <div class="d-flex justify-content-between">
                       <div>
-                        <h6 class="font-weight-bold m-0">{{ itm.name }}</h6>
+                        <h5
+                          v-if="itm.to_id !== idUser"
+                          class="font-weight-bold m-0"
+                        >
+                          {{ itm.to_name }}
+                        </h5>
+                        <h5 v-else class="font-weight-bold m-0">
+                          {{ itm.from_name }}
+                        </h5>
                         <p class="text-muted m-0">{{ itm.notes }}</p>
                       </div>
                       <div>
-                        <h5 class="font-weight-bold text-success">
+                        <h5
+                          v-if="itm.status === 1"
+                          class="font-weight-bold c-pending"
+                        >
+                          +Rp{{ itm.amount }}
+                        </h5>
+                        <h5
+                          v-else-if="itm.status === 2 && itm.to_id !== idUser"
+                          class="font-weight-bold c-transfer"
+                        >
+                          -Rp{{ itm.amount }}
+                        </h5>
+                        <h5
+                          v-else-if="itm.status === 2"
+                          class="font-weight-bold text-success"
+                        >
+                          +Rp{{ itm.amount }}
+                        </h5>
+                        <h5
+                          v-else-if="itm.status === 3"
+                          class="font-weight-bold c-cancel"
+                        >
+                          +Rp{{ itm.amount }}
+                        </h5>
+                        <h5 v-else class="font-weight-bold c-topup">
                           +Rp{{ itm.amount }}
                         </h5>
                       </div>
@@ -147,5 +185,15 @@ export default {
 }
 div.card {
   border-radius: 15px;
+}
+.c-transfer,
+.c-cancel {
+  color: red;
+}
+.c-pending {
+  color: orange;
+}
+.c-topup {
+  color: #6379f4;
 }
 </style>

@@ -45,7 +45,10 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-block bt-blue f-white mt-3">
+          <button
+            type="submit"
+            class="btn btn-block bt-blue radius-12 f-white mt-3"
+          >
             <b-icon icon="plus"></b-icon>
             Top Up
           </button>
@@ -59,21 +62,21 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       form: {
-        nominal: ''
-      }
-    }
+        nominal: "",
+      },
+    };
   },
   computed: {
     ...mapGetters({
-      idUser: 'auth/getID',
-      token: 'auth/getToken',
-      detailUser: 'users/getDetailUser'
-    })
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      detailUser: "users/getDetailUser",
+    }),
   },
   methods: {
     ...mapActions({
@@ -82,30 +85,30 @@ export default {
       getHistory: 'history/postHistory',
       getAllHistoryUser: 'history/getAllHistoryUser'
     }),
-    getDetailUser () {
-      this.detailUser
+    getDetailUser() {
+      this.detailUser;
       const data = {
         id: this.idUser,
-        token: this.token
-      }
-      this.dataUser(data)
+        token: this.token,
+      };
+      this.dataUser(data);
     },
     transfer () {
       this.$router.push('/transfer')
     },
-    topup () {
-      this.$refs['my-modal'].show()
+    topup() {
+      this.$refs["my-modal"].show();
     },
-    btnTopUp () {
+    btnTopUp() {
       // data to tb user
-      const sum = Number(this.detailUser.balance) + Number(this.form.nominal)
+      const sum = Number(this.detailUser.balance) + Number(this.form.nominal);
       const newData = {
         id: this.idUser,
         token: this.token,
         data: {
-          balance: sum
-        }
-      }
+          balance: sum,
+        },
+      };
       // data to tb history
       const postData = {
         from_id: 1,
@@ -138,7 +141,7 @@ export default {
     }
   },
   mounted () {
-    this.getDetailUser()
+    // this.allHistoryUser()
   }
 };
 </script>

@@ -14,34 +14,52 @@
         class="row no-gutters min-item mb-2"
       >
         <div
+          v-if="itm.to_id !== idUser"
           class="col-3 imgCenter"
-          :style="`background: url(${getURL}/images/${itm.image})`"
+          :style="`background: url(${getURL}/images/${itm.to_image})`"
+        ></div>
+        <div
+          v-else
+          class="col-3 imgCenter"
+          :style="`background: url(${getURL}/images/${itm.from_image})`"
         ></div>
         <div class="col d-flex ml-2 justify-content-between">
           <div class="align-self-center">
-            <h5 class="font-weight-bold m-0" v-line-clamp="1">
-              {{ itm.name }}
+            <h5
+              v-if="itm.to_id !== idUser"
+              class="font-weight-bold m-0"
+              v-line-clamp="1"
+            >
+              {{ itm.to_name }}
             </h5>
-            <p class="text-muted m-0">{{ itm.notes }}</p>
+            <h5 v-else class="font-weight-bold m-0" v-line-clamp="1">
+              {{ itm.from_name }}
+            </h5>
+            <p v-if="itm.status === 1" class="text-muted m-0">pending</p>
+            <p v-else-if="itm.status === 2" class="text-muted m-0">Transfer</p>
+            <p v-else-if="itm.status === 3" class="text-muted m-0">Cancel</p>
+            <p v-else class="text-muted m-0">Top UP</p>
           </div>
           <div class="align-self-center">
-            <h6 class="font-weight-bold text-success">+Rp{{ itm.amount }}</h6>
-            <!-- <h6
-              v-else-if="itm.status === 2 && itm.to_id === idUser"
-              class="font-weight-bold text-success"
-            >
+            <h6 v-if="itm.status === 1" class="font-weight-bold c-pending">
               +Rp{{ itm.amount }}
             </h6>
             <h6
               v-else-if="itm.status === 2 && itm.to_id !== idUser"
-              class="font-weight-bold c-pending"
+              class="font-weight-bold c-transfer"
             >
               -Rp{{ itm.amount }}
             </h6>
-            <h6 v-else-if="itm.status === 3" class="font-weight-bold c-pending">
-              Cancel
+            <h6
+              v-else-if="itm.status === 2"
+              class="font-weight-bold text-success"
+            >
+              +Rp{{ itm.amount }}
             </h6>
-            <h6 v-else class="font-weight-bold c-topup">+Rp{{ itm.amount }}</h6> -->
+            <h6 v-else-if="itm.status === 3" class="font-weight-bold c-cancel">
+              +Rp{{ itm.amount }}
+            </h6>
+            <h6 v-else class="font-weight-bold c-topup">+Rp{{ itm.amount }}</h6>
           </div>
         </div>
       </div>
@@ -135,6 +153,9 @@ export default {
       this.$router.push('/history')
     }
   },
+  beforeMount () {
+    this.allHistoryUser()
+  },
   mounted () {
     this.allHistoryUser()
   }
@@ -156,8 +177,12 @@ export default {
 div.card {
   border-radius: 15px;
 }
-.c-pending {
+.c-transfer,
+.c-cancel {
   color: red;
+}
+.c-pending {
+  color: orange;
 }
 .c-topup {
   color: #6379f4;

@@ -34,6 +34,12 @@ import TransactionHistory from "../components/TransactionHistory";
 import Footer from "../components/Footer";
 export default {
   components: { Nbar, Sbar, Balance, GraphIncome, TransactionHistory, Footer },
+  computed: {
+  },
+  methods: {
+  },
+  mounted () {
+  }
 };
 </script>
 

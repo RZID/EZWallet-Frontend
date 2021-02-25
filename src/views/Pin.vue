@@ -46,7 +46,7 @@
                 </div>
                 <div class="pt-5">
                   <button
-                    class="btn btn-block btn-blue"
+                    class="btn btn-block btn-blue radius-12"
                     :disabled="form.code.length < 6"
                     type="submit"
                   >
@@ -72,8 +72,7 @@
             </p>
             <button
               type="button"
-              class="btn btn-block btn-blue font-weight-bold mt-5"
-              style="border-radius: 12px"
+              class="btn btn-block btn-blue radius-12 font-weight-bold mt-5"
               @click="$router.push('/dashboard').catch(() => {})"
             >
               Login Now

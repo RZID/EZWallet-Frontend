@@ -9,10 +9,11 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/fontawesome/fontawesome-free-5.15.1-web/css/all.min.css'
+import VueCurrencyInput from 'vue-currency-input'
 import lineClamp from 'vue-line-clamp'
 
 Vue.use(lineClamp)
-
+Vue.use(VueCurrencyInput)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 

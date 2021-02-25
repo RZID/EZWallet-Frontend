@@ -16,71 +16,91 @@
         />
       </div>
       <!-- Item -->
-      <div class="container">
-        <div class="row item">
-          <div
-            class="col-4 col-md-3 col-lg-2 img-people"
-            style="background: url('/assets/people/samsul.jpg')"
-          ></div>
-          <div class="col d-flex">
-            <div class="align-self-center">
-              <h5 class="font-weight-bold">Samsul</h5>
-              <p class="text-muted m-0">+62 813-8492-9994</p>
+      <b-link
+        @click="toDetail('samsul@samsul.com')"
+        class="text-decoration-none text-dark"
+      >
+        <div class="container">
+          <div class="row item">
+            <div
+              class="col-4 col-md-3 col-lg-2 img-people"
+              style="background: url('/assets/people/samsul.jpg')"
+            ></div>
+            <div class="col d-flex">
+              <div class="align-self-center">
+                <h5 class="font-weight-bold">Samsul</h5>
+                <p class="text-muted m-0">+62 813-8492-9994</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </b-link>
       <!-- End Of Item -->
 
       <!-- Item -->
-      <div class="container">
-        <div class="row item">
-          <div
-            class="col-4 col-md-3 col-lg-2 img-people"
-            style="background: url('/assets/people/samsul.jpg')"
-          ></div>
-          <div class="col d-flex">
-            <div class="align-self-center">
-              <h5 class="font-weight-bold">Samsul</h5>
-              <p class="text-muted m-0">+62 813-8492-9994</p>
+      <b-link
+        @click="toDetail('samsul@samsul.com')"
+        class="text-decoration-none text-dark"
+      >
+        <div class="container">
+          <div class="row item">
+            <div
+              class="col-4 col-md-3 col-lg-2 img-people"
+              style="background: url('/assets/people/samsul.jpg')"
+            ></div>
+            <div class="col d-flex">
+              <div class="align-self-center">
+                <h5 class="font-weight-bold">Samsul</h5>
+                <p class="text-muted m-0">+62 813-8492-9994</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </b-link>
       <!-- End Of Item -->
 
       <!-- Item -->
-      <div class="container">
-        <div class="row item">
-          <div
-            class="col-4 col-md-3 col-lg-2 img-people"
-            style="background: url('/assets/people/samsul.jpg')"
-          ></div>
-          <div class="col d-flex">
-            <div class="align-self-center">
-              <h5 class="font-weight-bold">Samsul</h5>
-              <p class="text-muted m-0">+62 813-8492-9994</p>
+      <b-link
+        @click="toDetail('samsul@samsul.com')"
+        class="text-decoration-none text-dark"
+      >
+        <div class="container">
+          <div class="row item">
+            <div
+              class="col-4 col-md-3 col-lg-2 img-people"
+              style="background: url('/assets/people/samsul.jpg')"
+            ></div>
+            <div class="col d-flex">
+              <div class="align-self-center">
+                <h5 class="font-weight-bold">Samsul</h5>
+                <p class="text-muted m-0">+62 813-8492-9994</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </b-link>
       <!-- End Of Item -->
 
       <!-- Item -->
-      <div class="container">
-        <div class="row item">
-          <div
-            class="col-4 col-md-3 col-lg-2 img-people"
-            style="background: url('/assets/people/samsul.jpg')"
-          ></div>
-          <div class="col d-flex">
-            <div class="align-self-center">
-              <h5 class="font-weight-bold">Samsul</h5>
-              <p class="text-muted m-0">+62 813-8492-9994</p>
+      <b-link
+        @click="toDetail('samsul@samsul.com')"
+        class="text-decoration-none text-dark"
+      >
+        <div class="container">
+          <div class="row item">
+            <div
+              class="col-4 col-md-3 col-lg-2 img-people"
+              style="background: url('/assets/people/samsul.jpg')"
+            ></div>
+            <div class="col d-flex">
+              <div class="align-self-center">
+                <h5 class="font-weight-bold">Samsul</h5>
+                <p class="text-muted m-0">+62 813-8492-9994</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </b-link>
       <!-- End Of Item -->
     </div>
   </div>
@@ -92,6 +112,11 @@ export default {
     return {
       search: "",
     };
+  },
+  methods: {
+    toDetail(receiver) {
+      this.$router.push(`?role=amount_and_note&receiver=${receiver}`);
+    },
   },
 };
 </script>
