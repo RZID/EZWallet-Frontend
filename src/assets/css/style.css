@@ -11,3 +11,20 @@
 .text-blue {
   color: #6379f4;
 }
+.radius-12{
+  border-radius: 12px;
+}
+.btn-blue {
+  background-color: #6379f4;
+  color: white;
+}
+.btn-blue:hover {
+  background-color: #5365c9;
+  color: white;
+}
+.btn-gray{
+  background-color: #e4e8fa;
+}
+.btn-gray:hover{
+  background-color: #a4a7b4;
+}

@@ -45,7 +45,10 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-block bt-blue f-white mt-3">
+          <button
+            type="submit"
+            class="btn btn-block bt-blue radius-12 f-white mt-3"
+          >
             <b-icon icon="plus"></b-icon>
             Top Up
           </button>
@@ -59,78 +62,80 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       form: {
-        nominal: ''
-      }
-    }
+        nominal: "",
+      },
+    };
   },
   computed: {
     ...mapGetters({
-      idUser: 'auth/getID',
-      token: 'auth/getToken',
-      detailUser: 'users/getDetailUser'
-    })
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      detailUser: "users/getDetailUser",
+    }),
   },
   methods: {
     ...mapActions({
-      dataUser: 'users/actionGetUser',
-      getTopUp: 'users/actionTopUp',
-      getHistory: 'history/postHistory'
+      dataUser: "users/actionGetUser",
+      getTopUp: "users/actionTopUp",
+      getHistory: "history/postHistory",
     }),
-    getDetailUser () {
-      this.detailUser
+    getDetailUser() {
+      this.detailUser;
       const data = {
         id: this.idUser,
-        token: this.token
-      }
-      this.dataUser(data)
+        token: this.token,
+      };
+      this.dataUser(data);
     },
-    transfer () {
-      alert('Transfer')
+    transfer() {
+      alert("Transfer");
     },
-    topup () {
-      this.$refs['my-modal'].show()
+    topup() {
+      this.$refs["my-modal"].show();
     },
-    btnTopUp () {
+    btnTopUp() {
       // data to tb user
-      const sum = Number(this.detailUser.balance) + Number(this.form.nominal)
+      const sum = Number(this.detailUser.balance) + Number(this.form.nominal);
       const newData = {
         id: this.idUser,
         token: this.token,
         data: {
-          balance: sum
-        }
-      }
+          balance: sum,
+        },
+      };
       // data to tb history
       const postData = {
         from_id: 1,
         to_id: this.idUser,
         amount: Number(this.form.nominal),
         status: 4,
-        notes: 'topup'
-      }
-      this.getTopUp(newData).then((res) => {
-        alert(res)
-        this.getHistory(postData) // send data
-        this.getDetailUser()
-        this.form.nominal = ''
-        this.$refs['my-modal'].hide()
-      }).catch((err) => {
-        alert(err)
-      })
+        notes: "topup",
+      };
+      this.getTopUp(newData)
+        .then((res) => {
+          alert(res);
+          this.getHistory(postData); // send data
+          this.getDetailUser();
+          this.form.nominal = "";
+          this.$refs["my-modal"].hide();
+        })
+        .catch((err) => {
+          alert(err);
+        });
     },
-    hideModal () {
-      this.form.nominal = ''
-      this.$refs['my-modal'].hide()
-    }
+    hideModal() {
+      this.form.nominal = "";
+      this.$refs["my-modal"].hide();
+    },
   },
-  mounted () {
-    this.getDetailUser()
-  }
+  mounted() {
+    this.getDetailUser();
+  },
 };
 </script>
 

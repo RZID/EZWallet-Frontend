@@ -76,7 +76,10 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-block bt-blue f-white mt-3">
+          <button
+            type="submit"
+            class="btn btn-block bt-blue radius-12 f-white mt-3"
+          >
             <b-icon icon="plus"></b-icon>
             Top Up
           </button>
