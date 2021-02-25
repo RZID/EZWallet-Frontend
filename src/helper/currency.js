@@ -1,7 +1,7 @@
 const currency = {
     methods: {
         toRupiah(number) {
-            return number.toLocaleString("id-ID");
+            return parseInt(number).toLocaleString("id-ID");
         }
     }
 }
