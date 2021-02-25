@@ -7,7 +7,7 @@
       >
     </div>
     <!-- Item -->
-    <div class="container py-2">
+    <div v-if="allHistory.length > 0" class="container py-2">
       <div
         v-for="(itm, idx) in allHistory"
         :key="idx"
@@ -62,6 +62,12 @@
             <h6 v-else class="font-weight-bold c-topup">+Rp{{ itm.amount }}</h6>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-else class="container py-2">
+      <div class="row no-gutters min-item mb-2 text-center">
+        <!-- <div class="col-12"><b-icon icon=""></b-icon></div> -->
+        <div class="col-12"><h4>-- No transactions --</h4></div>
       </div>
     </div>
     <!-- End Of Item -->
@@ -128,30 +134,30 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      idUser: 'auth/getID',
-      token: 'auth/getToken',
-      allHistory: 'history/getDataAllUser',
-      getURL: 'history/getURL'
-    })
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      allHistory: "history/getDataAllUser",
+      getURL: "history/getURL",
+    }),
   },
   methods: {
     ...mapActions({
-      getAllHistoryUser: 'history/getAllHistoryUser'
+      getAllHistoryUser: "history/getAllHistoryUser",
     }),
-    allHistoryUser () {
+    allHistoryUser() {
       const data = {
         id: this.idUser,
-        token: this.token
-      }
+        token: this.token,
+      };
       this.getAllHistoryUser(data)
     },
-    seeAll () {
-      this.$router.push('/history')
-    }
+    seeAll() {
+      this.$router.push("/history");
+    },
   },
   mounted () {
     this.allHistoryUser()

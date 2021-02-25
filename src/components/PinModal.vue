@@ -60,6 +60,7 @@
 
 <script>
 import PincodeInput from "vue-pincode-input";
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data: () => {
     return {
@@ -70,14 +71,38 @@ export default {
       isError: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      getID: 'auth/getID',
+      token: 'auth/getToken'
+    }),
+  },
   methods: {
+    ...mapActions({
+      checkPin: 'pin/checkPin'
+    }),
     sendCode() {
+      const data = {
+        id: this.getID,
+        token: this.token,
+        data: {
+          pin: this.form.code
+        }
+      }
       this.isLoading = true;
       setTimeout(() => {
-        this.isLoading = false;
-        this.form.code = "";
-        this.$bvModal.hide("getPin");
-        this.$router.push("/transfer?role=history");
+        this.checkPin(data).then((res) => {
+          this.isLoading = false;
+          alert(res)
+          this.form.code = "";
+          this.$bvModal.hide("getPin");
+          this.$router.push("/dashboard");
+        }).catch((err) => {
+          alert(err)
+          this.form.code = "";
+          this.$bvModal.hide("getPin");
+          this.$router.push("/transfer?role=history");
+        })
       }, 5000);
     },
   },

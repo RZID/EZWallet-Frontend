@@ -4,7 +4,7 @@
       <div class="container">
         <h5 class="font-weight-bold">Transaction History</h5>
         <h6 class="font-weight-bold text-muted">This Week</h6>
-        <div>
+        <div v-if="allHistory.length > 0">
           <!-- Item -->
           <b-link
             v-for="(itm, idx) in allHistory"
@@ -77,6 +77,12 @@
             </div>
           </b-link>
           <!-- End Of Item -->
+        </div>
+        <div v-else>
+          <div class="row text-center">
+            <!-- <div class="col-12"><b-icon icon=""></b-icon></div> -->
+            <div class="col-12"><h4>-- No transactions --</h4></div>
+          </div>
         </div>
 
         <!-- <h6 class="font-weight-bold text-muted">This Month</h6>

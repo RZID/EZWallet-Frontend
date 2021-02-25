@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import modulAuth from './modules/auth'
 import modulUsers from './modules/users'
 import modulHistory from './modules/history'
+import modulCheckPin from './modules/checkpin'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
   modules: {
     auth: modulAuth,
     users: modulUsers,
-    history: modulHistory
+    history: modulHistory,
+    pin: modulCheckPin
   }
 })

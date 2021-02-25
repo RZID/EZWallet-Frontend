@@ -4,10 +4,21 @@
       <h5 class="font-weight-bold">Transfer Money</h5>
       <div class="card border-0 shadow mb-4">
         <div class="card-body d-flex">
-          <img class="img-people mr-4" src="/assets/people/samsul.jpg" alt="" />
+          <img
+            v-if="!image"
+            class="img-people mr-4"
+            :src="`${getURL}/images/default.png`"
+            alt=""
+          />
+          <img
+            v-else
+            class="img-people mr-4"
+            :src="`${getURL}/images/${image}`"
+            alt=""
+          />
           <div class="align-self-center">
-            <h5 class="font-weight-bold">Samsul Bahri</h5>
-            <p class="text-muted m-0">+62 813-8492-9994</p>
+            <h5 class="font-weight-bold">{{ name }}</h5>
+            <p class="text-muted m-0">{{ phone }}</p>
           </div>
         </div>
       </div>
@@ -38,6 +49,7 @@
                 </span>
               </div>
               <input
+                v-model="form.notes"
                 type="text"
                 class="form-control border-top-0 border-left-0 border-right-0 bg-white rounded-0"
                 placeholder="Add some notes"
@@ -47,10 +59,8 @@
         </div>
       </div>
       <div class="pt-5 d-flex justify-content-end">
-        <button
-          class="btn btn-lg btn-blue radius-12"
-          @click="$router.push('/transfer?role=detail')"
-        >
+        <button class="btn btn-lg btn-blue radius-12" @click="btContinue()">
+          <!-- @click="$router.push('/transfer?role=detail')" -->
           <small class="p-3">Continue</small>
         </button>
       </div>
@@ -60,6 +70,7 @@
 
 <script>
 import currency from "../helper/currency";
+import { mapGetters, mapActions } from "vuex"
 export default {
   mixins: [currency],
   data: () => {
@@ -69,8 +80,41 @@ export default {
         balanceLeft: 50000,
         notes: "",
       },
+      name: '',
+      phone: '',
+      image: ''
     };
   },
+  computed: {
+    ...mapGetters({
+      token: 'auth/getToken',
+      getURL: 'history/getURL'
+    })
+  },
+  methods: {
+    ...mapActions({
+      actionGetUser: 'users/actionGetUser',
+      detailTransfer: 'history/detailTransfer'
+    }),
+    btContinue () {
+      // console.log(this.form)
+      this.detailTransfer(this.form)
+      this.$router.push(`/transfer?role=detail&id=${this.$route.query.id.toString()}`)
+    }
+  },
+  mounted () {
+    const data = {
+      id: this.$route.query.id.toString(),
+      token: this.token
+    }
+    this.actionGetUser(data).then((res) => {
+      this.name = res.name
+      this.phone = res.phone
+      this.image = res.image
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 };
 </script>
 

@@ -30,9 +30,8 @@ const modulAuth = {
         axios.post(`${context.rootState.setURL}/api/login`, data).then((response) => {
           localStorage.setItem('id', response.data.id)
           localStorage.setItem('token', response.data.token)
-          context.commit('setID', response.data.id)
+          context.commit('setID', (response.data.id).toString())
           context.commit('setToken', response.data.token)
-          // console.log(response.data.message)
           resolve(response.data)
         }).catch((err) => {
           reject(err.response.data.message)
