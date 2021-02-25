@@ -8,26 +8,47 @@
     </div>
     <!-- Item -->
     <div class="container py-2">
-      <div class="row no-gutters min-item">
+      <div
+        v-for="(itm, idx) in allHistory"
+        :key="idx"
+        class="row no-gutters min-item mb-2"
+      >
         <div
           class="col-3 imgCenter"
-          style="background: url('/assets/people/samsul.jpg')"
+          :style="`background: url(${getURL}/images/${itm.image})`"
         ></div>
         <div class="col d-flex ml-2 justify-content-between">
           <div class="align-self-center">
-            <h5 class="font-weight-bold m-0" v-line-clamp="1">Samsul Bahri</h5>
-            <p class="text-muted m-0">Transfer</p>
+            <h5 class="font-weight-bold m-0" v-line-clamp="1">
+              {{ itm.name }}
+            </h5>
+            <p class="text-muted m-0">{{ itm.notes }}</p>
           </div>
           <div class="align-self-center">
-            <h6 class="font-weight-bold text-success">+Rp50.000</h6>
+            <h6 class="font-weight-bold text-success">+Rp{{ itm.amount }}</h6>
+            <!-- <h6
+              v-else-if="itm.status === 2 && itm.to_id === idUser"
+              class="font-weight-bold text-success"
+            >
+              +Rp{{ itm.amount }}
+            </h6>
+            <h6
+              v-else-if="itm.status === 2 && itm.to_id !== idUser"
+              class="font-weight-bold c-pending"
+            >
+              -Rp{{ itm.amount }}
+            </h6>
+            <h6 v-else-if="itm.status === 3" class="font-weight-bold c-pending">
+              Cancel
+            </h6>
+            <h6 v-else class="font-weight-bold c-topup">+Rp{{ itm.amount }}</h6> -->
           </div>
         </div>
       </div>
     </div>
     <!-- End Of Item -->
 
-    <!-- Item -->
-    <div class="container py-2">
+    <!-- <div class="container py-2">
       <div class="row no-gutters min-item">
         <div
           class="col-3 imgCenter"
@@ -44,9 +65,7 @@
         </div>
       </div>
     </div>
-    <!-- End Of Item -->
 
-    <!-- Item -->
     <div class="container py-2">
       <div class="row no-gutters min-item">
         <div
@@ -64,8 +83,6 @@
         </div>
       </div>
     </div>
-    <!-- End Of Item -->
-    <!-- Item -->
     <div class="container py-2">
       <div class="row no-gutters min-item">
         <div
@@ -88,17 +105,38 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- End Of Item -->
+    </div> -->
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters({
+      idUser: 'auth/getID',
+      token: 'auth/getToken',
+      allHistory: 'history/getDataAllUser',
+      getURL: 'history/getURL'
+    })
+  },
   methods: {
+    ...mapActions({
+      getAllHistoryUser: 'history/getAllHistoryUser'
+    }),
+    allHistoryUser () {
+      const data = {
+        id: this.idUser,
+        token: this.token
+      }
+      this.getAllHistoryUser(data)
+    },
     seeAll () {
       this.$router.push('/history')
     }
+  },
+  mounted () {
+    this.allHistoryUser()
   }
 };
 </script>
@@ -117,5 +155,11 @@ export default {
 }
 div.card {
   border-radius: 15px;
+}
+.c-pending {
+  color: red;
+}
+.c-topup {
+  color: #6379f4;
 }
 </style>

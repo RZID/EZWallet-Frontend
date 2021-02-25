@@ -11,6 +11,7 @@
               class="img-user bg-dark mr-3 align-self-center"
               :src="`http://localhost:4001/images/${image}`"
               alt=""
+              @onerror="'this.onerror=null; this.src=' + image('default.png')"
             />
             <!-- src="/assets/default-user.svg" -->
             <div class="align-self-center">

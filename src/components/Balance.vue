@@ -79,7 +79,8 @@ export default {
     ...mapActions({
       dataUser: 'users/actionGetUser',
       getTopUp: 'users/actionTopUp',
-      getHistory: 'history/postHistory'
+      getHistory: 'history/postHistory',
+      getAllHistoryUser: 'history/getAllHistoryUser'
     }),
     getDetailUser () {
       this.detailUser
@@ -90,7 +91,7 @@ export default {
       this.dataUser(data)
     },
     transfer () {
-      alert('Transfer')
+      this.$router.push('/transfer')
     },
     topup () {
       this.$refs['my-modal'].show()
@@ -116,7 +117,8 @@ export default {
       this.getTopUp(newData).then((res) => {
         alert(res)
         this.getHistory(postData) // send data
-        this.getDetailUser()
+        this.getDetailUser() // get ulang data
+        this.allHistoryUser() //get ulang history
         this.form.nominal = ''
         this.$refs['my-modal'].hide()
       }).catch((err) => {
@@ -126,6 +128,13 @@ export default {
     hideModal () {
       this.form.nominal = ''
       this.$refs['my-modal'].hide()
+    },
+    allHistoryUser () {
+      const data = {
+        id: this.idUser,
+        token: this.token
+      }
+      this.getAllHistoryUser(data)
     }
   },
   mounted () {
