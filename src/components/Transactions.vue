@@ -40,35 +40,45 @@
                         <h5 v-else class="font-weight-bold m-0">
                           {{ itm.from_name }}
                         </h5>
-                        <p class="text-muted m-0">{{ itm.notes }}</p>
+                        <!-- <p class="text-muted m-0">{{ itm.notes }}</p> -->
+                        <p v-if="itm.status === 1" class="text-muted m-0">
+                          pending
+                        </p>
+                        <p v-else-if="itm.status === 2" class="text-muted m-0">
+                          Transfer
+                        </p>
+                        <p v-else-if="itm.status === 3" class="text-muted m-0">
+                          Cancel
+                        </p>
+                        <p v-else class="text-muted m-0">Top UP</p>
                       </div>
                       <div>
                         <h5
                           v-if="itm.status === 1"
                           class="font-weight-bold c-pending"
                         >
-                          +Rp{{ itm.amount }}
+                          +Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5
                           v-else-if="itm.status === 2 && itm.to_id !== idUser"
                           class="font-weight-bold c-transfer"
                         >
-                          -Rp{{ itm.amount }}
+                          -Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5
                           v-else-if="itm.status === 2"
                           class="font-weight-bold text-success"
                         >
-                          +Rp{{ itm.amount }}
+                          +Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5
                           v-else-if="itm.status === 3"
                           class="font-weight-bold c-cancel"
                         >
-                          +Rp{{ itm.amount }}
+                          +Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5 v-else class="font-weight-bold c-topup">
-                          +Rp{{ itm.amount }}
+                          +Rp{{ toRupiah(itm.amount) }}
                         </h5>
                       </div>
                     </div>
@@ -142,9 +152,11 @@
 </template>
 
 <script>
+import currency from "../helper/currency";
 import modalHistory from "./ModalHistory";
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  mixins: [currency],
   components: {
     modalHistory,
   },

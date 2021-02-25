@@ -24,10 +24,10 @@
               {{ detailHistory.from_name }}
             </h5>
             <p v-if="detailHistory.to_id !== idUser" class="text-muted m-0">
-              {{ detailHistory }}
+              {{ detailHistory.to_phone }}
             </p>
             <p v-else class="text-muted m-0">
-              {{ detailHistory }}
+              {{ detailHistory.from_phone }}
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@
             v-if="detailHistory.status === 1"
             class="m-0 c-pending font-weight-bold"
           >
-            {{ detailHistory.amount }}
+            +Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
           <h5
             v-else-if="
@@ -48,22 +48,22 @@
             "
             class="m-0 c-transfer font-weight-bold"
           >
-            {{ detailHistory.amount }}
+            -Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
           <h5
             v-else-if="detailHistory.status === 2"
             class="m-0 text-success font-weight-bold"
           >
-            {{ detailHistory.amount }}
+            +Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
           <h5
             v-else-if="detailHistory.status === 3"
             class="m-0 c-cancel font-weight-bold"
           >
-            {{ detailHistory.amount }}
+            +Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
           <h5 v-else class="m-0 c-topup font-weight-bold">
-            {{ detailHistory.amount }}
+            +Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
         </div>
         <hr />
@@ -82,8 +82,10 @@
 </template>
 
 <script>
+import currency from "../helper/currency";
 import { mapGetters } from 'vuex'
 export default {
+  mixins: [currency],
   computed: {
     ...mapGetters({
       idUser: 'auth/getID',
