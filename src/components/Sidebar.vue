@@ -3,7 +3,7 @@
     <div class="card-body p-0">
       <div class="h-100">
         <div class="h-100 d-flex align-items-start flex-column">
-          <div>
+          <div class="h-side">
             <div
               class="container mt-5 text-muted"
               :class="
@@ -14,13 +14,22 @@
                   : ''
               "
             >
-              <h4 @click="dasboard()" class="m-0 mx-3 pointer">
+              <h4
+                @click="$router.push('/dashboard').catch(() => {})"
+                class="m-0 mx-3 pointer"
+              >
                 <b-icon icon="grid"></b-icon>
                 Dashboard
               </h4>
             </div>
-            <div class="container mt-5 text-muted">
-              <h4 @click="transfer()" class="m-0 mx-3 pointer">
+            <div
+              class="container mt-5 text-muted"
+              :class="$route.path === '/transfer' ? 'active' : ''"
+            >
+              <h4
+                @click="$router.push('/transfer').catch(() => {})"
+                class="m-0 mx-3 pointer"
+              >
                 <b-icon icon="arrow-up"></b-icon>
                 Transfer
               </h4>
@@ -81,93 +90,92 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       form: {
-        nominal: ''
-      }
-    }
+        nominal: "",
+      },
+    };
   },
   computed: {
     ...mapGetters({
-      idUser: 'auth/getID',
-      token: 'auth/getToken',
-      detailUser: 'users/getDetailUser'
-    })
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      detailUser: "users/getDetailUser",
+    }),
   },
   methods: {
     ...mapActions({
-      dataUser: 'users/actionGetUser',
-      getTopUp: 'users/actionTopUp',
-      getHistory: 'history/postHistory',
-      actionLogout: 'auth/actionLogout'
+      dataUser: "users/actionGetUser",
+      getTopUp: "users/actionTopUp",
+      getHistory: "history/postHistory",
+      actionLogout: "auth/actionLogout",
     }),
-    getDetailUser () {
-      this.detailUser
+    getDetailUser() {
+      this.detailUser;
       const data = {
         id: this.idUser,
-        token: this.token
-      }
-      this.dataUser(data)
+        token: this.token,
+      };
+      this.dataUser(data);
     },
-    dasboard () {
-      alert('Dasboard')
+    dasboard() {
+      alert("Dasboard");
     },
-    transfer () {
-      alert('Transfer')
+    topup() {
+      this.$refs["my-modal"].show();
     },
-    topup () {
-      this.$refs['my-modal'].show()
-    },
-    btnTopUp () {
+    btnTopUp() {
       // data to tb user
-      const sum = Number(this.detailUser.balance) + Number(this.form.nominal)
+      const sum = Number(this.detailUser.balance) + Number(this.form.nominal);
       const newData = {
         id: this.idUser,
         token: this.token,
         data: {
-          balance: sum
-        }
-      }
+          balance: sum,
+        },
+      };
       // data to tb history
       const postData = {
         from_id: 1,
         to_id: this.idUser,
         amount: Number(this.form.nominal),
         status: 4,
-        notes: 'topup'
-      }
-      this.getTopUp(newData).then((res) => {
-        alert(res)
-        this.getHistory(postData) // send data
-        this.getDetailUser()
-        this.form.nominal = ''
-        this.$refs['my-modal'].hide()
-      }).catch((err) => {
-        alert(err)
-      })
+        notes: "topup",
+      };
+      this.getTopUp(newData)
+        .then((res) => {
+          alert(res);
+          this.getHistory(postData); // send data
+          this.getDetailUser();
+          this.form.nominal = "";
+          this.$refs["my-modal"].hide();
+        })
+        .catch((err) => {
+          alert(err);
+        });
     },
-    hideModal () {
-      this.form.nominal = ''
-      this.$refs['my-modal'].hide()
+    hideModal() {
+      this.form.nominal = "";
+      this.$refs["my-modal"].hide();
     },
-    profile () {
-      alert('Profile')
+    profile() {
+      alert("Profile");
     },
-    logout () {
+    logout() {
       this.actionLogout().then((res) => {
         if (res) {
-          alert('Logout Success!')
-          this.$router.push('/')
+          alert("Logout Success!");
+          this.$router.push("/");
         }
-      })
-    }
+      });
+    },
   },
-  mounted () {
-    this.getDetailUser()
-  }
+  mounted() {
+    this.getDetailUser();
+  },
 };
 </script>
 
@@ -200,5 +208,8 @@ div.card {
 
 .f-white {
   color: #fff;
+}
+.h-side {
+  height: 400px;
 }
 </style>

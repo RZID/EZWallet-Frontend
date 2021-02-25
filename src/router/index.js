@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import Pin from '../views/Pin.vue'
 import Dashboard from '../views/Dashboard.vue'
 import History from '../views/History.vue'
+import Transfer from '../views/Transfer.vue'
 
 Vue.use(VueRouter)
 
@@ -58,8 +59,15 @@ const routes = [
     meta: {
       for: 'logged'
     }
+  },
+  {
+    path: '/transfer',
+    name: 'Transfer',
+    component: Transfer,
+    meta: {
+      for: 'logged'
+    }
   }
-
 ]
 
 const router = new VueRouter({

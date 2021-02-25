@@ -1,28 +1,36 @@
 <template>
-  <div class="bg-light vh-100">
-    <Nbar />
-    <div class="container">
-      <div class="row py-5">
+  <div class="vh-100">
+    <Nbar class="mb-5" />
+    <div class="container h-100">
+      <div class="row">
         <div class="col-3 d-none d-lg-block">
           <Sbar />
         </div>
         <div class="col">
-          <Transactions />
+          <Receiver />
         </div>
       </div>
     </div>
-    <div>
-      <Footer />
-    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Nbar from "../components/Navbar";
 import Sbar from "../components/Sidebar";
-import Transactions from "../components/Transactions";
+import Receiver from "../components/Receiver";
 import Footer from "../components/Footer";
 export default {
-  components: { Nbar, Sbar, Transactions, Footer },
+  components: {
+    Sbar,
+    Nbar,
+    Receiver,
+    Footer,
+  },
 };
 </script>
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped>
+</style>
