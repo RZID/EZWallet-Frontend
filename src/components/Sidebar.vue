@@ -34,7 +34,10 @@
                 Transfer
               </h4>
             </div>
-            <div class="container mt-5 text-muted">
+            <div
+              class="container mt-5 text-muted"
+              :class="$route.path === '/topup' ? 'active' : ''"
+            >
               <h4 @click="topup()" class="m-0 mx-3 pointer">
                 <b-icon icon="plus"></b-icon>
                 Top Up
@@ -63,11 +66,9 @@
 import { mapActions } from "vuex";
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     ...mapActions({
       actionLogout: "auth/actionLogout",
@@ -76,7 +77,7 @@ export default {
       alert("Dasboard");
     },
     topup() {
-      alert("Topup");
+      this.$router.push("/topup").catch(() => {});
     },
     profile() {
       alert("Profile");
@@ -90,8 +91,7 @@ export default {
       });
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
