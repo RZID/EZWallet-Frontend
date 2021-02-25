@@ -38,7 +38,7 @@
       <!-- End Of Item -->
 
       <!-- Item -->
-      <b-link
+      <!-- <b-link
         @click="toDetail('samsul@samsul.com')"
         class="text-decoration-none text-dark"
       >
@@ -56,11 +56,11 @@
             </div>
           </div>
         </div>
-      </b-link>
+      </b-link> -->
       <!-- End Of Item -->
 
       <!-- Item -->
-      <b-link
+      <!-- <b-link
         @click="toDetail('samsul@samsul.com')"
         class="text-decoration-none text-dark"
       >
@@ -78,11 +78,11 @@
             </div>
           </div>
         </div>
-      </b-link>
+      </b-link> -->
       <!-- End Of Item -->
 
       <!-- Item -->
-      <b-link
+      <!-- <b-link
         @click="toDetail('samsul@samsul.com')"
         class="text-decoration-none text-dark"
       >
@@ -100,24 +100,41 @@
             </div>
           </div>
         </div>
-      </b-link>
+      </b-link> -->
       <!-- End Of Item -->
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
   data: () => {
     return {
       search: "",
     };
   },
+  computed: {
+    ...mapGetters({
+      getID: 'auth/getID',
+      getToken: 'auth/getToken'
+    })
+  },
   methods: {
+    ...mapActions({
+      actionGetAllUser: 'users/actionGetAllUser'
+    }),
     toDetail(receiver) {
       this.$router.push(`?role=amount_and_note&receiver=${receiver}`);
     },
   },
+  mounted () {
+    const data = {
+      id: this.getID,
+      token: this.getToken
+    }
+    this.actionGetAllUser(data)
+  }
 };
 </script>
 

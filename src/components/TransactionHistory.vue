@@ -153,9 +153,6 @@ export default {
       this.$router.push('/history')
     }
   },
-  beforeMount () {
-    this.allHistoryUser()
-  },
   mounted () {
     this.allHistoryUser()
   }

@@ -31,6 +31,10 @@ const modulUsers = {
           reject(err.response.data.message)
         })
       })
+    },
+    actionGetAllUser (context, data) {
+      console.log(context)
+      console.log(data)
     }
   },
   getters: {
