@@ -9,7 +9,7 @@
           <i class="fas fa-arrow-right"></i>
         </span>
       </button>
-      <button class="btn btn-gray btn-block btn-lg radius-12 h-50 mb-auto">
+      <button class="btn btn-gray btn-block btn-lg radius-12 h-50 mb-auto" @click="$router.push('/my-profile/change-pass').catch(() => {})">
         <span class="d-flex justify-content-between font-weight-bold">
           <small class="font-weight-bold align-self-center">
             Change Password

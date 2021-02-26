@@ -45,7 +45,13 @@
             </div>
             <div
               class="container mt-5 text-muted"
-              :class="$route.path === '/my-profile' ? 'active' : ''"
+              :class="
+                $route.path === '/my-profile'
+                  ? 'active'
+                  : $route.path === '/my-profile/change-pass'
+                  ? 'active'
+                  : ''
+              "
             >
               <h4 @click="profile()" class="m-0 mx-3 pointer">
                 <b-icon icon="person"></b-icon>
@@ -68,7 +74,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  data() {
+  data () {
     return {};
   },
   computed: {},
@@ -76,16 +82,16 @@ export default {
     ...mapActions({
       actionLogout: "auth/actionLogout",
     }),
-    dasboard() {
+    dasboard () {
       alert("Dasboard");
     },
-    topup() {
-      this.$router.push("/topup").catch(() => {});
+    topup () {
+      this.$router.push("/topup").catch(() => { });
     },
-    profile() {
-      this.$router.push("/my-profile").catch(() => {});
+    profile () {
+      this.$router.push("/my-profile").catch(() => { });
     },
-    logout() {
+    logout () {
       this.actionLogout().then((res) => {
         if (res) {
           alert("Logout Success!");
@@ -94,7 +100,7 @@ export default {
       });
     },
   },
-  mounted() {},
+  mounted () { },
 };
 </script>
 

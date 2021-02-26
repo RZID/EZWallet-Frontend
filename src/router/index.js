@@ -10,6 +10,7 @@ import History from '../views/History.vue'
 import Transfer from '../views/Transfer.vue'
 import TopUp from '../views/HowToTopUp.vue'
 import MyProfile from '../views/MyProfile.vue'
+import ChangePass from '../views/ChangePassword.vue'
 
 Vue.use(VueRouter)
 
@@ -82,6 +83,14 @@ const routes = [
     path: '/my-profile',
     name: 'My Profile',
     component: MyProfile,
+    meta: {
+      for: 'logged'
+    }
+  },
+  {
+    path: '/my-profile/change-pass',
+    name: 'ChangePass',
+    component: ChangePass,
     meta: {
       for: 'logged'
     }
