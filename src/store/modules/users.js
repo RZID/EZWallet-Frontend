@@ -45,6 +45,15 @@ const modulUsers = {
           reject(err.response.data.message)
         })
       })
+    },
+    changeProfilePhoto (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.patch(`${context.rootState.setURL}/api/user/${data.id}`, data.data.image, { headers: { token: data.token } }).then((response) => {
+          resolve(response.data.message)
+        }).catch((err) => {
+          reject(err.response.data.message)
+        })
+      })
     }
   },
   getters: {

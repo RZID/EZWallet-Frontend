@@ -5,7 +5,7 @@
         <div class="container d-flex justify-content-center mb-2">
           <img
             class="img-people"
-            :src="imageUrl ? imageUrl : '/assets/people/samsul.jpg'"
+            :src=" imageUrl ? `${getURL}/images/${imageUrl}` : '/assets/people/samsul.jpg'"
             alt=""
           />
         </div>
@@ -34,14 +34,38 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   data: () => {
     return {
       imageUrl: "",
       imageRaw: "",
+      id: localStorage.getItem('id')
     };
   },
+  computed: {
+    ...mapGetters({
+    idUser: "auth/getID",
+    token: "auth/getToken",
+    getDetailUser: "users/getDetailUser",
+    getURL: 'history/getURL'
+    })
+  },
   methods: {
+    ...mapActions({
+      getDataUser: 'users/actionGetUser',
+      changePhotoProfile: 'users/changeProfilePhoto'
+    }),
+    setDetailUser () {
+      const data = {
+        id: this.idUser,
+        token: this.token
+      }
+      this.getDataUser(data).then((response) => {
+        this.imageUrl = response.image
+      })
+    },
     editImageUser (e) {
       const image = e.target.files[0];
       this.imageUrl = "";
@@ -51,9 +75,27 @@ export default {
       } else {
         this.imageUrl = URL.createObjectURL(image);
         this.imageRaw = image;
+        const fd = new FormData()
+        fd.append('image', this.imageRaw)
+        const result = {
+          id: this.idUser,
+          token: this.token,
+          data: {
+            image: fd
+          }
+        }
+        this.changePhotoProfile(result).then((response) => {
+          alert(response)
+          this.setDetailUser()
+        }).catch((err) => {
+          alert(err)
+        })
       }
     },
   },
+  mounted () {
+    this.setDetailUser()
+  }
 };
 </script>
 
