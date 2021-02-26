@@ -57,7 +57,7 @@
                           v-if="itm.status === 1"
                           class="font-weight-bold c-pending"
                         >
-                          +Rp{{ toRupiah(itm.amount) }}
+                          Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5
                           v-else-if="itm.status === 2 && itm.to_id !== idUser"
