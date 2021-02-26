@@ -9,6 +9,7 @@ import Dashboard from '../views/Dashboard.vue'
 import History from '../views/History.vue'
 import Transfer from '../views/Transfer.vue'
 import TopUp from '../views/HowToTopUp.vue'
+import MyProfile from '../views/MyProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -73,6 +74,14 @@ const routes = [
     path: '/topup',
     name: 'How To Top Up',
     component: TopUp,
+    meta: {
+      for: 'logged'
+    }
+  },
+  {
+    path: '/my-profile',
+    name: 'My Profile',
+    component: MyProfile,
     meta: {
       for: 'logged'
     }
