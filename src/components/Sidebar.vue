@@ -43,7 +43,10 @@
                 Top Up
               </h4>
             </div>
-            <div class="container mt-5 text-muted">
+            <div
+              class="container mt-5 text-muted"
+              :class="$route.path === '/my-profile' ? 'active' : ''"
+            >
               <h4 @click="profile()" class="m-0 mx-3 pointer">
                 <b-icon icon="person"></b-icon>
                 Profile
@@ -80,7 +83,7 @@ export default {
       this.$router.push("/topup").catch(() => {});
     },
     profile() {
-      alert("Profile");
+      this.$router.push("/my-profile").catch(() => {});
     },
     logout() {
       this.actionLogout().then((res) => {

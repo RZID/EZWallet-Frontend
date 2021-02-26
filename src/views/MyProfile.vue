@@ -7,7 +7,15 @@
           <Sbar />
         </div>
         <div class="col">
-          <Transactions />
+          <Profile class="mb-3" />
+          <div class="row">
+            <div class="col">
+              <Menu />
+            </div>
+            <div class="col">
+              <Contacts />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -20,9 +28,11 @@
 <script>
 import Nbar from "../components/Navbar";
 import Sbar from "../components/Sidebar";
-import Transactions from "../components/Transactions";
+import Profile from "../components/Profile";
+import Menu from "../components/MenuProfile";
+import Contacts from "../components/ContactInfo";
 import Footer from "../components/Footer";
 export default {
-  components: { Nbar, Sbar, Transactions, Footer },
+  components: { Nbar, Sbar, Profile, Menu, Contacts, Footer },
 };
 </script>

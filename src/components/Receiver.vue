@@ -2,53 +2,55 @@
   <div class="card border-0 shadow h-100">
     <div class="card-body">
       <h5 class="font-weight-bold">Search Receiver</h5>
-      <form action="" @submit.prevent="searching()">
-        <div class="py-4 input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text rounding border-0">
-              <b-icon icon="search"></b-icon>
-            </span>
-          </div>
-          <input
-            v-model="search"
-            type="text"
-            placeholder="Search receiver here"
-            class="form-control border-0 bg-gray rounding"
-          />
+      <div class="py-4 input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounding border-0">
+            <b-icon icon="search"></b-icon>
+          </span>
         </div>
-      </form>
+        <input
+          @input="searching()"
+          v-model="search"
+          type="text"
+          placeholder="Search receiver here"
+          class="form-control border-0 bg-gray rounding"
+        />
+      </div>
       <!-- Item -->
-      <div v-if="msg !== 'Data unavailable'">
-        <b-link
-          v-for="(itm, idx) in getAllUser"
-          :key="idx"
-          @click="toDetail(itm)"
-          class="text-decoration-none text-dark"
-        >
-          <div class="container">
-            <div class="row item">
-              <div
-                class="col-4 col-md-3 col-lg-2 img-people"
-                :style="`background: url(${getURL}/images/${itm.image})`"
-              ></div>
-              <div class="col d-flex">
-                <div class="align-self-center">
-                  <h5 class="font-weight-bold">{{ itm.name }}</h5>
-                  <p class="text-muted m-0">{{ itm.phone }}</p>
+      <div v-if="isLoading">Loading</div>
+      <div v-else>
+        <div v-if="msg !== 'Data unavailable'">
+          <b-link
+            v-for="(itm, idx) in getAllUser"
+            :key="idx"
+            @click="toDetail(itm)"
+            class="text-decoration-none text-dark"
+          >
+            <div class="container">
+              <div class="row item">
+                <div
+                  class="col-4 col-md-3 col-lg-2 img-people"
+                  :style="`background: url(${getURL}/images/${itm.image})`"
+                ></div>
+                <div class="col d-flex">
+                  <div class="align-self-center">
+                    <h5 class="font-weight-bold">{{ itm.name }}</h5>
+                    <p class="text-muted m-0">{{ itm.phone }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </b-link>
-      </div>
-      <div v-else>
-        <div class="container">
-          <div class="row text-center mt-5">
-            <div class="col-12 f-normal">
-              <b-icon icon="search"></b-icon>
-            </div>
-            <div class="col-12">
-              <h3 class="font-weight-bold">Data Notfound!</h3>
+          </b-link>
+        </div>
+        <div v-else>
+          <div class="container">
+            <div class="row text-center mt-5">
+              <div class="col-12 f-normal">
+                <b-icon icon="search"></b-icon>
+              </div>
+              <div class="col-12">
+                <h3 class="font-weight-bold">Data Not Found!</h3>
+              </div>
             </div>
           </div>
         </div>
@@ -125,47 +127,57 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => {
     return {
       search: "",
-      msg: ""
+      msg: "",
+      isLoading: false,
     };
   },
   computed: {
     ...mapGetters({
-      getID: 'auth/getID',
-      getToken: 'auth/getToken',
-      getAllUser: 'users/getAllUser',
-      getURL: "history/getURL"
-    })
+      getID: "auth/getID",
+      getToken: "auth/getToken",
+      getAllUser: "users/getAllUser",
+      getURL: "history/getURL",
+    }),
   },
   methods: {
     ...mapActions({
-      actionGetAllUser: 'users/actionGetAllUser'
+      actionGetAllUser: "users/actionGetAllUser",
     }),
     toDetail(receiver) {
       // console.log(receiver.email)
       // console.log(receiver.id)
-      this.$router.push(`?role=amount_and_note&receiver=${receiver.email}&id=${receiver.id}`);
+      this.$router.push(
+        `?role=amount_and_note&receiver=${receiver.email}&id=${receiver.id}`
+      );
     },
-    searching () {
+    searching() {
+      this.isLoading = true;
+      this.msg = "";
       const data = {
         id: this.getID,
         token: this.getToken,
-        search: this.search
-      }
-      this.actionGetAllUser(data).then((res) => {
-        this.msg = res
-      }).catch((err) => {
-        this.msg = err
-      })
-    }
+        search: this.search,
+      };
+      this.actionGetAllUser(data)
+        .then((res) => {
+          this.msg = res;
+        })
+        .catch((err) => {
+          this.msg = err;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
   },
-  mounted () {
-    this.searching()
-  }
+  mounted() {
+    this.searching();
+  },
 };
 </script>
 
