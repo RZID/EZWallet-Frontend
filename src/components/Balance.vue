@@ -142,6 +142,9 @@ export default {
       const data = {
         id: this.idUser,
         token: this.token,
+        sort: 'DESC',
+        page: 1,
+        limit: 4
       };
       this.getAllHistoryUser(data);
     },

@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import Moment from "moment";
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from 'vuex'
 export default {
@@ -104,7 +105,7 @@ export default {
       data: {
         amount: 100000,
         balanceLeft: 0,
-        date: "May 11, 2020 - 11.20",
+        date: "",
       },
       failed: {
         reason: "Your balance isn't enough!",
@@ -150,11 +151,16 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
+    },
+    nowTime() {
+      this.data.date = Moment().format("MMMM DD, YYYY - HH.mm");
     }
   },
   mounted () {
     this.role = this.$route.query.sts
     this.getDetail()
+    this.nowTime();
+    setInterval(this.nowTime(), 30000);
   }
 };
 </script>

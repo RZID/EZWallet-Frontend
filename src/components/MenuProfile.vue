@@ -9,7 +9,10 @@
           <i class="fas fa-arrow-right"></i>
         </span>
       </button>
-      <button class="btn btn-gray btn-block btn-lg radius-12 h-50 mb-auto" @click="$router.push('/my-profile/change-pass').catch(() => {})">
+      <button
+        class="btn btn-gray btn-block btn-lg radius-12 h-50 mb-auto"
+        @click="$router.push('/my-profile/change-pass').catch(() => {})"
+      >
         <span class="d-flex justify-content-between font-weight-bold">
           <small class="font-weight-bold align-self-center">
             Change Password
@@ -23,7 +26,10 @@
           <i class="fas fa-arrow-right"></i>
         </span>
       </button>
-      <button class="btn btn-gray btn-block btn-lg h-50 radius-12">
+      <button
+        @click="logout()"
+        class="btn btn-gray btn-block btn-lg h-50 radius-12"
+      >
         <span class="d-flex justify-content-start font-weight-bold">
           <small class="font-weight-bold align-self-center"> Logout </small>
         </span>
@@ -33,7 +39,22 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+export default {
+  methods: {
+    ...mapActions({
+      actionLogout: "auth/actionLogout",
+    }),
+    logout () {
+      this.actionLogout().then((res) => {
+        if (res) {
+          alert("Logout Success!");
+          this.$router.push("/");
+        }
+      })
+    }
+  }
+};
 </script>
 
 <style scoped src="../assets/css/style.css">

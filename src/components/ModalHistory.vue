@@ -72,9 +72,34 @@
           <h5 class="m-0">{{ detailHistory.created_at }}</h5>
         </div>
         <hr />
-        <div class="mb-2">
+        <div class="mb-4">
           <h6 class="m font-weight-bold">Notes :</h6>
           <h6 class="m-0">{{ detailHistory.notes }}</h6>
+        </div>
+        <div class="mb-2">
+          <h6 class="m font-weight-bold">Selection</h6>
+          <button
+            @click="btcancelTarget()"
+            v-if="detailHistory.status === 1 && detailHistory.to_id === idUser"
+            class="btn btn-danger mr-2"
+          >
+            Reject
+          </button>
+          <button
+            @click="btaccept()"
+            v-if="detailHistory.status === 1 && detailHistory.to_id === idUser"
+            class="btn btn-success"
+          >
+            Accept
+          </button>
+          <!-- show user -->
+          <button
+            @click="btcancelUser()"
+            v-if="detailHistory.status === 1 && detailHistory.to_id !== idUser"
+            class="btn btn-warning"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </b-modal>
@@ -83,14 +108,75 @@
 
 <script>
 import currency from "../helper/currency";
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [currency],
   computed: {
     ...mapGetters({
       idUser: 'auth/getID',
+      token: "auth/getToken",
       detailHistory: 'history/getDetailHistory'
     })
+  },
+  methods: {
+    ...mapActions({
+      getAllHistoryUser: "history/getAllHistoryUser",
+      actionSuccess: "transfer/actionSuccess",
+      actionCancelReceiver: "transfer/actionCancelReceiver",
+      actionCancelSender: "transfer/actionCancelSender",
+    }),
+    allHistoryUser() {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+        sort: 'DESC',
+        page: 1,
+        limit: 4
+      };
+      this.getAllHistoryUser(data)
+    },
+    btaccept () {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionSuccess(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        // this.getDetailUser() //get data balance ulang
+        this.$bvModal.hide('modalHistory') //untuk hide modal
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    btcancelTarget() {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionCancelReceiver(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        // this.getDetailUser() //get data balance ulang
+        this.$bvModal.hide('modalHistory') //untuk hide modal
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    btcancelUser () {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionCancelSender(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        // this.getDetailUser() //get data balance ulang
+        this.$bvModal.hide('modalHistory') //untuk hide modal
+      }).catch((err) => {
+        alert(err)
+      })
+    }
   }
 };
 </script>

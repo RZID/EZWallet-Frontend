@@ -87,6 +87,19 @@
               </div>
             </div>
           </b-link>
+          <!-- pagination -->
+          <div class="overflow-auto">
+            <b-pagination
+              @input="pagination('')"
+              v-model="formPage.page"
+              :total-rows="TotalData"
+              :per-page="formPage.limit"
+              pills
+              size="sm"
+              align="right"
+              class="mt-2"
+            ></b-pagination>
+          </div>
           <!-- End Of Item -->
         </div>
         <div v-else>
@@ -157,6 +170,15 @@ import modalHistory from "./ModalHistory";
 import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [currency],
+  data () {
+    return {
+      formPage: {
+        sort: 'DESC',
+        page: 1,
+        limit: 4
+      }
+    }
+  },
   components: {
     modalHistory,
   },
@@ -165,7 +187,8 @@ export default {
       idUser: 'auth/getID',
       token: 'auth/getToken',
       allHistory: 'history/getDataAllUser',
-      getURL: 'history/getURL'
+      getURL: 'history/getURL',
+      TotalData: 'history/getTotalData'
     })
   },
   methods: {
@@ -173,10 +196,16 @@ export default {
       getAllHistoryUser: 'history/getAllHistoryUser',
       detailHistory: 'history/detailHistory'
     }),
+    pagination () {
+      this.allHistoryUser()
+    },
     allHistoryUser () {
       const data = {
         id: this.idUser,
-        token: this.token
+        token: this.token,
+        sort: this.formPage.sort,
+        page: this.formPage.page,
+        limit: this.formPage.limit
       }
       this.getAllHistoryUser(data)
     },

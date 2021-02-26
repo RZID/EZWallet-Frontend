@@ -5,7 +5,11 @@
         <div class="container d-flex justify-content-center mb-2">
           <img
             class="img-people"
-            :src=" imageUrl ? `${getURL}/images/${imageUrl}` : '/assets/people/samsul.jpg'"
+            :src="
+              imageUrl
+                ? `${getURL}/images/${imageUrl}`
+                : `${getURL}/images/default.png`
+            "
             alt=""
           />
         </div>
@@ -55,11 +59,11 @@ export default {
   methods: {
     ...mapActions({
       getDataUser: 'users/actionGetUser',
-      changePhotoProfile: 'users/changeProfilePhoto'
+      changePhotoProfile: 'users/changeProfilePhoto',
     }),
     setDetailUser () {
       const data = {
-        id: this.idUser,
+        id: this.idUser.toString(),
         token: this.token
       }
       this.getDataUser(data).then((response) => {

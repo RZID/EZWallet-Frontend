@@ -67,9 +67,6 @@ export default {
   },
   mounted () {
     this.getDetailUser()
-  },
-  updated () {
-    this.getDetailUser()
   }
 };
 </script>

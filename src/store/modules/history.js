@@ -7,7 +7,8 @@ const modulHistory = {
       tokenAdmin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2MTQxNzgyMTB9.lrJrAqxQeIwiKpj-u8-KiBYas1po-AjM7yrcX9_5aZA',
       dataAllUser: [],
       detailTransfer: {},
-      detailHistory: {}
+      detailHistory: {},
+      totalData: ''
     }
   },
   mutations: {
@@ -19,6 +20,9 @@ const modulHistory = {
     },
     setDetailHistory(state, payload) {
       state.detailHistory = payload
+    },
+    setTotalData(state, payload) {
+      state.totalData = payload
     }
   },
   actions: {
@@ -32,8 +36,9 @@ const modulHistory = {
       })
     },
     getAllHistoryUser(context, data) {
-      axios.get(`${context.rootState.setURL}/api/history/${data.id}`, { headers: { token: data.token } }).then((response) => {
+      axios.get(`${context.rootState.setURL}/api/history/${data.id}?sort=${data.sort}&page=${data.page}&limit=${data.limit}`, { headers: { token: data.token } }).then((response) => {
         context.commit('setDataAllUser', response.data.data)
+        context.commit('setTotalData', response.data.pagination.totalData)
       }).catch((err) => {
         console.log(err.response.data.message)
       })
@@ -49,7 +54,8 @@ const modulHistory = {
     getDataAllUser: state => state.dataAllUser,
     getURL: state => state.imgURL,
     getDetailTreansfer: state => state.detailTransfer,
-    getDetailHistory: state => state.detailHistory
+    getDetailHistory: state => state.detailHistory,
+    getTotalData: state => state.totalData
   }
 }
 export default modulHistory
