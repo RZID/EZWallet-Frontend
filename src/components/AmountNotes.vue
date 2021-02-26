@@ -77,7 +77,7 @@ export default {
     return {
       form: {
         amount: 0,
-        balanceLeft: 50000,
+        balanceLeft: 0,
         notes: "",
       },
       name: '',
@@ -87,6 +87,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      getID: 'auth/getID',
       token: 'auth/getToken',
       getURL: 'history/getURL'
     })
@@ -103,6 +104,7 @@ export default {
     }
   },
   mounted () {
+    // tagert
     const data = {
       id: this.$route.query.id.toString(),
       token: this.token
@@ -111,6 +113,16 @@ export default {
       this.name = res.name
       this.phone = res.phone
       this.image = res.image
+    }).catch((err) => {
+      console.log(err)
+    })
+    // user
+    const newData = {
+      id: this.getID,
+      token: this.token
+    }
+    this.actionGetUser(newData).then((res) => {
+      this.form.balanceLeft = res.balance
     }).catch((err) => {
       console.log(err)
     })

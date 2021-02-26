@@ -103,7 +103,7 @@ export default {
     return {
       data: {
         amount: 100000,
-        balanceLeft: 20000,
+        balanceLeft: 0,
         date: "May 11, 2020 - 11.20",
       },
       failed: {
@@ -119,6 +119,7 @@ export default {
     ...mapGetters({
       detailTreansfer: 'history/getDetailTreansfer',
       token: 'auth/getToken',
+      getID: 'auth/getID',
       getURL: 'history/getURL'
     })
   },
@@ -127,6 +128,7 @@ export default {
       actionGetUser: 'users/actionGetUser'
     }),
     getDetail () {
+      // target
       const data = {
         id: this.$route.query.id.toString(),
         token: this.token
@@ -135,6 +137,16 @@ export default {
         this.name = res.name
         this.phone = res.phone
         this.image = res.image
+      }).catch((err) => {
+        console.log(err)
+      })
+      // user
+      const newData = {
+        id: this.getID,
+        token: this.token
+      }
+      this.actionGetUser(newData).then((res) => {
+        this.data.balanceLeft = res.balance
       }).catch((err) => {
         console.log(err)
       })

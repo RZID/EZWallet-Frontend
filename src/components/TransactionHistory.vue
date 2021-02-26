@@ -39,10 +39,34 @@
             <p v-else-if="itm.status === 2" class="text-muted m-0">Transfer</p>
             <p v-else-if="itm.status === 3" class="text-muted m-0">Cancel</p>
             <p v-else class="text-muted m-0">Top UP</p>
+            <!-- SHOW BUTTON -->
+            <!-- show target -->
+            <button
+              @click="btcancelTarget()"
+              v-if="itm.status === 1 && itm.to_id === idUser"
+              class="btn btn-danger mr-2"
+            >
+              Reject
+            </button>
+            <button
+              @click="btaccept()"
+              v-if="itm.status === 1 && itm.to_id === idUser"
+              class="btn btn-success"
+            >
+              Accept
+            </button>
+            <!-- show user -->
+            <button
+              @click="btcancelUser()"
+              v-if="itm.status === 1 && itm.to_id !== idUser"
+              class="btn btn-warning"
+            >
+              Cancel
+            </button>
           </div>
           <div class="align-self-center">
             <h6 v-if="itm.status === 1" class="font-weight-bold c-pending">
-              +Rp{{ toRupiah(itm.amount) }}
+              Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6
               v-else-if="itm.status === 2 && itm.to_id !== idUser"
@@ -151,7 +175,18 @@ export default {
   methods: {
     ...mapActions({
       getAllHistoryUser: "history/getAllHistoryUser",
+      actionSuccess: "transfer/actionSuccess",
+      actionCancelReceiver: "transfer/actionCancelReceiver",
+      actionCancelSender: "transfer/actionCancelSender",
+      dataUser: "users/actionGetUser"
     }),
+    getDetailUser() {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      };
+      this.dataUser(data);
+    },
     allHistoryUser() {
       const data = {
         id: this.idUser,
@@ -162,6 +197,45 @@ export default {
     seeAll() {
       this.$router.push("/history");
     },
+    btaccept () {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionSuccess(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        this.getDetailUser() //get data balance ulang
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    btcancelTarget() {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionCancelReceiver(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        this.getDetailUser() //get data balance ulang
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    btcancelUser () {
+      const data = {
+        id: this.idUser,
+        token: this.token,
+      }
+      this.actionCancelSender(data).then((res) => {
+        alert(res)
+        this.allHistoryUser() //get data histori ulang 
+        this.getDetailUser() //get data balance ulang
+      }).catch((err) => {
+        alert(err)
+      })
+    }
   },
   mounted () {
     this.allHistoryUser()

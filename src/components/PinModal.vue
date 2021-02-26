@@ -69,19 +69,38 @@ export default {
       },
       isLoading: false,
       isError: false,
+      to_id: ''
     };
   },
   computed: {
     ...mapGetters({
       getID: 'auth/getID',
       token: 'auth/getToken',
-      DetailUser: 'users/getDetailUser'
+      DetailUser: 'users/getDetailUser',
+      detailTreansfer: 'history/getDetailTreansfer'
     }),
   },
   methods: {
     ...mapActions({
-      checkPin: 'pin/checkPin'
+      checkPin: 'pin/checkPin',
+      actionPending: 'transfer/actionPending'
     }),
+    tfPending () {
+      const dt = {
+        id: this.getID,
+        token: this.token,
+        data: {
+          to_id: this.$route.query.id.toString(),
+          amount: this.detailTreansfer.amount,
+          notes: this.detailTreansfer.notes
+        }
+      }
+      this.actionPending(dt).then((res) => {
+        alert(res)
+      }).catch((err) => {
+        alert(err)
+      })
+    },
     sendCode() {
       const data = {
         id: this.getID,
@@ -97,19 +116,20 @@ export default {
           alert(res)
           this.form.code = "";
           this.$bvModal.hide("getPin");
-          this.$router.push(`/transfer?role=history&sts=success&id=${this.DetailUser.id}`);
+          this.$router.push(`/transfer?role=history&sts=success&id=${this.$route.query.id}`);
+          // Transfer pending
+          this.tfPending()
         }).catch((err) => {
           alert(err)
           this.form.code = "";
           this.$bvModal.hide("getPin");
-          this.$router.push(`/transfer?role=history&sts=failed&id=${this.DetailUser.id}`);
+          this.$router.push(`/transfer?role=history&sts=failed&id=${this.$route.query.id}`);
         })
       }, 5000);
     },
   },
   components: { PincodeInput },
   mounted () {
-    this.DetailUser
   }
 };
 </script>
