@@ -9,7 +9,7 @@
         <div class="col">
           <Balance />
           <div class="row py-3">
-            <div class="col">
+            <div class="col mb-3 mb-md-0">
               <GraphIncome class="h-100" />
             </div>
             <div class="col">

@@ -1,61 +1,71 @@
 <template>
-  <div class="card border-0 shadow h-100">
+  <div class="card border-0 shadow">
     <div class="card-body">
       <h5 class="font-weight-bold">Search Receiver</h5>
-      <div class="py-4 input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text rounding border-0">
-            <b-icon icon="search"></b-icon>
-          </span>
+      <div class="d-flex align-items-start flex-column h-100">
+        <div class="py-4 input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text rounding border-0">
+              <b-icon icon="search"></b-icon>
+            </span>
+          </div>
+          <input
+            @input="searching()"
+            v-model="search"
+            type="text"
+            placeholder="Search receiver here"
+            class="form-control border-0 bg-gray rounding"
+          />
         </div>
-        <input
-          @input="searching()"
-          v-model="search"
-          type="text"
-          placeholder="Search receiver here"
-          class="form-control border-0 bg-gray rounding"
-        />
-      </div>
-      <!-- Item -->
-      <div v-if="isLoading">Loading</div>
-      <div v-else>
-        <div v-if="msg !== 'Data unavailable'">
-          <b-link
-            v-for="(itm, idx) in getAllUser"
-            :key="idx"
-            @click="toDetail(itm)"
-            class="text-decoration-none text-dark"
-          >
-            <div class="container">
-              <div class="row item">
-                <div
-                  class="col-4 col-md-3 col-lg-2 img-people"
-                  :style="`background: url(${getURL}/images/${itm.image})`"
-                ></div>
-                <div class="col d-flex">
-                  <div class="align-self-center">
-                    <h5 class="font-weight-bold">{{ itm.name }}</h5>
-                    <p class="text-muted m-0">{{ itm.phone }}</p>
+        <!-- Item -->
+        <div v-if="isLoading" class="my-auto text-center w-100">
+          <div class="align-self-center">
+            <div class="spinner-grow text-blue" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <h3 class="font-weight-bold">Wait a moment...</h3>
+            <p class="text-muted m-0">We're still igniting process</p>
+          </div>
+        </div>
+        <div v-else class="w-100 h-content overflow-auto">
+          <div v-if="msg !== 'Data unavailable'">
+            <b-link
+              v-for="(itm, idx) in getAllUser"
+              :key="idx"
+              @click="toDetail(itm)"
+              class="text-decoration-none text-dark"
+            >
+              <div class="container">
+                <div class="row item">
+                  <div
+                    class="col-4 col-md-3 col-lg-2 img-people"
+                    :style="`background: url(${getURL}/images/${itm.image})`"
+                  ></div>
+                  <div class="col d-flex">
+                    <div class="align-self-center">
+                      <h5 class="font-weight-bold">{{ itm.name }}</h5>
+                      <p class="text-muted m-0">{{ itm.phone }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </b-link>
-        </div>
-        <div v-else>
-          <div class="container">
-            <div class="row text-center mt-5">
-              <div class="col-12 f-normal">
-                <b-icon icon="search"></b-icon>
-              </div>
-              <div class="col-12">
-                <h3 class="font-weight-bold">Data Not Found!</h3>
+            </b-link>
+          </div>
+          <div v-else>
+            <div class="container">
+              <div class="row text-center mt-5">
+                <div class="col-12 f-normal">
+                  <b-icon icon="search"></b-icon>
+                </div>
+                <div class="col-12">
+                  <h3 class="font-weight-bold">Data Not Found!</h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- End Of Item -->
       </div>
-      <!-- End Of Item -->
 
       <!-- Item -->
       <!-- <b-link
@@ -133,7 +143,7 @@ export default {
     return {
       search: "",
       msg: "",
-      isLoading: false,
+      isLoading: true,
     };
   },
   computed: {
@@ -148,14 +158,14 @@ export default {
     ...mapActions({
       actionGetAllUser: "users/actionGetAllUser",
     }),
-    toDetail(receiver) {
+    toDetail (receiver) {
       // console.log(receiver.email)
       // console.log(receiver.id)
       this.$router.push(
         `?role=amount_and_note&receiver=${receiver.email}&id=${receiver.id}`
       );
     },
-    searching() {
+    searching () {
       this.isLoading = true;
       this.msg = "";
       const data = {
@@ -175,7 +185,7 @@ export default {
         });
     },
   },
-  mounted() {
+  mounted () {
     this.searching();
   },
 };
@@ -185,6 +195,9 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+.h-content {
+  height: calc(100vh - 150px - 12rem);
+}
 .img-people {
   background-position: center !important;
   background-repeat: no-repeat !important;
