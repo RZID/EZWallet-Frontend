@@ -11,6 +11,7 @@ import Transfer from '../views/Transfer.vue'
 import TopUp from '../views/HowToTopUp.vue'
 import MyProfile from '../views/MyProfile.vue'
 import ChangePass from '../views/ChangePassword.vue'
+import ChangePin from '../views/ChangePin.vue'
 
 Vue.use(VueRouter)
 
@@ -89,8 +90,16 @@ const routes = [
   },
   {
     path: '/my-profile/change-pass',
-    name: 'ChangePass',
+    name: 'Change Password',
     component: ChangePass,
+    meta: {
+      for: 'logged'
+    }
+  },
+  {
+    path: '/my-profile/change-pin',
+    name: 'Change PIN',
+    component: ChangePin,
     meta: {
       for: 'logged'
     }

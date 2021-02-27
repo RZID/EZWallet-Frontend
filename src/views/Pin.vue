@@ -111,7 +111,7 @@ export default {
     ...mapActions({
       actionSetPin: "auth/actionSetPin",
     }),
-    toConfirm() {
+    toConfirm () {
       this.role = "loading";
       const data = { pin: this.form.code };
       setTimeout(() => {
@@ -161,7 +161,7 @@ input:focus {
   outline: 0 none !important;
 }
 </style>
-<style>
+<style >
 div.vue-pincode-input-wrapper {
   width: 100%;
   display: flex;
