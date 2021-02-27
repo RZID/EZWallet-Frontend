@@ -138,12 +138,12 @@ export default {
       }
       setTimeout(() => {
         this.checkPin(data).then((res) => {
-          alert(res)
+          this.ToastSuccess(res)
           this.isLoading = false // Set loading false di finally
           this.pinCorrect = true // Buat pindah ke role new pin
           this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
         }).catch((err) => {
-          alert(err)
+          this.ToastError(err)
           this.isLoading = false // Set loading false di finally
           this.pinCorrect = false // Buat stay ke role check pin
           this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
@@ -154,7 +154,7 @@ export default {
       // Buat pin baru
       this.isLoading = true // Set Loading
       this.isError = false // Set error false, jika tadinya ada error
-      const data = { pin: this.code };
+      // const data = { pin: this.code };
       setTimeout(() => {
         this.isLoading = false // Set loading false di finally
         this.pinCorrect = true // Buat pindah ke role new pin
