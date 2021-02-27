@@ -48,9 +48,13 @@
               :class="
                 $route.path === '/my-profile'
                   ? 'active'
+                  : $route.path === '/my-profile/personal-info'
+                  ? 'active'
                   : $route.path === '/my-profile/change-pass'
                   ? 'active'
                   : $route.path === '/my-profile/change-pin'
+                  ? 'active'
+                  : $route.path === '/my-profile/manage-number'
                   ? 'active'
                   : ''
               "

@@ -12,6 +12,8 @@ import TopUp from '../views/HowToTopUp.vue'
 import MyProfile from '../views/MyProfile.vue'
 import ChangePass from '../views/ChangePassword.vue'
 import ChangePin from '../views/ChangePin.vue'
+import PersonalInfo from '../views/PersonalInfo.vue'
+import ManageNumber from '../views/ManageNumber.vue'
 
 Vue.use(VueRouter)
 
@@ -104,6 +106,22 @@ const routes = [
       for: 'logged'
     }
   },
+  {
+    path: '/my-profile/personal-info',
+    name: 'Personal Information',
+    component: PersonalInfo,
+    meta: {
+      for: 'logged'
+    }
+  },
+  {
+    path: '/my-profile/manage-number',
+    name: 'Manage Phone Number',
+    component: ManageNumber,
+    meta: {
+      for: 'logged'
+    }
+  }
 ]
 
 const router = new VueRouter({

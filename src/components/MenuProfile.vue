@@ -52,7 +52,7 @@ export default {
       actionLogout: "auth/actionLogout",
     }),
     btnPersonal () {
-      alert('Personal Info')
+      this.$router.push('/my-profile/personal-info')
     },
     btnChangePin () {
       alert('Change Pin')
