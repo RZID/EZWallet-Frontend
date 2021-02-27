@@ -46,7 +46,9 @@
 
 <script>
 import { mapActions } from "vuex";
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   methods: {
     ...mapActions({
       actionLogout: "auth/actionLogout",
@@ -57,7 +59,7 @@ export default {
     logout () {
       this.actionLogout().then((res) => {
         if (res) {
-          alert("Logout Success!");
+          this.ToastSuccess('See you later!')
           this.$router.push("/");
         }
       })

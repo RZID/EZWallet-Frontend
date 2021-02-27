@@ -79,7 +79,9 @@
 
 <script>
 import { mapActions } from "vuex";
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data () {
     return {};
   },
@@ -88,9 +90,6 @@ export default {
     ...mapActions({
       actionLogout: "auth/actionLogout",
     }),
-    dasboard () {
-      alert("Dasboard");
-    },
     topup () {
       this.$router.push("/topup").catch(() => { });
     },
@@ -100,7 +99,7 @@ export default {
     logout () {
       this.actionLogout().then((res) => {
         if (res) {
-          alert("Logout Success!");
+          this.ToastSuccess('See you later!')
           this.$router.push("/");
         }
       });

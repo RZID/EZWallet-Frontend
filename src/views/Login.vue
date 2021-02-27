@@ -119,7 +119,9 @@
 
 <script>
 import { mapActions } from "vuex";
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       revealPass: false,
@@ -133,10 +135,10 @@ export default {
     ...mapActions({
       loginUser: "auth/loginUser",
     }),
-    toForgotPass() {
-      alert("Forgot pass");
+    toForgotPass () {
+      this.ToastError(`Sorry, this feature currently doesn't available (forgot password)`)
     },
-    login() {
+    login () {
       const data = {
         email: this.form.email,
         password: this.form.pw,
@@ -146,19 +148,19 @@ export default {
           if (res.pin === false) {
             this.$router.push("/setPin");
           } else {
-            alert(res.message);
+            this.ToastSuccess('Welcome back!')
             this.$router.push("/dashboard");
           }
         })
         .catch((err) => {
           if (err === "Email not found") {
-            alert("Email tidak terdaftar");
+            this.ToastError(`Sorry, email that you entered is'nt registered in our system`)
           } else if (err === "Login failed, please check your password") {
-            alert("Password Salah");
+            this.ToastError(`Oops, you've entered wrong password`)
           } else {
             console.log(err);
           }
-      })
+        })
     }
   }
 };

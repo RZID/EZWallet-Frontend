@@ -118,9 +118,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
+import alert from '../helper/alert'
+import { mapGetters, mapActions } from 'vuex'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       revealOld: false,
@@ -135,8 +136,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-    idUser: "auth/getID",
-    token: "auth/getToken"
+      idUser: "auth/getID",
+      token: "auth/getToken"
     })
   },
   methods: {
@@ -145,7 +146,7 @@ export default {
     }),
     changePass () {
       if (this.form.repeat != this.form.new) {
-        alert('Try to recheck the password')
+        this.ToastError('Try to recheck the password')
       } else {
         const data = {
           id: this.idUser,
@@ -156,12 +157,12 @@ export default {
           }
         }
         this.changePassword(data).then((response) => {
-          alert(response)
+          this.ToastSuccess(response)
           this.form.old = ''
           this.form.new = ''
           this.form.repeat = ''
         }).catch((err) => {
-          alert(err)
+          this.ToastError(err)
         })
       }
     }

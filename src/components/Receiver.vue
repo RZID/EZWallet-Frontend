@@ -18,8 +18,8 @@
           />
         </div>
         <!-- Item -->
-        <div v-if="isLoading" class="my-auto text-center w-100">
-          <div class="align-self-center">
+        <div v-if="isLoading" class="py-auto text-center w-100 h-100">
+          <div class="align-self-center h-100">
             <div class="spinner-grow text-blue" role="status">
               <span class="sr-only">Loading...</span>
             </div>
@@ -37,10 +37,14 @@
             >
               <div class="container">
                 <div class="row item">
-                  <div
-                    class="col-4 col-md-3 col-lg-2 img-people"
-                    :style="`background: url(${getURL}/images/${itm.image})`"
-                  ></div>
+                  <div class="col-4 col-md-3 col-lg-2">
+                    <img
+                      :src="getImage(itm.image)"
+                      @error="defaultImage"
+                      class="h-100 w-100 img-people"
+                      alt=""
+                    />
+                  </div>
                   <div class="col d-flex">
                     <div class="align-self-center">
                       <h5 class="font-weight-bold">{{ itm.name }}</h5>
@@ -53,85 +57,17 @@
           </div>
           <div v-else>
             <div class="container">
-              <div class="row text-center mt-5">
-                <div class="col-12 f-normal">
-                  <b-icon icon="search"></b-icon>
-                </div>
-                <div class="col-12">
-                  <h3 class="font-weight-bold">Data Not Found!</h3>
-                </div>
+              <div class="text-center mt-5">
+                <img class="imageNodata mb-3" src="/assets/nodata.svg" alt="" />
+                <h3 class="font-weight-bold">Oops...</h3>
+                <p class="text-muted">
+                  the recipient you are looking for wasn't found
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <!-- End Of Item -->
       </div>
-
-      <!-- Item -->
-      <!-- <b-link
-        @click="toDetail('samsul@samsul.com')"
-        class="text-decoration-none text-dark"
-      >
-        <div class="container">
-          <div class="row item">
-            <div
-              class="col-4 col-md-3 col-lg-2 img-people"
-              style="background: url('/assets/people/samsul.jpg')"
-            ></div>
-            <div class="col d-flex">
-              <div class="align-self-center">
-                <h5 class="font-weight-bold">Samsul</h5>
-                <p class="text-muted m-0">+62 813-8492-9994</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-link> -->
-      <!-- End Of Item -->
-
-      <!-- Item -->
-      <!-- <b-link
-        @click="toDetail('samsul@samsul.com')"
-        class="text-decoration-none text-dark"
-      >
-        <div class="container">
-          <div class="row item">
-            <div
-              class="col-4 col-md-3 col-lg-2 img-people"
-              style="background: url('/assets/people/samsul.jpg')"
-            ></div>
-            <div class="col d-flex">
-              <div class="align-self-center">
-                <h5 class="font-weight-bold">Samsul</h5>
-                <p class="text-muted m-0">+62 813-8492-9994</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-link> -->
-      <!-- End Of Item -->
-
-      <!-- Item -->
-      <!-- <b-link
-        @click="toDetail('samsul@samsul.com')"
-        class="text-decoration-none text-dark"
-      >
-        <div class="container">
-          <div class="row item">
-            <div
-              class="col-4 col-md-3 col-lg-2 img-people"
-              style="background: url('/assets/people/samsul.jpg')"
-            ></div>
-            <div class="col d-flex">
-              <div class="align-self-center">
-                <h5 class="font-weight-bold">Samsul</h5>
-                <p class="text-muted m-0">+62 813-8492-9994</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-link> -->
-      <!-- End Of Item -->
     </div>
   </div>
 </template>
@@ -142,7 +78,7 @@ export default {
   data: () => {
     return {
       search: "",
-      msg: "",
+      msg: [],
       isLoading: true,
     };
   },
@@ -158,16 +94,20 @@ export default {
     ...mapActions({
       actionGetAllUser: "users/actionGetAllUser",
     }),
+    defaultImage (e) {
+      e.target.src = `${this.getURL}/images/default.png`
+    },
+    getImage (image) {
+      return `${this.getURL}/images/${image}`
+    },
     toDetail (receiver) {
-      // console.log(receiver.email)
-      // console.log(receiver.id)
       this.$router.push(
         `?role=amount_and_note&receiver=${receiver.email}&id=${receiver.id}`
       );
     },
     searching () {
+      this.msg = ''
       this.isLoading = true;
-      this.msg = "";
       const data = {
         id: this.getID,
         token: this.getToken,
@@ -195,6 +135,10 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+.imageNodata {
+  object-fit: cover;
+  height: 100px;
+}
 .h-content {
   height: calc(100vh - 150px - 12rem);
 }

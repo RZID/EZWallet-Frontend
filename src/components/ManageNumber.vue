@@ -30,12 +30,15 @@
 </template>
 
 <script>
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   props: ['number'],
   methods: {
     deleteNumber () {
-      // Buat hapus nomer telepon
-      alert('Yakin?')
+      this.AlertConfirm('Are you sure?', 'Want to delete this number?').then(() => {
+        // Buat hapus nomer telepon
+      })
     }
   }
 }

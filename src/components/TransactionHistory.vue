@@ -228,23 +228,6 @@ export default {
       }).catch((err) => {
         alert(err)
       })
-      // if (id != id) {
-      //   console.log(id)
-      //   console.log('tidak')
-      // } else {
-      //   console.log(id)
-      //   const data = {
-      //     id: this.idUser,
-      //     token: this.token,
-      //   }
-      //   this.actionSuccess(data).then((res) => {
-      //     alert(res)
-      //     this.allHistoryUser() //get data histori ulang 
-      //     this.getDetailUser() //get data balance ulang
-      //   }).catch((err) => {
-      //     alert(err)
-      //   })
-      // }
     },
     btcancelTarget () {
       const data = {

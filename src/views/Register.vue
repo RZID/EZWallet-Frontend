@@ -143,24 +143,21 @@ export default {
   },
   methods: {
     ...mapActions({
-      registerUser : 'auth/registerUser'
+      registerUser: 'auth/registerUser'
     }),
-    toForgotPass() {
-      alert("Forgot pass");
-    },
-    signUp() {
+    signUp () {
       const data = {
         name: this.form.username,
         email: this.form.email,
         password: this.form.pw
       }
       this.registerUser(data)
-      .then((res) => {
-        alert(res);
-        this.$router.push('/login');
-      }).catch((err) => {
-        alert(err);
-      })
+        .then((res) => {
+          this.ToastSuccess(res)
+          this.$router.push('/login');
+        }).catch((err) => {
+          this.ToastError(err)
+        })
     },
   },
 };
