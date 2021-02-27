@@ -118,6 +118,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   data: () => {
     return {
@@ -131,9 +133,37 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+    idUser: "auth/getID",
+    token: "auth/getToken"
+    })
+  },
   methods: {
+    ...mapActions({
+      changePassword: 'users/changePassword'
+    }),
     changePass () {
-      alert(`Hayooo, mau ganti password yaa? password sebelumnya ${this.form.old} dan mau diganti dengan ${this.form.new}`)
+      if (this.form.repeat != this.form.new) {
+        alert('Try to recheck the password')
+      } else {
+        const data = {
+          id: this.idUser,
+          token: this.token,
+          data: {
+            oldpassword: this.form.old,
+            password: this.form.repeat
+          }
+        }
+        this.changePassword(data).then((response) => {
+          alert(response)
+          this.form.old = ''
+          this.form.new = ''
+          this.form.repeat = ''
+        }).catch((err) => {
+          alert(err)
+        })
+      }
     }
   }
 }
