@@ -62,17 +62,21 @@ export default {
     ...mapActions({
       getDataUser: 'users/actionGetUser',
       changePhotoProfile: 'users/changeProfilePhoto',
+      imageNavbar: 'users/imageNavbar'
     }),
     setDetailUser () {
       const data = {
-        id: this.idUser.toString(),
+        id: this.idUser,
         token: this.token
       }
       this.getDataUser(data).then((response) => {
         this.imageUrl = response.image
         this.name = response.name
         this.phone = response.phone
-        // console.log(response)
+        const data = {
+          img: response.image
+        }
+        this.imageNavbar(data)
       })
     },
     editImageUser (e) {

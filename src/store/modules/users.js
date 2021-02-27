@@ -4,7 +4,8 @@ const modulUsers = {
   state: () => {
     return {
       userDetail: {},
-      allUser: []
+      allUser: [],
+      imageProfile: {}
     }
   },
   mutations: {
@@ -13,6 +14,9 @@ const modulUsers = {
     },
     setAllUser(state, payload) {
       state.allUser = payload
+    },
+    setImage(state, payload) {
+      state.imageProfile = payload
     }
   },
   actions: {
@@ -54,11 +58,15 @@ const modulUsers = {
           reject(err.response.data.message)
         })
       })
+    },
+    imageNavbar(context, data) {
+      context.commit('setImage', data)
     }
   },
   getters: {
     getDetailUser: state => state.userDetail,
-    getAllUser: state => state.allUser
+    getAllUser: state => state.allUser,
+    getImgProfile: state => state.imageProfile
   }
 }
 export default modulUsers

@@ -14,6 +14,12 @@
               alt=""
             />
             <img
+              v-else-if="ImgProfile.img"
+              class="img-user bg-dark mr-3 align-self-center"
+              :src="`${getURL}/images/${ImgProfile.img}`"
+              alt=""
+            />
+            <img
               v-else
               class="img-user bg-dark mr-3 align-self-center"
               :src="`${getURL}/images/${image}`"
@@ -39,14 +45,16 @@ export default {
     return {
       name: '',
       phone: '',
-      image: ''
+      image: '',
+      Profile: ''
     }
   },
   computed: {
     ...mapGetters({
       idUser: 'auth/getID',
       token: 'auth/getToken',
-      getURL: 'history/getURL'
+      getURL: 'history/getURL',
+      ImgProfile: 'users/getImgProfile'
     })
   },
   methods: {
@@ -66,6 +74,7 @@ export default {
     }
   },
   mounted () {
+    this.ImgProfile.img = null //set default awal
     this.getDetailUser()
   }
 };
