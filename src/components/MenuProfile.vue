@@ -24,7 +24,7 @@
         </span>
       </button>
       <button
-        @click="btnChangePin()"
+        @click="$router.push('/my-profile/change-pin').catch(() => {})"
         class="btn btn-gray btn-block btn-lg radius-12 h-50 mb-auto"
       >
         <span class="d-flex justify-content-between font-weight-bold">
@@ -53,9 +53,6 @@ export default {
     }),
     btnPersonal () {
       this.$router.push('/my-profile/personal-info')
-    },
-    btnChangePin () {
-      alert('Change Pin')
     },
     logout () {
       this.actionLogout().then((res) => {

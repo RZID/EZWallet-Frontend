@@ -7,14 +7,19 @@
       >
     </div>
     <!-- Item -->
-    <div v-if="allHistory.length > 0" class="container py-2">
+    <div v-if="msgErr !== 'Data unavailable'" class="container py-2">
       <div
         v-for="(itm, idx) in allHistory"
         :key="idx"
         class="row no-gutters min-item mb-2"
       >
         <div
-          v-if="itm.to_id !== idUser"
+          v-if="!itm.to_image || !itm.from_image"
+          class="col-3 imgCenter"
+          :style="`background: url(${getURL}/images/default.png)`"
+        ></div>
+        <div
+          v-else-if="itm.to_id !== idUser"
           class="col-3 imgCenter"
           :style="`background: url(${getURL}/images/${itm.to_image})`"
         ></div>
@@ -164,12 +169,17 @@ import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
 export default {
   mixins: [currency],
+  data () {
+    return {
+      msgErr : ''
+    }
+  },
   computed: {
     ...mapGetters({
       idUser: "auth/getID",
       token: "auth/getToken",
       allHistory: "history/getDataAllUser",
-      getURL: "history/getURL",
+      getURL: "history/getURL"
     }),
   },
   methods: {
@@ -195,7 +205,11 @@ export default {
         page: 1,
         limit: 4
       };
-      this.getAllHistoryUser(data)
+      this.getAllHistoryUser(data).then((res) => {
+        this.msgErr = res
+      }).catch((err) => {
+        this.msgErr = err
+      })
     },
     seeAll() {
       this.$router.push("/history");

@@ -36,11 +36,14 @@ const modulHistory = {
       })
     },
     getAllHistoryUser(context, data) {
-      axios.get(`${context.rootState.setURL}/api/history/${data.id}?sort=${data.sort}&page=${data.page}&limit=${data.limit}`, { headers: { token: data.token } }).then((response) => {
-        context.commit('setDataAllUser', response.data.data)
-        context.commit('setTotalData', response.data.pagination.totalData)
-      }).catch((err) => {
-        console.log(err.response.data.message)
+      return new Promise((resolve, reject) => {
+        axios.get(`${context.rootState.setURL}/api/history/${data.id}?sort=${data.sort}&page=${data.page}&limit=${data.limit}`, { headers: { token: data.token } }).then((response) => {
+          context.commit('setDataAllUser', response.data.data)
+          context.commit('setTotalData', response.data.pagination.totalData)
+          resolve(response.data.message)
+        }).catch((err) => {
+          reject((err.response.data.message))
+        })
       })
     },
     detailTransfer(context, data) {

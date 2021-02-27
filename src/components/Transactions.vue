@@ -4,7 +4,7 @@
       <div class="container">
         <h5 class="font-weight-bold">Transaction History</h5>
         <h6 class="font-weight-bold text-muted">This Week</h6>
-        <div v-if="allHistory.length > 0">
+        <div v-if="msgErr !== 'Data unavailable'">
           <!-- Item -->
           <b-link
             v-for="(itm, idx) in allHistory"
@@ -176,7 +176,8 @@ export default {
         sort: 'DESC',
         page: 1,
         limit: 4
-      }
+      },
+      msgErr : ''
     }
   },
   components: {
@@ -207,7 +208,11 @@ export default {
         page: this.formPage.page,
         limit: this.formPage.limit
       }
-      this.getAllHistoryUser(data)
+      this.getAllHistoryUser(data).then((res) => {
+        this.msgErr = res
+      }).catch((err) => {
+        this.msgErr = err
+      })
     },
     test (data) {
       this.detailHistory(data)
