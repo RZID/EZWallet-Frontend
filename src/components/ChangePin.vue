@@ -164,7 +164,7 @@ export default {
         .catch((err) => {
           alert(err);
           this.isLoading = false // Set loading false di finally
-          this.pinCorrect = false // Buat pindah ke role new pin
+          this.pinCorrect = false // Buat stay ke role check pin
           this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
         });
       }, 5000)

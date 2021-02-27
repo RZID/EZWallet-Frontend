@@ -19,7 +19,7 @@ const modulTransfer = {
     },
     actionSuccess(context, data) {
       return new Promise((resolve, reject) => {
-        axios.post(`${context.rootState.setURL}/api/transferSuccess/${data.id}`, data, { headers: { token: data.token } }).then((response) => {
+        axios.post(`${context.rootState.setURL}/api/test/${data.id}`, data, { headers: { token: data.token } }).then((response) => {
           resolve(response.data.message)
         }).catch((err) => {
           reject(err.response.data.message)

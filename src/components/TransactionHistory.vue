@@ -47,14 +47,14 @@
             <!-- SHOW BUTTON -->
             <!-- show target -->
             <button
-              @click="btcancelTarget()"
+              @click="btcancelTarget(itm.id)"
               v-if="itm.status === 1 && itm.to_id === idUser"
               class="btn btn-danger mr-2"
             >
               Reject
             </button>
             <button
-              @click="btaccept()"
+              @click="btaccept(itm.id)"
               v-if="itm.status === 1 && itm.to_id === idUser"
               class="btn btn-success"
             >
@@ -62,7 +62,7 @@
             </button>
             <!-- show user -->
             <button
-              @click="btcancelUser()"
+              @click="btcancelUser(itm.id)"
               v-if="itm.status === 1 && itm.to_id !== idUser"
               class="btn btn-warning"
             >
@@ -215,18 +215,36 @@ export default {
     seeAll () {
       this.$router.push("/history");
     },
-    btaccept () {
+    btaccept (id) {
       const data = {
-        id: this.idUser,
-        token: this.token,
-      }
-      this.actionSuccess(data).then((res) => {
+          id,
+          token: this.token
+        }
+      this.actionSuccess(data)
+      .then((res) => {
         alert(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
         alert(err)
       })
+      // if (id != id) {
+      //   console.log(id)
+      //   console.log('tidak')
+      // } else {
+      //   console.log(id)
+      //   const data = {
+      //     id: this.idUser,
+      //     token: this.token,
+      //   }
+      //   this.actionSuccess(data).then((res) => {
+      //     alert(res)
+      //     this.allHistoryUser() //get data histori ulang 
+      //     this.getDetailUser() //get data balance ulang
+      //   }).catch((err) => {
+      //     alert(err)
+      //   })
+      // }
     },
     btcancelTarget () {
       const data = {
