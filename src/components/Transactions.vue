@@ -177,7 +177,7 @@ export default {
         page: 1,
         limit: 4
       },
-      msgErr : ''
+      msgErr: ''
     }
   },
   components: {

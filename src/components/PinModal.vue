@@ -31,14 +31,12 @@
           <form @submit.prevent="sendCode()">
             <div class="w-100 d-flex justify-content-center mb-3">
               <div class="row">
-                <div class="col-8">
-                  <PincodeInput
-                    v-model="form.code"
-                    required
-                    placeholder="_"
-                    :length="6"
-                  />
-                </div>
+                <PincodeInput
+                  v-model="form.code"
+                  required
+                  placeholder="_"
+                  :length="6"
+                />
               </div>
             </div>
             <div class="d-flex justify-content-end">

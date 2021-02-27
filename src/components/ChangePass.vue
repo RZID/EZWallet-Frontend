@@ -119,6 +119,7 @@
 
 <script>
 import alert from '../helper/alert'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [alert],
   data: () => {
