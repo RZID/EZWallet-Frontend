@@ -50,6 +50,8 @@
                   ? 'active'
                   : $route.path === '/my-profile/change-pass'
                   ? 'active'
+                  : $route.path === '/my-profile/change-pin'
+                  ? 'active'
                   : ''
               "
             >
