@@ -7,7 +7,7 @@
           <h6 @click="seeAllContact()" class="font-weight-bold">See all</h6>
         </b-link>
       </div>
-      <div>
+      <div class="h-content overflow-auto">
         <div v-for="(itm, idx) in getAllUser" :key="idx" class="d-flex mb-2">
           <img
             class="img-people radius-12 mr-2"
@@ -88,6 +88,9 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+.h-content {
+  height: 30vh;
+}
 .img-people {
   width: 75px;
   height: 75px;

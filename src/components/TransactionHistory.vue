@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow border-0">
+  <div class="card shadow border-0 h-100">
     <div class="card-body d-flex justify-content-between pb-0">
       <h5 class="font-weight-bold">Transaction History</h5>
       <b-link @click="seeAll()" class="text-blue text-decoration-none"
@@ -171,7 +171,7 @@ export default {
   mixins: [currency],
   data () {
     return {
-      msgErr : ''
+      msgErr: ''
     }
   },
   computed: {
@@ -190,14 +190,14 @@ export default {
       actionCancelSender: "transfer/actionCancelSender",
       dataUser: "users/actionGetUser"
     }),
-    getDetailUser() {
+    getDetailUser () {
       const data = {
         id: this.idUser,
         token: this.token,
       };
       this.dataUser(data);
     },
-    allHistoryUser() {
+    allHistoryUser () {
       const data = {
         id: this.idUser,
         token: this.token,
@@ -211,7 +211,7 @@ export default {
         this.msgErr = err
       })
     },
-    seeAll() {
+    seeAll () {
       this.$router.push("/history");
     },
     btaccept () {
@@ -227,7 +227,7 @@ export default {
         alert(err)
       })
     },
-    btcancelTarget() {
+    btcancelTarget () {
       const data = {
         id: this.idUser,
         token: this.token,
