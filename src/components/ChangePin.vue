@@ -100,6 +100,7 @@
 
 <script>
 import PincodeInput from "vue-pincode-input"
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data: () => {
     return {
@@ -110,30 +111,68 @@ export default {
       errorMsg: 'Incorrect PIN!'
     }
   },
+  computed: {
+    ...mapGetters({
+      idUser: "auth/getID",
+      token: "auth/getToken"
+    }),
+  },
   methods: {
+    ...mapActions({
+      checkPin: 'pin/checkPin',
+      actionSetPin: "auth/actionSetPin"
+    }),
     toConfirmOldPIN () {
       // Konfirmasi pin lama dulu yakan 
       this.isLoading = true // Set Loading
       this.isError = false // Set error false, jika tadinya ada error
+      // setdata pin
+      const data = {
+        id: this.idUser,
+        token: this.token,
+        data: {
+          pin: this.code
+        }
+      }
       setTimeout(() => {
-        this.isLoading = false // Set loading false di finally
-        this.pinCorrect = true // Buat pindah ke role new pin
-        this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+        this.checkPin(data).then((res) => {
+          alert(res)
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = true // Buat pindah ke role new pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+        }).catch((err) => {
+          alert(err)
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = false // Buat stay ke role check pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+        })
       }, 5000)
     },
     sendNewPIN () {
       // Buat pin baru
       this.isLoading = true // Set Loading
       this.isError = false // Set error false, jika tadinya ada error
+      const data = { pin: this.code };
       setTimeout(() => {
-        this.isLoading = false // Set loading false di finally
-        this.pinCorrect = true // Buat pindah ke role new pin
-        this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
-        alert('Ganti pin berhasil')
+        this.actionSetPin(data).then((res) => {
+          alert('Change pin Success!' || res);
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = true // Buat pindah ke role new pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+          this.$router.push('/my-profile')
+        })
+        .catch((err) => {
+          alert(err);
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = false // Buat pindah ke role new pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+        });
       }, 5000)
     }
   },
-  components: { PincodeInput }
+  components: { PincodeInput },
+  mounted () {
+  }
 }
 </script>
 

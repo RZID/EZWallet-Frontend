@@ -95,10 +95,11 @@
         </div>
       </div>
     </div>
-    <div v-else class="container py-2">
-      <div class="row no-gutters min-item mb-2 text-center">
-        <!-- <div class="col-12"><b-icon icon=""></b-icon></div> -->
-        <div class="col-12"><h4>-- No transactions --</h4></div>
+    <div v-else class="container text-center py-2">
+      <div class="row min-item">
+        <div class="col-12 mt-n5">
+          <h4 class="mt-n5">-- No transactions --</h4>
+        </div>
       </div>
     </div>
     <!-- End Of Item -->
