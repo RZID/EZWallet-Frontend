@@ -132,7 +132,7 @@ export default {
         this.pinCorrect = true // Buat pindah ke role new pin
         this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
         this.ToastSuccess('PIN Changed successfully') // Kalau success
-        // this.ToastDanger('Oops, Error occurred') //Kalau error
+        // this.ToastError('Oops, Error occurred') //Kalau error
       }, 5000)
     }
   },

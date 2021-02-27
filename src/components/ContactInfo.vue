@@ -78,7 +78,7 @@ export default {
       this.actionGetAllUser(data)
     },
     seeAllContact () {
-      this.ToastDanger('This feature is not yet available')
+      this.ToastError('This feature is not yet available')
     }
   },
   mounted () {

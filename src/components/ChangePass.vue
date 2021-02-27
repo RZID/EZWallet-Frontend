@@ -136,7 +136,7 @@ export default {
   methods: {
     changePass () {
       // this.ToastSuccess('Password succesfully changed!') // kalau berhasil
-      // this.ToastDanger('Error occurred!') // kalau error
+      // this.ToastError('Error occurred!') // kalau error
       alert(`Hayooo, mau ganti password yaa? password sebelumnya ${this.form.old} dan mau diganti dengan ${this.form.new}`)
     }
   }
