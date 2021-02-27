@@ -77,7 +77,9 @@
           <h6 class="m-0">{{ detailHistory.notes }}</h6>
         </div>
         <div class="mb-2">
-          <h6 class="m font-weight-bold">Selection</h6>
+          <h6 v-if="detailHistory.status === 1" class="m font-weight-bold">
+            Selection
+          </h6>
           <button
             @click="btcancelTarget()"
             v-if="detailHistory.status === 1 && detailHistory.to_id === idUser"
