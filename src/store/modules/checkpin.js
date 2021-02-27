@@ -9,6 +9,8 @@ const modulCheckPin = {
   },
   actions: {
     checkPin (context, data) {
+      // console.log(context)
+      // console.log(data)
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/loginPIN/${data.id}`, data.data, { headers: { token: data.token } }).then((response) => {
           resolve(response.data.message)

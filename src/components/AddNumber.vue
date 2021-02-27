@@ -47,16 +47,47 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
   data: () => {
     return {
       number: ''
     }
   },
+  computed: {
+    ...mapGetters({
+      getID: 'auth/getID',
+      getDetailUser: 'users/getDetailUser',
+      token: "auth/getToken"
+    })
+  },
   methods: {
     sendNumber () {
-      alert(this.number)
+      const data = {
+        id: this.getID,
+        data: {
+          phone: '+62' + this.number
+        },
+        token: this.token
+      }
+      this.changePhoneNumber(data)
+      .then((response) => {
+        alert(response)
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    ...mapActions({
+      actionGetUser: 'users/actionGetUser',
+      changePhoneNumber: 'users/changePhoneNumber'
+    })
+  },
+  mounted () {
+    const data = {
+      id: this.getID,
+      token: this.token
     }
+    this.actionGetUser(data)
   }
 }
 </script>

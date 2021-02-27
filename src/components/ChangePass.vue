@@ -133,11 +133,37 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      idUser: "auth/getID",
+      token: "auth/getToken"
+    })
+  },
   methods: {
+    ...mapActions({
+      changePassword: 'users/changePassword'
+    }),
     changePass () {
-      // this.ToastSuccess('Password succesfully changed!') // kalau berhasil
-      // this.ToastError('Error occurred!') // kalau error
-      alert(`Hayooo, mau ganti password yaa? password sebelumnya ${this.form.old} dan mau diganti dengan ${this.form.new}`)
+      if (this.form.repeat != this.form.new) {
+        this.ToastError('Try to recheck the password')
+      } else {
+        const data = {
+          id: this.idUser,
+          token: this.token,
+          data: {
+            oldpassword: this.form.old,
+            password: this.form.repeat
+          }
+        }
+        this.changePassword(data).then((response) => {
+          this.ToastSuccess(response)
+          this.form.old = ''
+          this.form.new = ''
+          this.form.repeat = ''
+        }).catch((err) => {
+          this.ToastError(err)
+        })
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import axios from "axios"
+// import response from "../../../../EZWallet-Backend/src/helper/response"
 const modulUsers = {
   namespaced: true,
   state: () => {
@@ -59,8 +60,26 @@ const modulUsers = {
         })
       })
     },
+    changePassword (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.patch(`${context.rootState.setURL}/api/changePassword/${data.id}`, data.data, { headers: { token: data.token } }).then((response) => {
+          resolve(response.data.message)
+        }).catch((err) => {
+          reject(err.response.data.message)
+        })
+      })
+    },
     imageNavbar(context, data) {
       context.commit('setImage', data)
+    },
+    changePhoneNumber (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.patch(`${context.rootState.setURL}/api/user/${data.id}`, data.data, { headers: { token: data.token } }).then((response) => {
+          resolve(response.data.message)
+        }).catch((err) => {
+          reject(err.response.data.message)
+        })
+      })
     }
   },
   getters: {

@@ -11,20 +11,20 @@
         <div class="card border-0 shadow mb-3">
           <div class="card-body">
             <p class="text-muted">Username</p>
-            <h5 class="font-weight-bold m-0">{{ data.name }}</h5>
+            <h5 class="font-weight-bold m-0">{{ getDetailUser.name }}</h5>
           </div>
         </div>
         <div class="card border-0 shadow mb-3">
           <div class="card-body">
             <p class="text-muted">Verified E-mail</p>
-            <h5 class="font-weight-bold m-0">{{ data.email }}</h5>
+            <h5 class="font-weight-bold m-0">{{ getDetailUser.email }}</h5>
           </div>
         </div>
         <div class="card border-0 shadow mb-3">
           <div class="card-body">
             <p class="text-muted">Phone Number</p>
             <div class="d-flex justify-content-between">
-              <h5 class="font-weight-bold m-0">{{ data.phone }}</h5>
+              <h5 class="font-weight-bold m-0">{{ getDetailUser.phone }}</h5>
               <b-link
                 class="text-blue text-decoration-none font-weight-bold"
                 @click="
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
   data: () => {
     return {
@@ -51,6 +52,25 @@ export default {
         phone: '+62 813-9387-7946'
       }
     }
+  },
+  computed: {
+    ...mapGetters({
+      getID: 'auth/getID',
+      getDetailUser: 'users/getDetailUser',
+      token: "auth/getToken"
+    })
+  },
+  methods: {
+    ...mapActions({
+      actionGetUser: 'users/actionGetUser'
+    })
+  },
+  mounted () {
+    const data = {
+      id: this.getID,
+      token: this.token
+    }
+    this.actionGetUser(data)
   }
 }
 </script>
