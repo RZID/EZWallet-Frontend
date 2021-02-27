@@ -29,8 +29,8 @@
           </b-link>
         </p>
         <div class="container text-center">
-          <h4 class="font-weight-bold">Samsul Bahri</h4>
-          <p class="text-muted m-0">+62 813-9387-7946</p>
+          <h4 class="font-weight-bold">{{ name }}</h4>
+          <p class="text-muted m-0">{{ phone }}</p>
         </div>
       </div>
     </div>
@@ -45,7 +45,9 @@ export default {
     return {
       imageUrl: "",
       imageRaw: "",
-      id: localStorage.getItem('id')
+      id: localStorage.getItem('id'),
+      name: "",
+      phone: ""
     };
   },
   computed: {
@@ -68,6 +70,9 @@ export default {
       }
       this.getDataUser(data).then((response) => {
         this.imageUrl = response.image
+        this.name = response.name
+        this.phone = response.phone
+        // console.log(response)
       })
     },
     editImageUser (e) {
