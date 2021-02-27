@@ -54,7 +54,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   computed: {
     ...mapGetters({
       getID: "auth/getID",
@@ -76,7 +78,7 @@ export default {
       this.actionGetAllUser(data)
     },
     seeAllContact () {
-      alert('This feature is not yet available')
+      this.ToastDanger('This feature is not yet available')
     }
   },
   mounted () {

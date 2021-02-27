@@ -100,7 +100,9 @@
 
 <script>
 import PincodeInput from "vue-pincode-input"
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       code: '',
@@ -129,7 +131,8 @@ export default {
         this.isLoading = false // Set loading false di finally
         this.pinCorrect = true // Buat pindah ke role new pin
         this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
-        alert('Ganti pin berhasil')
+        this.ToastSuccess('PIN Changed successfully') // Kalau success
+        // this.ToastDanger('Oops, Error occurred') //Kalau error
       }, 5000)
     }
   },

@@ -61,7 +61,9 @@
 <script>
 import PincodeInput from "vue-pincode-input";
 import { mapGetters, mapActions } from 'vuex'
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       form: {
@@ -96,12 +98,12 @@ export default {
         }
       }
       this.actionPending(dt).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     },
-    sendCode() {
+    sendCode () {
       const data = {
         id: this.getID,
         token: this.token,
@@ -110,22 +112,20 @@ export default {
         }
       }
       this.isLoading = true;
-      setTimeout(() => {
-        this.checkPin(data).then((res) => {
-          this.isLoading = false;
-          alert(res)
-          this.form.code = "";
-          this.$bvModal.hide("getPin");
-          this.$router.push(`/transfer?role=history&sts=success&id=${this.$route.query.id}`);
-          // Transfer pending
-          this.tfPending()
-        }).catch((err) => {
-          alert(err)
-          this.form.code = "";
-          this.$bvModal.hide("getPin");
-          this.$router.push(`/transfer?role=history&sts=failed&id=${this.$route.query.id}`);
-        })
-      }, 5000);
+      this.checkPin(data).then((res) => {
+        this.isLoading = false;
+        this.ToastSuccess(res)
+        this.form.code = "";
+        this.$bvModal.hide("getPin");
+        this.$router.push(`/transfer?role=history&sts=success&id=${this.$route.query.id}`);
+        // Transfer pending
+        this.tfPending()
+      }).catch((err) => {
+        this.ToastError(err)
+        this.form.code = "";
+        this.$bvModal.hide("getPin");
+        this.$router.push(`/transfer?role=history&sts=failed&id=${this.$route.query.id}`);
+      })
     },
   },
   components: { PincodeInput },

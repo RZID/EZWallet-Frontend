@@ -167,8 +167,9 @@
 <script>
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
+import alert from '../helper/alert'
 export default {
-  mixins: [currency],
+  mixins: [alert, currency],
   data () {
     return {
       msgErr: ''
@@ -220,11 +221,11 @@ export default {
         token: this.token,
       }
       this.actionSuccess(data).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     },
     btcancelTarget () {
@@ -233,11 +234,11 @@ export default {
         token: this.token,
       }
       this.actionCancelReceiver(data).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     },
     btcancelUser () {
@@ -246,11 +247,11 @@ export default {
         token: this.token,
       }
       this.actionCancelSender(data).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     }
   },

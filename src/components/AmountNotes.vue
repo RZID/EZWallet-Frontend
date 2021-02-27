@@ -71,8 +71,9 @@
 <script>
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex"
+import alert from '../helper/alert'
 export default {
-  mixins: [currency],
+  mixins: [currency, alert],
   data: () => {
     return {
       form: {
@@ -125,6 +126,9 @@ export default {
       this.form.balanceLeft = res.balance
     }).catch((err) => {
       console.log(err)
+      if (err.response) {
+        this.ToastError(err.response.message)
+      }
     })
   }
 };

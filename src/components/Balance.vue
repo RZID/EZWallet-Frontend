@@ -65,10 +65,11 @@
 
 <script>
 import currency from "../helper/currency";
+import alert from '../helper/alert'
 import { mapGetters, mapActions } from "vuex";
 export default {
-  mixins: [currency],
-  data() {
+  mixins: [currency, alert],
+  data () {
     return {
       form: {
         nominal: "",
@@ -89,7 +90,7 @@ export default {
       getHistory: "history/postHistory",
       getAllHistoryUser: "history/getAllHistoryUser",
     }),
-    getDetailUser() {
+    getDetailUser () {
       this.detailUser;
       const data = {
         id: this.idUser,
@@ -97,13 +98,13 @@ export default {
       };
       this.dataUser(data);
     },
-    transfer() {
+    transfer () {
       this.$router.push("/transfer");
     },
-    topup() {
+    topup () {
       this.$refs["my-modal"].show();
     },
-    btnTopUp() {
+    btnTopUp () {
       // data to tb user
       const sum = Number(this.detailUser.balance) + Number(this.form.nominal);
       const newData = {
@@ -123,7 +124,7 @@ export default {
       };
       this.getTopUp(newData)
         .then((res) => {
-          alert(res);
+          this.ToastSuccess(res)
           this.getHistory(postData); // send data
           this.getDetailUser(); // get ulang data
           this.allHistoryUser(); //get ulang history
@@ -131,14 +132,14 @@ export default {
           this.$refs["my-modal"].hide();
         })
         .catch((err) => {
-          alert(err);
+          this.ToastError(err)
         });
     },
-    hideModal() {
+    hideModal () {
       this.form.nominal = "";
       this.$refs["my-modal"].hide();
     },
-    allHistoryUser() {
+    allHistoryUser () {
       const data = {
         id: this.idUser,
         token: this.token,
@@ -149,7 +150,7 @@ export default {
       this.getAllHistoryUser(data);
     },
   },
-  mounted() {
+  mounted () {
     // this.allHistoryUser()
   },
 };

@@ -39,8 +39,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       imageUrl: "",
@@ -52,10 +53,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-    idUser: "auth/getID",
-    token: "auth/getToken",
-    getDetailUser: "users/getDetailUser",
-    getURL: 'history/getURL'
+      idUser: "auth/getID",
+      token: "auth/getToken",
+      getDetailUser: "users/getDetailUser",
+      getURL: 'history/getURL'
     })
   },
   methods: {
@@ -84,7 +85,7 @@ export default {
       this.imageUrl = "";
       this.imageRaw = "";
       if (image["type"] !== "image/jpeg" && image["type"] !== "image/png") {
-        alert("Masukkan foto bertipe jpg/jpeg/png");
+        this.ToastError('Please enter a jpg/jpeg/png image format!')
       } else {
         this.imageUrl = URL.createObjectURL(image);
         this.imageRaw = image;
@@ -98,10 +99,10 @@ export default {
           }
         }
         this.changePhotoProfile(result).then((response) => {
-          alert(response)
+          this.ToastSuccess(response)
           this.setDetailUser()
         }).catch((err) => {
-          alert(err)
+          this.ToastError(err)
         })
       }
     },
