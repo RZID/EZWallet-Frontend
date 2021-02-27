@@ -86,7 +86,7 @@
               +Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6 v-else-if="itm.status === 3" class="font-weight-bold c-cancel">
-              +Rp{{ toRupiah(itm.amount) }}
+              Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6 v-else class="font-weight-bold c-topup">
               +Rp{{ toRupiah(itm.amount) }}
@@ -229,9 +229,9 @@ export default {
         alert(err)
       })
     },
-    btcancelTarget () {
+    btcancelTarget (id) { // ini reject
       const data = {
-        id: this.idUser,
+        id,
         token: this.token,
       }
       this.actionCancelReceiver(data).then((res) => {
@@ -242,12 +242,12 @@ export default {
         alert(err)
       })
     },
-    btcancelUser () {
+    btcancelUser (id) { // ini cancel
       const data = {
-        id: this.idUser,
+        id,
         token: this.token,
       }
-      this.actionCancelSender(data).then((res) => {
+      this.actionCancelReceiver(data).then((res) => {
         alert(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang

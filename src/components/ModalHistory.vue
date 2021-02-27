@@ -60,7 +60,7 @@
             v-else-if="detailHistory.status === 3"
             class="m-0 c-cancel font-weight-bold"
           >
-            +Rp{{ toRupiah(detailHistory.amount) }}
+            Rp{{ toRupiah(detailHistory.amount) }}
           </h5>
           <h5 v-else class="m-0 c-topup font-weight-bold">
             +Rp{{ toRupiah(detailHistory.amount) }}
@@ -81,14 +81,14 @@
             Selection
           </h6>
           <button
-            @click="btcancelTarget()"
+            @click="btcancelTarget(detailHistory.id)"
             v-if="detailHistory.status === 1 && detailHistory.to_id === idUser"
             class="btn btn-danger mr-2"
           >
             Reject
           </button>
           <button
-            @click="btaccept()"
+            @click="btaccept(detailHistory.id)"
             v-if="detailHistory.status === 1 && detailHistory.to_id === idUser"
             class="btn btn-success"
           >
@@ -96,7 +96,7 @@
           </button>
           <!-- show user -->
           <button
-            @click="btcancelUser()"
+            @click="btcancelUser(detailHistory.id)"
             v-if="detailHistory.status === 1 && detailHistory.to_id !== idUser"
             class="btn btn-warning"
           >
@@ -138,10 +138,11 @@ export default {
       };
       this.getAllHistoryUser(data)
     },
-    btaccept () {
+    
+    btaccept (id) {
       const data = {
-        id: this.idUser,
-        token: this.token,
+        id,
+        token: this.token
       }
       this.actionSuccess(data).then((res) => {
         this.ToastSuccess(res)
@@ -152,10 +153,10 @@ export default {
         this.ToastError(err)
       })
     },
-    btcancelTarget () {
+    btcancelTarget (id) {
       const data = {
-        id: this.idUser,
-        token: this.token,
+        id,
+        token: this.token
       }
       this.actionCancelReceiver(data).then((res) => {
         this.ToastSuccess(res)
@@ -166,12 +167,12 @@ export default {
         this.ToastError(err)
       })
     },
-    btcancelUser () {
+    btcancelUser (id) {
       const data = {
-        id: this.idUser,
-        token: this.token,
+        id,
+        token: this.token
       }
-      this.actionCancelSender(data).then((res) => {
+      this.actionCancelReceiver(data).then((res) => {
         this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         // this.getDetailUser() //get data balance ulang
@@ -180,7 +181,8 @@ export default {
         this.ToastError(err)
       })
     }
-  }
+  },
+  mounted () {}
 };
 </script>
 
