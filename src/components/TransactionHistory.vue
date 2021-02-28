@@ -66,7 +66,9 @@
               v-if="itm.status === 1 && itm.to_id !== idUser"
               class="btn btn-warning"
             >
-              Cancel
+              <h6 class="m-0 text-white">
+                <b-icon icon="x-square-fill"></b-icon> Cancel
+              </h6>
             </button>
           </div>
           <div class="align-self-center">

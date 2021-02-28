@@ -130,7 +130,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       revealPass: false,

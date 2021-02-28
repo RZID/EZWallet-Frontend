@@ -42,7 +42,7 @@
                         </h5>
                         <!-- <p class="text-muted m-0">{{ itm.notes }}</p> -->
                         <p v-if="itm.status === 1" class="text-muted m-0">
-                          pending
+                          Pending
                         </p>
                         <p v-else-if="itm.status === 2" class="text-muted m-0">
                           Transfer
@@ -103,9 +103,10 @@
           <!-- End Of Item -->
         </div>
         <div v-else>
-          <div class="row text-center">
-            <!-- <div class="col-12"><b-icon icon=""></b-icon></div> -->
-            <div class="col-12"><h4>-- No transactions --</h4></div>
+          <div class="text-center">
+            <img src="/assets/notransaction.png" alt="" />
+            <h4 class="font-weight-bold">It's Clear!</h4>
+            <p class="text-muted">You've never done a transaction so far</p>
           </div>
         </div>
 
