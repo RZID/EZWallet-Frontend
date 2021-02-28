@@ -93,6 +93,12 @@
           >
             Back to Home
           </button>
+          <button
+            class="btn btn-blue radius-12 px-3 py-2 font-weight-bold d-lg-block d-none"
+            @click="$router.push('/dashboard').catch(() => {})"
+          >
+            Back to Home
+          </button>
         </div>
       </div>
     </div>

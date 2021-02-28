@@ -256,8 +256,9 @@
 <script>
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
+import alert from '../helper/alert'
 export default {
-  mixins: [currency],
+  mixins: [currency, alert],
   data () {
     return {
       msgErr: ''
@@ -311,11 +312,11 @@ export default {
       }
       this.actionSuccess(data)
         .then((res) => {
-          alert(res)
+          this.ToastSuccess(res)
           this.allHistoryUser() //get data histori ulang 
           this.getDetailUser() //get data balance ulang
         }).catch((err) => {
-          alert(err)
+          this.ToastError(err)
         })
     },
     btcancelTarget (id) { // ini reject
@@ -324,11 +325,11 @@ export default {
         token: this.token,
       }
       this.actionCancelReceiver(data).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     },
     btcancelUser (id) { // ini cancel
@@ -337,11 +338,11 @@ export default {
         token: this.token,
       }
       this.actionCancelReceiver(data).then((res) => {
-        alert(res)
+        this.ToastSuccess(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        alert(err)
+        this.ToastError(err)
       })
     }
   },

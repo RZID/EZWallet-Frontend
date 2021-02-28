@@ -25,14 +25,14 @@
                       <img
                         v-if="itm.to_id !== idUser"
                         class="imgCenter"
-                        :src="`http://localhost:4001/images/${itm.to_image}`"
-                        onerror="this.src='http://localhost:4001/images/default.png'"
+                        :src="`${process.env.VUE_APP_BACKEND}/images/${itm.to_image}`"
+                        :onerror="`this.onerror=null;this.src='${process.env.VUE_APP_BACKEND}/images/default.png'`"
                       />
                       <img
                         v-else
                         class="imgCenter"
-                        :src="`http://localhost:4001/images/${itm.from_image}`"
-                        onerror="this.src='http://localhost:4001/images/default.png'"
+                        :src="`${process.env.VUE_APP_BACKEND}/images/${itm.from_image}`"
+                        :onerror="`this.onerror=null;this.src=${process.env.VUE_APP_BACKEND}/images/default.png`"
                       />
                     </div>
                     <div class="col d-flex">

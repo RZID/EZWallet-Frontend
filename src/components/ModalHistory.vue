@@ -7,12 +7,12 @@
           <img
             v-if="detailHistory.to_id !== idUser"
             class="imageHistory"
-            :src="`http://localhost:4001/images/${detailHistory.to_image}`"
+            :src="`${process.env.VUE_APP_BACKEND}/images/${detailHistory.to_image}`"
           />
           <img
             v-else
             class="imageHistory"
-            :src="`http://localhost:4001/images/${detailHistory.from_image}`"
+            :src="`${process.env.VUE_APP_BACKEND}/images/${detailHistory.from_image}`"
           />
         </div>
         <div class="col d-flex">
@@ -138,7 +138,7 @@ export default {
       };
       this.getAllHistoryUser(data)
     },
-    
+
     btaccept (id) {
       const data = {
         id,
@@ -182,7 +182,7 @@ export default {
       })
     }
   },
-  mounted () {}
+  mounted () { }
 };
 </script>
 
