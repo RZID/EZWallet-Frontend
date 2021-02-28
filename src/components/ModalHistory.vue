@@ -7,12 +7,14 @@
           <img
             v-if="detailHistory.to_id !== idUser"
             class="imageHistory"
-            :src="`${process.env.VUE_APP_BACKEND}/images/${detailHistory.to_image}`"
+            :src="`${getURL}/images/${detailHistory.to_image}`"
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
           />
           <img
             v-else
             class="imageHistory"
-            :src="`${process.env.VUE_APP_BACKEND}/images/${detailHistory.from_image}`"
+            :src="`${getURL}/images/${detailHistory.from_image}`"
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
           />
         </div>
         <div class="col d-flex">
@@ -118,7 +120,8 @@ export default {
     ...mapGetters({
       idUser: 'auth/getID',
       token: "auth/getToken",
-      detailHistory: 'history/getDetailHistory'
+      detailHistory: 'history/getDetailHistory',
+      getURL: 'history/getURL'
     })
   },
   methods: {

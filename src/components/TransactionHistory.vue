@@ -171,12 +171,12 @@
               <h5 v-else class="font-weight-bold m-0" v-line-clamp="1">
                 {{ itm.from_name }}
               </h5>
-              <p v-if="itm.status === 1" class="text-muted m-0">pending</p>
+              <p v-if="itm.status === 1" class="text-muted m-0">Pending</p>
               <p v-else-if="itm.status === 2" class="text-muted m-0">
                 Transfer
               </p>
               <p v-else-if="itm.status === 3" class="text-muted m-0">Cancel</p>
-              <p v-else class="text-muted m-0">Top UP</p>
+              <p v-else class="text-muted m-0">Top Up</p>
               <!-- SHOW BUTTON -->
               <!-- show target -->
               <button
