@@ -48,7 +48,9 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex"
+import alert from '../helper/alert'
 export default {
+  mixins: [alert],
   data: () => {
     return {
       number: ''
@@ -71,11 +73,11 @@ export default {
         token: this.token
       }
       this.changePhoneNumber(data)
-      .then((response) => {
-        alert(response)
-      }).catch((err) => {
-        alert(err)
-      })
+        .then((response) => {
+          this.ToastSuccess(response)
+        }).catch((err) => {
+          this.ToastError(err)
+        })
     },
     ...mapActions({
       actionGetUser: 'users/actionGetUser',
