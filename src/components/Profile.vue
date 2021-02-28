@@ -10,6 +10,7 @@
                 ? `${getURL}/images/${imageUrl}`
                 : `${getURL}/images/default.png`
             "
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
             alt=""
           />
         </div>

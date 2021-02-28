@@ -16,6 +16,7 @@
                 ? `${getURL}/images/${itm.image}`
                 : `${getURL}/images/default.png`
             "
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
             alt=""
           />
           <div class="align-self-center">

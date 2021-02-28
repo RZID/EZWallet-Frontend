@@ -52,6 +52,7 @@
                     <div class="col-4 col-md-3 col-lg-2">
                       <img
                         :src="getImage(itm.image)"
+                        :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
                         @error="defaultImage"
                         class="h-100 w-100 img-people"
                         alt=""

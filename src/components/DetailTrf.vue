@@ -20,12 +20,14 @@
               v-if="!image"
               class="img-people mr-4"
               :src="`${getURL}/images/default.png`"
+              :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
               alt=""
             />
             <img
               v-else
               class="img-people mr-4"
               :src="`${getURL}/images/${image}`"
+              :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
               alt=""
             />
             <div class="align-self-center">

@@ -11,17 +11,20 @@
           v-if="!image"
           class="img-user bg-dark mr-3 align-self-center radius-12"
           :src="`${getURL}/images/default.png`"
+          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
           alt=""
         />
         <img
           v-else-if="ImgProfile.img"
           class="img-user bg-dark mr-3 align-self-center radius-12"
           :src="`${getURL}/images/${ImgProfile.img}`"
+          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
           alt=""
         /><img
           v-else
           class="img-user bg-dark mr-3 align-self-center radius-12"
           :src="`${getURL}/images/${image}`"
+          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
           alt=""
         />
       </div>
