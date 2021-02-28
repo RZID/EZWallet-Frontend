@@ -16,7 +16,6 @@ EZ (Easy) Wallet is an application that provides a transfer feature between user
 1. Clone this repository with git clone https://github.com/RZID/EZWallet-Frontend.
 2. Run ```npm install``` to install modules required.
 3. Set .env file in root:
-4. PORT = fill to set the API running port.
 ```
 VUE_APP_BACKEND= http://localhost:PORT
 
