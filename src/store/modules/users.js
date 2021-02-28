@@ -10,13 +10,13 @@ const modulUsers = {
     }
   },
   mutations: {
-    setUserDetail(state, payload) {
+    setUserDetail (state, payload) {
       state.userDetail = payload
     },
-    setAllUser(state, payload) {
+    setAllUser (state, payload) {
       state.allUser = payload
     },
-    setImage(state, payload) {
+    setImage (state, payload) {
       state.imageProfile = payload
     }
   },
@@ -24,12 +24,12 @@ const modulUsers = {
     actionGetUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.get(`${context.rootState.setURL}/api/user/${data.id}`, { headers: { token: data.token } })
-        .then((response) => {
-          context.commit('setUserDetail', response.data.data)
-          resolve(response.data.data)
-        }).catch((err) => {
-          reject(err.response.data.message)
-        })
+          .then((response) => {
+            context.commit('setUserDetail', response.data.data)
+            resolve(response.data.data)
+          }).catch((err) => {
+            reject(err.response.data.message)
+          })
       })
     },
     actionTopUp (context, data) {
@@ -43,7 +43,7 @@ const modulUsers = {
     },
     actionGetAllUser (context, data) {
       return new Promise((resolve, reject) => {
-        axios.get(`${context.rootState.setURL}/api/allUser/${data.id}?search=${data.search}`, { headers: { token: data.token } }).then((response) => {
+        axios.get(`${context.rootState.setURL}/api/allUser/${data.id}?search=${data.search}&limit=20`, { headers: { token: data.token } }).then((response) => {
           context.commit('setAllUser', response.data.data)
           resolve(response.data.message)
         }).catch((err) => {
@@ -69,7 +69,7 @@ const modulUsers = {
         })
       })
     },
-    imageNavbar(context, data) {
+    imageNavbar (context, data) {
       context.commit('setImage', data)
     },
     changePhoneNumber (context, data) {

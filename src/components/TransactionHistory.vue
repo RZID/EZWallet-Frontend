@@ -253,8 +253,8 @@
       </div>
       <div v-else class="container text-center py-2">
         <div class="row min-item">
-          <div class="col-12 mt-n5">
-            <h4 class="mt-n5">-- No transactions --</h4>
+          <div class="col-12">
+            <h4>-- No transactions --</h4>
           </div>
         </div>
       </div>
