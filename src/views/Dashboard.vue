@@ -4,7 +4,7 @@
     <Nbar class="d-none d-lg-block" />
     <!-- end of for desktop -->
 
-    <div class="container h-25 d-flex d-lg-none">
+    <div class="container py-3 d-flex d-lg-none">
       <!-- for mobile -->
       <div class="align-self-center">
         <img
