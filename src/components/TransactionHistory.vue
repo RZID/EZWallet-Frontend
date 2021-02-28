@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow border-0 h-100">
+  <div class="card shadow bg-0 border-0 h-100">
     <div class="card-body d-flex justify-content-between pb-0">
       <h5 class="font-weight-bold">Transaction History</h5>
       <b-link @click="seeAll()" class="text-blue text-decoration-none"
@@ -8,93 +8,232 @@
     </div>
     <!-- Item -->
     <div v-if="msgErr !== 'Data unavailable'" class="container py-2">
-      <div
-        v-for="(itm, idx) in allHistory"
-        :key="idx"
-        class="row no-gutters min-item mb-2"
-      >
-        <div
-          v-if="!itm.to_image || !itm.from_image"
-          class="col-3 imgCenter"
-          :style="`background: url(${getURL}/images/default.png)`"
-        ></div>
-        <div
-          v-else-if="itm.to_id !== idUser"
-          class="col-3 imgCenter"
-          :style="`background: url(${getURL}/images/${itm.to_image})`"
-        ></div>
-        <div
-          v-else
-          class="col-3 imgCenter"
-          :style="`background: url(${getURL}/images/${itm.from_image})`"
-        ></div>
-        <div class="col d-flex ml-2 justify-content-between">
-          <div class="align-self-center">
-            <h5
-              v-if="itm.to_id !== idUser"
-              class="font-weight-bold m-0"
-              v-line-clamp="1"
-            >
-              {{ itm.to_name }}
-            </h5>
-            <h5 v-else class="font-weight-bold m-0" v-line-clamp="1">
-              {{ itm.from_name }}
-            </h5>
-            <p v-if="itm.status === 1" class="text-muted m-0">pending</p>
-            <p v-else-if="itm.status === 2" class="text-muted m-0">Transfer</p>
-            <p v-else-if="itm.status === 3" class="text-muted m-0">Cancel</p>
-            <p v-else class="text-muted m-0">Top UP</p>
-            <!-- SHOW BUTTON -->
-            <!-- show target -->
-            <button
-              @click="btcancelTarget(itm.id)"
-              v-if="itm.status === 1 && itm.to_id === idUser"
-              class="btn btn-danger mr-2"
-            >
-              Reject
-            </button>
-            <button
-              @click="btaccept(itm.id)"
-              v-if="itm.status === 1 && itm.to_id === idUser"
-              class="btn btn-success"
-            >
-              Accept
-            </button>
-            <!-- show user -->
-            <button
-              @click="btcancelUser(itm.id)"
-              v-if="itm.status === 1 && itm.to_id !== idUser"
-              class="btn btn-warning"
-            >
-              <h6 class="m-0 text-white">
-                <b-icon icon="x-square-fill"></b-icon> Cancel
-              </h6>
-            </button>
-          </div>
-          <div class="align-self-center">
-            <h6 v-if="itm.status === 1" class="font-weight-bold c-pending">
-              Rp{{ toRupiah(itm.amount) }}
-            </h6>
-            <h6
-              v-else-if="itm.status === 2 && itm.to_id !== idUser"
-              class="font-weight-bold c-transfer"
-            >
-              -Rp{{ toRupiah(itm.amount) }}
-            </h6>
-            <h6
-              v-else-if="itm.status === 2"
-              class="font-weight-bold text-success"
-            >
-              +Rp{{ toRupiah(itm.amount) }}
-            </h6>
-            <h6 v-else-if="itm.status === 3" class="font-weight-bold c-cancel">
-              Rp{{ toRupiah(itm.amount) }}
-            </h6>
-            <h6 v-else class="font-weight-bold c-topup">
-              +Rp{{ toRupiah(itm.amount) }}
-            </h6>
+      <div v-for="(itm, idx) in allHistory" :key="idx">
+        <!-- For mobile! -->
+        <div class="d-flex d-lg-none">
+          <div class="card w-100 mb-2 shadow border-0 h-content">
+            <div class="card-body">
+              <div class="row no-gutters">
+                <div
+                  class="col-4 col-sm-3 col-md-2 imgCenter d-flex justify-content-center"
+                >
+                  <div class="align-self-center">
+                    <img
+                      class="imgCenter"
+                      v-if="!itm.to_image || !itm.from_image"
+                      :src="`${getURL}/images/default.png`"
+                      alt=""
+                    /><img
+                      class="imgCenter"
+                      v-else-if="itm.to_id !== idUser"
+                      :src="`${getURL}/images/${itm.to_image}`"
+                      alt=""
+                    /><img
+                      v-else
+                      class="imgCenter"
+                      :src="`${getURL}/images/${itm.from_image}`"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="col d-flex ml-2 justify-content-between">
+                  <div class="align-self-center">
+                    <h5
+                      v-if="itm.to_id !== idUser"
+                      class="font-weight-bold m-0"
+                      v-line-clamp="1"
+                    >
+                      {{ itm.to_name }}
+                    </h5>
+                    <h5 v-else class="font-weight-bold m-0" v-line-clamp="1">
+                      {{ itm.from_name }}
+                    </h5>
+                    <p v-if="itm.status === 1" class="text-muted m-0">
+                      pending
+                    </p>
+                    <p v-else-if="itm.status === 2" class="text-muted m-0">
+                      Transfer
+                    </p>
+                    <p v-else-if="itm.status === 3" class="text-muted m-0">
+                      Cancel
+                    </p>
+                    <p v-else class="text-muted m-0">Top UP</p>
+                    <!-- SHOW BUTTON -->
+                    <!-- show target -->
+                    <button
+                      @click="btcancelTarget(itm.id)"
+                      v-if="itm.status === 1 && itm.to_id === idUser"
+                      class="btn btn-danger mr-2"
+                    >
+                      Reject
+                    </button>
+                    <button
+                      @click="btaccept(itm.id)"
+                      v-if="itm.status === 1 && itm.to_id === idUser"
+                      class="btn btn-success"
+                    >
+                      Accept
+                    </button>
+                    <!-- show user -->
+                    <button
+                      @click="btcancelUser(itm.id)"
+                      v-if="itm.status === 1 && itm.to_id !== idUser"
+                      class="btn btn-warning"
+                    >
+                      <h6 class="m-0 text-white">
+                        <b-icon icon="x-square-fill"></b-icon> Cancel
+                      </h6>
+                    </button>
+                  </div>
+                  <div class="align-self-center">
+                    <h6
+                      v-if="itm.status === 1"
+                      class="font-weight-bold c-pending"
+                      v-line-clamp="1"
+                    >
+                      Rp{{ toRupiah(itm.amount) }}
+                    </h6>
+                    <h6
+                      v-else-if="itm.status === 2 && itm.to_id !== idUser"
+                      class="font-weight-bold c-transfer"
+                      v-line-clamp="1"
+                    >
+                      -Rp{{ toRupiah(itm.amount) }}
+                    </h6>
+                    <h6
+                      v-else-if="itm.status === 2"
+                      class="font-weight-bold text-success"
+                      v-line-clamp="1"
+                    >
+                      +Rp{{ toRupiah(itm.amount) }}
+                    </h6>
+                    <h6
+                      v-else-if="itm.status === 3"
+                      class="font-weight-bold c-cancel"
+                      v-line-clamp="1"
+                    >
+                      Rp{{ toRupiah(itm.amount) }}
+                    </h6>
+                    <h6
+                      v-else
+                      class="font-weight-bold c-topup"
+                      v-line-clamp="1"
+                    >
+                      +Rp{{ toRupiah(itm.amount) }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- End of for mobile -->
+
+        <!-- for desktop -->
+        <div class="d-none d-lg-flex row no-gutters min-item mb-2">
+          <div
+            class="col-4 col-sm-3 col-md-2 imgCenter d-flex justify-content-center"
+          >
+            <div class="align-self-center">
+              <img
+                class="imgCenter"
+                v-if="!itm.to_image || !itm.from_image"
+                :src="`${getURL}/images/default.png`"
+                alt=""
+              /><img
+                class="imgCenter"
+                v-else-if="itm.to_id !== idUser"
+                :src="`${getURL}/images/${itm.to_image}`"
+                alt=""
+              /><img
+                v-else
+                class="imgCenter"
+                :src="`${getURL}/images/${itm.from_image}`"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="col d-flex ml-2 justify-content-between">
+            <div class="align-self-center">
+              <h5
+                v-if="itm.to_id !== idUser"
+                class="font-weight-bold m-0"
+                v-line-clamp="1"
+              >
+                {{ itm.to_name }}
+              </h5>
+              <h5 v-else class="font-weight-bold m-0" v-line-clamp="1">
+                {{ itm.from_name }}
+              </h5>
+              <p v-if="itm.status === 1" class="text-muted m-0">pending</p>
+              <p v-else-if="itm.status === 2" class="text-muted m-0">
+                Transfer
+              </p>
+              <p v-else-if="itm.status === 3" class="text-muted m-0">Cancel</p>
+              <p v-else class="text-muted m-0">Top UP</p>
+              <!-- SHOW BUTTON -->
+              <!-- show target -->
+              <button
+                @click="btcancelTarget(itm.id)"
+                v-if="itm.status === 1 && itm.to_id === idUser"
+                class="btn btn-danger mr-2"
+              >
+                Reject
+              </button>
+              <button
+                @click="btaccept(itm.id)"
+                v-if="itm.status === 1 && itm.to_id === idUser"
+                class="btn btn-success"
+              >
+                Accept
+              </button>
+              <!-- show user -->
+              <button
+                @click="btcancelUser(itm.id)"
+                v-if="itm.status === 1 && itm.to_id !== idUser"
+                class="btn btn-warning"
+              >
+                <h6 class="m-0 text-white">
+                  <b-icon icon="x-square-fill"></b-icon> Cancel
+                </h6>
+              </button>
+            </div>
+            <div class="align-self-center">
+              <h6
+                v-if="itm.status === 1"
+                class="font-weight-bold c-pending"
+                v-line-clamp="1"
+              >
+                Rp{{ toRupiah(itm.amount) }}
+              </h6>
+              <h6
+                v-else-if="itm.status === 2 && itm.to_id !== idUser"
+                class="font-weight-bold c-transfer"
+                v-line-clamp="1"
+              >
+                -Rp{{ toRupiah(itm.amount) }}
+              </h6>
+              <h6
+                v-else-if="itm.status === 2"
+                class="font-weight-bold text-success"
+                v-line-clamp="1"
+              >
+                +Rp{{ toRupiah(itm.amount) }}
+              </h6>
+              <h6
+                v-else-if="itm.status === 3"
+                class="font-weight-bold c-cancel"
+                v-line-clamp="1"
+              >
+                Rp{{ toRupiah(itm.amount) }}
+              </h6>
+              <h6 v-else class="font-weight-bold c-topup" v-line-clamp="1">
+                +Rp{{ toRupiah(itm.amount) }}
+              </h6>
+            </div>
+          </div>
+        </div>
+        <!-- End of for desktop -->
       </div>
     </div>
     <div v-else class="container text-center py-2">
@@ -105,65 +244,6 @@
       </div>
     </div>
     <!-- End Of Item -->
-
-    <!-- <div class="container py-2">
-      <div class="row no-gutters min-item">
-        <div
-          class="col-3 imgCenter"
-          style="background: url('/assets/people/samsul.jpg')"
-        ></div>
-        <div class="col d-flex ml-2 justify-content-between">
-          <div class="align-self-center">
-            <h5 class="font-weight-bold m-0" v-line-clamp="1">Samsul Biarin</h5>
-            <p class="text-muted m-0">Transfer</p>
-          </div>
-          <div class="align-self-center">
-            <h6 class="font-weight-bold text-success">+Rp150.000</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container py-2">
-      <div class="row no-gutters min-item">
-        <div
-          class="col-3 imgCenter"
-          style="background: url('/assets/people/samsul.jpg')"
-        ></div>
-        <div class="col d-flex ml-2 justify-content-between">
-          <div class="align-self-center">
-            <h5 class="font-weight-bold m-0">Samsul Mintana</h5>
-            <p class="text-muted m-0">Transfer</p>
-          </div>
-          <div class="align-self-center">
-            <h6 class="font-weight-bold text-danger">-Rp500.000</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container py-2">
-      <div class="row no-gutters min-item">
-        <div
-          class="col-3 imgCenter"
-          style="background: url('/assets/people/samsul.jpg')"
-        ></div>
-        <div class="col d-flex ml-2 justify-content-between">
-          <div class="align-self-center">
-            <h5 class="font-weight-bold m-0" v-line-clamp="1">
-              Samsul Bin Mi'un Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Necessitatibus ut enim dicta aspernatur
-              consectetur, molestias assumenda accusantium odio nihil maiores
-              fugit dolore debitis nostrum libero totam accusamus, rerum id
-              dolor.
-            </h5>
-            <p class="text-muted m-0">Transfer</p>
-          </div>
-          <div class="align-self-center">
-            <h6 class="font-weight-bold text-danger">-Rp1.250.000</h6>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -219,17 +299,17 @@ export default {
     },
     btaccept (id) {
       const data = {
-          id,
-          token: this.token
-        }
+        id,
+        token: this.token
+      }
       this.actionSuccess(data)
-      .then((res) => {
-        alert(res)
-        this.allHistoryUser() //get data histori ulang 
-        this.getDetailUser() //get data balance ulang
-      }).catch((err) => {
-        alert(err)
-      })
+        .then((res) => {
+          alert(res)
+          this.allHistoryUser() //get data histori ulang 
+          this.getDetailUser() //get data balance ulang
+        }).catch((err) => {
+          alert(err)
+        })
     },
     btcancelTarget (id) { // ini reject
       const data = {
@@ -267,11 +347,18 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+@media screen and (max-width: 992px) {
+  .shadow {
+    box-shadow: none !important;
+  }
+  div.bg-0.card {
+    background-color: transparent;
+  }
+}
 .imgCenter {
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
+  object-fit: cover;
   border-radius: 15px;
+  height: 60px;
 }
 .min-item {
   min-height: 75px;
@@ -288,5 +375,8 @@ div.card {
 }
 .c-topup {
   color: #6379f4;
+}
+.h-content {
+  height: 100px;
 }
 </style>

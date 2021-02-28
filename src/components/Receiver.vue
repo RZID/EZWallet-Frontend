@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-0 shadow">
+  <div class="card border-0 shadow h-100">
     <div class="card-body">
       <h5 class="font-weight-bold">Search Receiver</h5>
       <div class="d-flex align-items-start flex-column h-100">
@@ -143,9 +143,7 @@ export default {
   height: calc(100vh - 150px - 12rem);
 }
 .img-people {
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
+  object-fit: cover;
   border-radius: 12px;
 }
 .item {

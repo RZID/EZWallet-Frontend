@@ -109,56 +109,6 @@
             <p class="text-muted">You've never done a transaction so far</p>
           </div>
         </div>
-
-        <!-- <h6 class="font-weight-bold text-muted">This Month</h6>
-
-        <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
-          <div class="item">
-            <div class="row">
-              <div class="col-4 col-md-3 col-lg-2">
-                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-              </div>
-              <div class="col d-flex">
-                <div class="align-self-center w-100">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h6 class="font-weight-bold m-0">Samsul Supriatna</h6>
-                      <p class="text-muted m-0">Transfer</p>
-                    </div>
-                    <div>
-                      <h5 class="font-weight-bold text-danger">-Rp1.000.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </b-link>
-
-        <b-link class="text-decoration-none text-dark" v-b-modal.modalHistory>
-          <div class="item">
-            <div class="row">
-              <div class="col-4 col-md-3 col-lg-2">
-                <img class="imgTransaction" src="/assets/people/samsul.jpg" />
-              </div>
-              <div class="col d-flex">
-                <div class="align-self-center w-100">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h6 class="font-weight-bold m-0">Tatang</h6>
-                      <p class="text-muted m-0">Transfer</p>
-                    </div>
-                    <div>
-                      <h5 class="font-weight-bold text-success">
-                        +Rp1.500.000
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </b-link> -->
       </div>
     </div>
     <modalHistory />

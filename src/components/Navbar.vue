@@ -63,8 +63,8 @@ export default {
     }),
     getDetailUser () {
       const data = {
-      id: this.idUser,
-      token: this.token
+        id: this.idUser,
+        token: this.token
       }
       this.dataUser(data).then((res) => {
         this.name = res.name
@@ -83,7 +83,7 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 
-<style>
+<style scoped>
 .img-user {
   max-height: 50px;
   border-radius: 12px;

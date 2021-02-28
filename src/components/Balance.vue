@@ -1,65 +1,87 @@
 <template>
-  <div class="card border-0 shadow text-white bg-blue">
-    <div class="card-body">
-      <div class="container">
-        <div class="d-flex justify-content-between">
-          <div>
-            <p>Balance</p>
-            <h2 class="font-weight-bold" v-if="detailUser.balance">
-              Rp. {{ toRupiah(detailUser.balance) }}
-            </h2>
-            <p class="m-0">{{ detailUser.phone }}</p>
-          </div>
-          <div class="d-flex">
-            <div class="align-self-center">
-              <button
-                @click="transfer()"
-                class="btn btn-block btn-outline-light"
-              >
-                <b-icon icon="arrow-up"></b-icon> Transfer
-              </button>
-              <button @click="topup()" class="btn btn-block btn-outline-light">
-                <b-icon icon="plus"></b-icon>
-                Top Up
-              </button>
+  <div>
+    <div class="card border-0 shadow text-white bg-blue">
+      <div class="card-body">
+        <div class="container">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p>Balance</p>
+              <h3 class="font-weight-bold" v-if="detailUser.balance">
+                Rp. {{ toRupiah(detailUser.balance) }}
+              </h3>
+              <p class="m-0">{{ detailUser.phone }}</p>
+            </div>
+            <div class="d-none d-lg-flex">
+              <div class="align-self-center">
+                <button
+                  @click="transfer()"
+                  class="btn btn-block btn-outline-light"
+                >
+                  <b-icon icon="arrow-up"></b-icon> Transfer
+                </button>
+                <button
+                  @click="topup()"
+                  class="btn btn-block btn-outline-light"
+                >
+                  <b-icon icon="plus"></b-icon>
+                  Top Up
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- modal topup -->
-    <b-modal ref="my-modal" hide-footer title="Top Up">
-      <div class="d-block text-left">
-        <label for="form-balance" class="font-weight-bold font-title"
-          >Nominal</label
-        >
-        <form action="" @submit.prevent="btnTopUp()">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text font-weight-bold">Rp.</span>
-            </div>
-            <input
-              v-model="form.nominal"
-              class="form-control"
-              id="form-balance"
-              type="text"
-              :placeholder="detailUser.balance"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-block bt-blue radius-12 f-white mt-3"
+      <!-- modal topup -->
+      <b-modal ref="my-modal" hide-footer title="Top Up">
+        <div class="d-block text-left">
+          <label for="form-balance" class="font-weight-bold font-title"
+            >Nominal</label
           >
-            <b-icon icon="plus"></b-icon>
-            Top Up
-          </button>
-        </form>
+          <form action="" @submit.prevent="btnTopUp()">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text font-weight-bold">Rp.</span>
+              </div>
+              <input
+                v-model="form.nominal"
+                class="form-control"
+                id="form-balance"
+                type="text"
+                :placeholder="detailUser.balance"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-block bt-blue radius-12 f-white mt-3"
+            >
+              <b-icon icon="plus"></b-icon>
+              Top Up
+            </button>
+          </form>
+        </div>
+        <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
+          >Cancel</b-button
+        >
+      </b-modal>
+    </div>
+    <div class="my-4 d-flex d-lg-none row">
+      <div class="col">
+        <button @click="transfer()" class="btn btn-gray btn-block radius-12">
+          <div class="py-1 font-weight-bold">
+            <b-icon class="text-blue" icon="arrow-up"></b-icon> Transfer
+          </div>
+        </button>
       </div>
-      <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
-        >Cancel</b-button
-      >
-    </b-modal>
+      <div class="col">
+        <button @click="topup()" class="btn btn-gray btn-block radius-12">
+          <div class="py-1 font-weight-bold">
+            <b-icon class="text-blue" icon="plus"></b-icon>
+            Top Up
+          </div>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -14,34 +14,34 @@
                   : ''
               "
             >
-              <h4
+              <h5
                 @click="$router.push('/dashboard').catch(() => {})"
                 class="m-0 mx-3 pointer"
               >
                 <b-icon icon="grid"></b-icon>
                 Dashboard
-              </h4>
+              </h5>
             </div>
             <div
               class="container mt-5 text-muted"
               :class="$route.path === '/transfer' ? 'active' : ''"
             >
-              <h4
+              <h5
                 @click="$router.push('/transfer').catch(() => {})"
                 class="m-0 mx-3 pointer"
               >
                 <b-icon icon="arrow-up"></b-icon>
                 Transfer
-              </h4>
+              </h5>
             </div>
             <div
               class="container mt-5 text-muted"
               :class="$route.path === '/topup' ? 'active' : ''"
             >
-              <h4 @click="topup()" class="m-0 mx-3 pointer">
+              <h5 @click="topup()" class="m-0 mx-3 pointer">
                 <b-icon icon="plus"></b-icon>
                 Top Up
-              </h4>
+              </h5>
             </div>
             <div
               class="container mt-5 text-muted"
@@ -59,17 +59,17 @@
                   : ''
               "
             >
-              <h4 @click="profile()" class="m-0 mx-3 pointer">
+              <h5 @click="profile()" class="m-0 mx-3 pointer">
                 <b-icon icon="person"></b-icon>
                 Profile
-              </h4>
+              </h5>
             </div>
           </div>
           <div class="container pb-4 mt-auto text-muted">
-            <h4 @click="logout()" class="align-items-end mx-3 pointer">
+            <h5 @click="logout()" class="align-items-end mx-3 pointer">
               <b-icon icon="box-arrow-right"></b-icon>
               Logout
-            </h4>
+            </h5>
           </div>
         </div>
       </div>
