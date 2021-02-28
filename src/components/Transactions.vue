@@ -75,7 +75,7 @@
                           v-else-if="itm.status === 3"
                           class="font-weight-bold c-cancel"
                         >
-                          +Rp{{ toRupiah(itm.amount) }}
+                          Rp{{ toRupiah(itm.amount) }}
                         </h5>
                         <h5 v-else class="font-weight-bold c-topup">
                           +Rp{{ toRupiah(itm.amount) }}

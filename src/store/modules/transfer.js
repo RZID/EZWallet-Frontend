@@ -26,7 +26,7 @@ const modulTransfer = {
         })
       })
     },
-    actionCancelReceiver(context, data) {
+    actionCancelReceiver(context, data) { //reject
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/transferCancel/${data.id}`, data, { headers: { token: data.token } }).then((response) => {
           resolve(response.data.message)

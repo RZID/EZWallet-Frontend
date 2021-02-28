@@ -154,13 +154,21 @@ export default {
       // Buat pin baru
       this.isLoading = true // Set Loading
       this.isError = false // Set error false, jika tadinya ada error
-      // const data = { pin: this.code };
+      const data = { pin: this.code };
       setTimeout(() => {
-        this.isLoading = false // Set loading false di finally
-        this.pinCorrect = true // Buat pindah ke role new pin
-        this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
-        this.ToastSuccess('PIN Changed successfully') // Kalau success
-        // this.ToastError('Oops, Error occurred') //Kalau error
+        this.actionSetPin(data).then((res) => {
+          this.ToastSuccess('Change pin Success!' || res)
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = true // Buat pindah ke role new pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+          this.$router.push('/my-profile')
+        })
+        .catch((err) => {
+          this.ToastError(err)
+          this.isLoading = false // Set loading false di finally
+          this.pinCorrect = false // Buat stay ke role check pin
+          this.code = '' // ini codenya dibikin 0 biar ga nyimpen pin di data
+        });
       }, 5000)
     }
   },

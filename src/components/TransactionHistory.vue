@@ -47,14 +47,14 @@
             <!-- SHOW BUTTON -->
             <!-- show target -->
             <button
-              @click="btcancelTarget()"
+              @click="btcancelTarget(itm.id)"
               v-if="itm.status === 1 && itm.to_id === idUser"
               class="btn btn-danger mr-2"
             >
               Reject
             </button>
             <button
-              @click="btaccept()"
+              @click="btaccept(itm.id)"
               v-if="itm.status === 1 && itm.to_id === idUser"
               class="btn btn-success"
             >
@@ -62,7 +62,7 @@
             </button>
             <!-- show user -->
             <button
-              @click="btcancelUser()"
+              @click="btcancelUser(itm.id)"
               v-if="itm.status === 1 && itm.to_id !== idUser"
               class="btn btn-warning"
             >
@@ -88,7 +88,7 @@
               +Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6 v-else-if="itm.status === 3" class="font-weight-bold c-cancel">
-              +Rp{{ toRupiah(itm.amount) }}
+              Rp{{ toRupiah(itm.amount) }}
             </h6>
             <h6 v-else class="font-weight-bold c-topup">
               +Rp{{ toRupiah(itm.amount) }}
@@ -170,9 +170,8 @@
 <script>
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
-import alert from '../helper/alert'
 export default {
-  mixins: [alert, currency],
+  mixins: [currency],
   data () {
     return {
       msgErr: ''
@@ -218,43 +217,44 @@ export default {
     seeAll () {
       this.$router.push("/history");
     },
-    btaccept () {
+    btaccept (id) {
       const data = {
-        id: this.idUser,
-        token: this.token,
-      }
-      this.actionSuccess(data).then((res) => {
-        this.ToastSuccess(res)
+          id,
+          token: this.token
+        }
+      this.actionSuccess(data)
+      .then((res) => {
+        alert(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        this.ToastError(err)
+        alert(err)
       })
     },
-    btcancelTarget () {
+    btcancelTarget (id) { // ini reject
       const data = {
-        id: this.idUser,
+        id,
         token: this.token,
       }
       this.actionCancelReceiver(data).then((res) => {
-        this.ToastSuccess(res)
+        alert(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        this.ToastError(err)
+        alert(err)
       })
     },
-    btcancelUser () {
+    btcancelUser (id) { // ini cancel
       const data = {
-        id: this.idUser,
+        id,
         token: this.token,
       }
-      this.actionCancelSender(data).then((res) => {
-        this.ToastSuccess(res)
+      this.actionCancelReceiver(data).then((res) => {
+        alert(res)
         this.allHistoryUser() //get data histori ulang 
         this.getDetailUser() //get data balance ulang
       }).catch((err) => {
-        this.ToastError(err)
+        alert(err)
       })
     }
   },
