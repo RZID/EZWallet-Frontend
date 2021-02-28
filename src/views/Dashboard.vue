@@ -40,12 +40,12 @@
         </div>
         <div class="col">
           <Balance />
-          <div class="row py-3">
-            <div class="col-lg mb-3 mb-md-0">
+          <div class="row pt-3 pt-lg-4">
+            <div class="col-lg mb-md-0">
               <GraphIncome class="h-100 d-none d-lg-block" />
             </div>
             <div class="col">
-              <TransactionHistory />
+              <TransactionHistory class="h-100" />
             </div>
           </div>
         </div>

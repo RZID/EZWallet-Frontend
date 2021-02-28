@@ -1,9 +1,11 @@
 <template>
-  <div class="card h-100 border-0 shadow">
-    <div class="card-body">
+  <div class="card card-lg h-100 border-0 shadow">
+    <div class="card-body p-0 p-lg-4">
       <div class="container">
-        <h5 class="font-weight-bold">Transaction History</h5>
-        <h6 class="font-weight-bold text-muted">This Week</h6>
+        <div class="d-none d-lg-block">
+          <h5 class="font-weight-bold">Transaction History</h5>
+        </div>
+        <h6 class="font-weight-bold text-muted mb-3">This Week</h6>
         <div v-if="msgErr !== 'Data unavailable'">
           <!-- Item -->
           <b-link
@@ -13,73 +15,102 @@
             v-b-modal.modalHistory
             @click="test(itm)"
           >
-            <div class="item">
-              <div class="row">
-                <div class="col-4 col-md-3 col-lg-2">
-                  <img
-                    v-if="itm.to_id !== idUser"
-                    class="imgTransaction"
-                    :src="`http://localhost:4001/images/${itm.to_image}`"
-                  />
-                  <img
-                    v-else
-                    class="imgTransaction"
-                    :src="`http://localhost:4001/images/${itm.from_image}`"
-                  />
-                </div>
-                <div class="col d-flex">
-                  <div class="align-self-center w-100">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <h5
-                          v-if="itm.to_id !== idUser"
-                          class="font-weight-bold m-0"
-                        >
-                          {{ itm.to_name }}
-                        </h5>
-                        <h5 v-else class="font-weight-bold m-0">
-                          {{ itm.from_name }}
-                        </h5>
-                        <!-- <p class="text-muted m-0">{{ itm.notes }}</p> -->
-                        <p v-if="itm.status === 1" class="text-muted m-0">
-                          Pending
-                        </p>
-                        <p v-else-if="itm.status === 2" class="text-muted m-0">
-                          Transfer
-                        </p>
-                        <p v-else-if="itm.status === 3" class="text-muted m-0">
-                          Cancel
-                        </p>
-                        <p v-else class="text-muted m-0">Top UP</p>
-                      </div>
-                      <div>
-                        <h5
-                          v-if="itm.status === 1"
-                          class="font-weight-bold c-pending"
-                        >
-                          Rp{{ toRupiah(itm.amount) }}
-                        </h5>
-                        <h5
-                          v-else-if="itm.status === 2 && itm.to_id !== idUser"
-                          class="font-weight-bold c-transfer"
-                        >
-                          -Rp{{ toRupiah(itm.amount) }}
-                        </h5>
-                        <h5
-                          v-else-if="itm.status === 2"
-                          class="font-weight-bold text-success"
-                        >
-                          +Rp{{ toRupiah(itm.amount) }}
-                        </h5>
-                        <h5
-                          v-else-if="itm.status === 3"
-                          class="font-weight-bold c-cancel"
-                        >
-                          Rp{{ toRupiah(itm.amount) }}
-                        </h5>
-                        <h5 v-else class="font-weight-bold c-topup">
-                          +Rp{{ toRupiah(itm.amount) }}
-                        </h5>
+            <div class="card shadow border-0 mb-3">
+              <div class="card-body h-100">
+                <div class="d-flex">
+                  <div class="row align-self-center w-100">
+                    <div
+                      class="col-4 col-sm-3 col-md-2 imgCenter d-flex justify-content-center"
+                    >
+                      <img
+                        v-if="itm.to_id !== idUser"
+                        class="imgCenter"
+                        :src="`http://localhost:4001/images/${itm.to_image}`"
+                        onerror="this.src='http://localhost:4001/images/default.png'"
+                      />
+                      <img
+                        v-else
+                        class="imgCenter"
+                        :src="`http://localhost:4001/images/${itm.from_image}`"
+                        onerror="this.src='http://localhost:4001/images/default.png'"
+                      />
+                    </div>
+                    <div class="col d-flex">
+                      <div class="align-self-center w-100">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h5
+                              v-if="itm.to_id !== idUser"
+                              class="font-weight-bold m-0"
+                              v-line-clamp="1"
+                            >
+                              {{ itm.to_name }}
+                            </h5>
+                            <h5
+                              v-else
+                              class="font-weight-bold m-0"
+                              v-line-clamp="1"
+                            >
+                              {{ itm.from_name }}
+                            </h5>
+                            <!-- <p class="text-muted m-0">{{ itm.notes }}</p> -->
+                            <p v-if="itm.status === 1" class="text-muted m-0">
+                              Pending
+                            </p>
+                            <p
+                              v-else-if="itm.status === 2"
+                              class="text-muted m-0"
+                            >
+                              Transfer
+                            </p>
+                            <p
+                              v-else-if="itm.status === 3"
+                              class="text-muted m-0"
+                            >
+                              Cancel
+                            </p>
+                            <p v-else class="text-muted m-0">Top Up</p>
+                          </div>
+                          <div>
+                            <h5
+                              v-if="itm.status === 1"
+                              class="font-weight-bold c-pending"
+                              v-line-clamp="1"
+                            >
+                              Rp{{ toRupiah(itm.amount) }}
+                            </h5>
+                            <h5
+                              v-else-if="
+                                itm.status === 2 && itm.to_id !== idUser
+                              "
+                              class="font-weight-bold c-transfer"
+                              v-line-clamp="1"
+                            >
+                              -Rp{{ toRupiah(itm.amount) }}
+                            </h5>
+                            <h5
+                              v-else-if="itm.status === 2"
+                              class="font-weight-bold text-success"
+                              v-line-clamp="1"
+                            >
+                              +Rp{{ toRupiah(itm.amount) }}
+                            </h5>
+                            <h5
+                              v-else-if="itm.status === 3"
+                              class="font-weight-bold c-cancel"
+                              v-line-clamp="1"
+                            >
+                              Rp{{ toRupiah(itm.amount) }}
+                            </h5>
+                            <h5
+                              v-else
+                              class="font-weight-bold c-topup"
+                              v-line-clamp="1"
+                            >
+                              +Rp{{ toRupiah(itm.amount) }}
+                            </h5>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -181,15 +212,16 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
-.item {
-  min-height: 80px;
-  margin-bottom: 20px;
+@media screen and (max-width: 992px) {
+  .card-lg {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
 }
-.imgTransaction {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 12px;
+.imgCenter {
   object-fit: cover;
+  border-radius: 15px;
+  height: 60px;
 }
 div.card {
   border-radius: 15px;

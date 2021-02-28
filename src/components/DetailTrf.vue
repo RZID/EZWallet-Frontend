@@ -1,68 +1,92 @@
 <template>
-  <div class="card border-0 shadow">
-    <div class="card-body">
-      <h5 class="font-weight-bold">Transfer To</h5>
-      <div class="card border-0 shadow mb-4">
-        <div class="card-body d-flex">
-          <img
-            v-if="!image"
-            class="img-people mr-4"
-            :src="`${getURL}/images/default.png`"
-            alt=""
-          />
-          <img
-            v-else
-            class="img-people mr-4"
-            :src="`${getURL}/images/${image}`"
-            alt=""
-          />
-          <div class="align-self-center">
-            <h5 class="font-weight-bold">{{ name }}</h5>
-            <p class="text-muted m-0">{{ phone }}</p>
+  <div class="py-lg-5">
+    <div class="container d-flex d-lg-none py-4">
+      <b-link
+        class="text-dark mr-3"
+        @click="$router.push('/transfer').catch(() => {})"
+      >
+        <h5 class="m-0 font-weight-bold align-self-center">
+          <b-icon icon="arrow-left"></b-icon>
+        </h5>
+      </b-link>
+      <h5 class="m-0 align-self-center font-weight-bold">Confirmation</h5>
+    </div>
+    <div class="card border-0 card-lg shadow py-3">
+      <div class="card-body bodycard">
+        <h5 class="font-weight-bold">Transfer To</h5>
+        <div class="card border-0 shadow mb-4">
+          <div class="card-body d-flex">
+            <img
+              v-if="!image"
+              class="img-people mr-4"
+              :src="`${getURL}/images/default.png`"
+              alt=""
+            />
+            <img
+              v-else
+              class="img-people mr-4"
+              :src="`${getURL}/images/${image}`"
+              alt=""
+            />
+            <div class="align-self-center">
+              <h5 class="font-weight-bold">{{ name }}</h5>
+              <p class="text-muted m-0">{{ phone }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <h5 class="font-weight-bold">Details</h5>
-      <!-- Amount -->
-      <div class="card card-body border-0 shadow mb-3">
-        <p>Amount</p>
-        <h5 class="m-0 font-weight-bold">
-          Rp{{ toRupiah(detailTreansfer.amount) }}
-        </h5>
-      </div>
-      <!-- End Of Amount -->
+        <h5 class="font-weight-bold">Details</h5>
+        <!-- Amount -->
+        <div class="card card-body border-0 shadow mb-3">
+          <p>Amount</p>
+          <h5 class="m-0 font-weight-bold">
+            Rp{{ toRupiah(detailTreansfer.amount) }}
+          </h5>
+        </div>
+        <!-- End Of Amount -->
 
-      <!-- Balance left -->
-      <div class="card card-body border-0 mb-3 shadow">
-        <p>Balance Left</p>
-        <h5 class="m-0 font-weight-bold">Rp{{ toRupiah(form.balanceLeft) }}</h5>
-      </div>
-      <!-- End Of Balance Left -->
+        <!-- Balance left -->
+        <div class="card card-body border-0 mb-3 shadow">
+          <p>Balance Left</p>
+          <h5 class="m-0 font-weight-bold">
+            Rp{{ toRupiah(form.balanceLeft) }}
+          </h5>
+        </div>
+        <!-- End Of Balance Left -->
 
-      <!-- Date -->
-      <div class="card card-body mb-3 border-0 shadow">
-        <p>Date & Time</p>
-        <div class="input-group">
-          <h5 class="m-0 font-weight-bold">{{ form.date }}</h5>
+        <!-- Date -->
+        <div class="card card-body mb-3 border-0 shadow">
+          <p>Date & Time</p>
+          <div class="input-group">
+            <h5 class="m-0 font-weight-bold">{{ form.date }}</h5>
+          </div>
+        </div>
+        <!-- End Of Date -->
+
+        <!-- Note -->
+        <div class="card card-body mb-5 border-0 shadow">
+          <p>Notes</p>
+          <div class="input-group">
+            <h5 class="m-0 font-weight-bold">{{ detailTreansfer.notes }}</h5>
+          </div>
+        </div>
+        <!-- End Of Note -->
+        <div class="d-flex justify-content-end">
+          <button
+            class="btn btn-blue btn-lg radius-12 d-none d-lg-block"
+            @click="getPin()"
+          >
+            <small class="p-3 font-weight-bold"> Continue </small>
+          </button>
+          <button
+            class="btn btn-blue btn-lg radius-12 btn-block d-lg-none d-block"
+            @click="getPin()"
+          >
+            <small class="p-3 font-weight-bold"> Continue </small>
+          </button>
         </div>
       </div>
-      <!-- End Of Date -->
-
-      <!-- Note -->
-      <div class="card card-body mb-5 border-0 shadow">
-        <p>Notes</p>
-        <div class="input-group">
-          <h5 class="m-0 font-weight-bold">{{ detailTreansfer.notes }}</h5>
-        </div>
-      </div>
-      <!-- End Of Note -->
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-blue btn-lg radius-12" @click="getPin()">
-          <small class="p-3 font-weight-bold"> Continue </small>
-        </button>
-      </div>
+      <ModalPin />
     </div>
-    <ModalPin />
   </div>
 </template>
 
@@ -100,10 +124,10 @@ export default {
     ...mapActions({
       actionGetUser: 'users/actionGetUser'
     }),
-    getPin() {
+    getPin () {
       this.$bvModal.show("getPin");
     },
-    nowTime() {
+    nowTime () {
       this.form.date = Moment().format("MMMM DD, YYYY - HH.mm");
     },
     getDetail () {
@@ -131,10 +155,14 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.nowTime();
     setInterval(this.nowTime(), 30000);
     this.getDetail()
+
+    if (Object.keys(this.detailTreansfer).length < 1) {
+      return this.$router.push('/transfer').catch(() => { })
+    }
   },
 };
 </script>
@@ -142,6 +170,14 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+@media screen and (max-width: 992px) {
+  .card-lg {
+    box-shadow: none !important;
+  }
+  .card-lg .bodycard {
+    padding: 0 !important;
+  }
+}
 .img-people {
   width: 100px;
   height: 100px;

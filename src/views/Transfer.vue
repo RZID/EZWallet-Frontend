@@ -1,9 +1,11 @@
 <template>
   <div class="h-100">
-    <Nbar />
-    <div class="container h-100 py-5">
+    <div class="d-none d-lg-block">
+      <Nbar />
+    </div>
+    <div class="container h-100">
       <div class="row">
-        <div class="col-3 d-none d-lg-block">
+        <div class="col-3 py-5 d-none d-lg-block">
           <Sbar />
         </div>
         <div class="col">
@@ -14,7 +16,9 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <div class="d-none d-lg-block">
+      <Footer />
+    </div>
   </div>
 </template>
 
