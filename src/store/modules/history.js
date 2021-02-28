@@ -8,7 +8,8 @@ const modulHistory = {
       dataAllUser: [],
       detailTransfer: {},
       detailHistory: {},
-      totalData: ''
+      totalData: '',
+      msg: {}
     }
   },
   mutations: {
@@ -23,6 +24,9 @@ const modulHistory = {
     },
     setTotalData(state, payload) {
       state.totalData = payload
+    },
+    setMsg(state, payload) {
+      state.msg = payload
     }
   },
   actions: {
@@ -51,6 +55,9 @@ const modulHistory = {
     },
     detailHistory(context, data) {
       context.commit('setDetailHistory', data)
+    },
+    sendMsg(context, data) {
+      context.commit('setMsg', data)
     }
   },
   getters: {
@@ -58,7 +65,8 @@ const modulHistory = {
     getURL: state => state.imgURL,
     getDetailTreansfer: state => state.detailTransfer,
     getDetailHistory: state => state.detailHistory,
-    getTotalData: state => state.totalData
+    getTotalData: state => state.totalData,
+    getMsg: state => state.msg
   }
 }
 export default modulHistory

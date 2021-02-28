@@ -7,7 +7,13 @@
       >
     </div>
     <!-- Item -->
-    <div v-if="msgErr !== 'Data unavailable'" class="container py-2">
+    <div
+      v-if="
+        msgErr !== 'Data unavailable' ||
+        getMsg.msg === 'Get all history success'
+      "
+      class="container py-2"
+    >
       <div
         v-for="(itm, idx) in allHistory"
         :key="idx"
@@ -182,7 +188,8 @@ export default {
       idUser: "auth/getID",
       token: "auth/getToken",
       allHistory: "history/getDataAllUser",
-      getURL: "history/getURL"
+      getURL: "history/getURL",
+      getMsg: "history/getMsg"
     }),
   },
   methods: {
@@ -260,6 +267,7 @@ export default {
   },
   mounted () {
     this.allHistoryUser()
+    this.getMsg.msg = null
   }
 };
 </script>

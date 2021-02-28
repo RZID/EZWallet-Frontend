@@ -89,6 +89,7 @@ export default {
       getTopUp: "users/actionTopUp",
       getHistory: "history/postHistory",
       getAllHistoryUser: "history/getAllHistoryUser",
+      sendMsg: "history/sendMsg"
     }),
     getDetailUser () {
       this.detailUser;
@@ -147,7 +148,17 @@ export default {
         page: 1,
         limit: 4
       };
-      this.getAllHistoryUser(data);
+      this.getAllHistoryUser(data).then((res) => {
+        const data = {
+          msg: res
+        }
+        this.sendMsg(data) //send msg untuk awal transaksi
+      }).catch((err) => {
+        const data = {
+          msg: err
+        }
+        this.sendMsg(data) //send msg untuk awal transaksi
+      })
     },
   },
   mounted () {

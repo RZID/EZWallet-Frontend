@@ -154,7 +154,7 @@ export default {
       // Buat pin baru
       this.isLoading = true // Set Loading
       this.isError = false // Set error false, jika tadinya ada error
-      const data = { pin: this.code };
+      const data = { pin: this.code }; //set data pin jangn dihapus
       setTimeout(() => {
         this.actionSetPin(data).then((res) => {
           this.ToastSuccess('Change pin Success!' || res)
