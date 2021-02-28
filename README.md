@@ -17,7 +17,7 @@ EZ (Easy) Wallet is an application that provides a transfer feature between user
 2. Run ```npm install``` to install modules required.
 3. Set .env file in root:
 ```
-VUE_APP_BACKEND= http://localhost:PORT
+VUE_APP_BACKEND = http://localhost:PORT
 
 example PORT use 3000, 4000, or 4001 (this is just example)
 ```
