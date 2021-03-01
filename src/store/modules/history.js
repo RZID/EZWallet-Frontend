@@ -13,24 +13,24 @@ const modulHistory = {
     }
   },
   mutations: {
-    setDataAllUser(state, payload) {
+    setDataAllUser (state, payload) {
       state.dataAllUser = payload
     },
-    setDetailTransfer(state, payload) {
+    setDetailTransfer (state, payload) {
       state.detailTransfer = payload
     },
-    setDetailHistory(state, payload) {
+    setDetailHistory (state, payload) {
       state.detailHistory = payload
     },
-    setTotalData(state, payload) {
+    setTotalData (state, payload) {
       state.totalData = payload
     },
-    setMsg(state, payload) {
+    setMsg (state, payload) {
       state.msg = payload
     }
   },
   actions: {
-    postHistory(context, data) {
+    postHistory (context, data) {
       return new Promise((resolve, reject) => {
         axios.post(`${context.rootState.setURL}/api/history`, data, { headers: { token: context.state.tokenAdmin } }).then((response) => {
           resolve(response.data.message)
@@ -39,7 +39,7 @@ const modulHistory = {
         })
       })
     },
-    getAllHistoryUser(context, data) {
+    getAllHistoryUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.get(`${context.rootState.setURL}/api/history/${data.id}?sort=${data.sort}&page=${data.page}&limit=${data.limit}`, { headers: { token: data.token } }).then((response) => {
           context.commit('setDataAllUser', response.data.data)
@@ -50,13 +50,13 @@ const modulHistory = {
         })
       })
     },
-    detailTransfer(context, data) {
+    detailTransfer (context, data) {
       context.commit('setDetailTransfer', data)
     },
-    detailHistory(context, data) {
+    detailHistory (context, data) {
       context.commit('setDetailHistory', data)
     },
-    sendMsg(context, data) {
+    sendMsg (context, data) {
       context.commit('setMsg', data)
     }
   },

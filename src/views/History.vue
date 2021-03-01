@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light">
+  <div class="bg-light min-vh-100">
     <div class="d-none d-lg-block">
       <Nbar />
     </div>

@@ -1,43 +1,48 @@
 <template>
-  <div class="bg-light">
+  <div class="bg-light min-vh-100">
     <!-- for desktop -->
     <Nbar class="d-none d-lg-block" />
     <!-- end of for desktop -->
 
-    <div class="container py-3 d-flex d-lg-none">
-      <!-- for mobile -->
-      <div class="align-self-center">
-        <img
-          v-if="!image"
-          class="img-user bg-dark mr-3 align-self-center radius-12"
-          :src="`${getURL}/images/default.png`"
-          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
-          alt=""
-        />
-        <img
-          v-else-if="ImgProfile.img"
-          class="img-user bg-dark mr-3 align-self-center radius-12"
-          :src="`${getURL}/images/${ImgProfile.img}`"
-          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
-          alt=""
-        /><img
-          v-else
-          class="img-user bg-dark mr-3 align-self-center radius-12"
-          :src="`${getURL}/images/${image}`"
-          :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
-          alt=""
-        />
+    <!-- for mobile -->
+    <b-link
+      class="text-dark text-decoration-none"
+      @click="$router.push('/my-profile').catch(() => {})"
+    >
+      <div class="container py-3 d-flex d-lg-none">
+        <div class="align-self-center">
+          <img
+            v-if="!image"
+            class="img-user bg-dark mr-3 align-self-center radius-12"
+            :src="`${getURL}/images/default.png`"
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
+            alt=""
+          />
+          <img
+            v-else-if="ImgProfile.img"
+            class="img-user bg-dark mr-3 align-self-center radius-12"
+            :src="`${getURL}/images/${ImgProfile.img}`"
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
+            alt=""
+          /><img
+            v-else
+            class="img-user bg-dark mr-3 align-self-center radius-12"
+            :src="`${getURL}/images/${image}`"
+            :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
+            alt=""
+          />
+        </div>
+        <div class="align-self-center">
+          <p class="text-muted m-0">Hello,</p>
+          <h5 class="font-weight-bold m-0">
+            {{ name }}
+          </h5>
+        </div>
       </div>
-      <div class="align-self-center">
-        <p class="text-muted m-0">Hello,</p>
-        <h5 class="font-weight-bold m-0">
-          {{ name }}
-        </h5>
-      </div>
-    </div>
+    </b-link>
     <!-- end of for mobile -->
     <div class="container">
-      <div class="row pb-5 py-lg-5">
+      <div class="row py-lg-5">
         <div class="col-3 d-none d-lg-block">
           <Sbar />
         </div>

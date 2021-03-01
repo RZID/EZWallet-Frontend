@@ -71,7 +71,7 @@
         <hr />
         <div class="d-flex justify-content-between mb-2">
           <h5 class="m-0">Date & Time</h5>
-          <h5 class="m-0">{{ detailHistory.created_at }}</h5>
+          <h5 class="m-0">{{ changeTime(detailHistory.created_at) }}</h5>
         </div>
         <hr />
         <div class="mb-4">
@@ -114,6 +114,7 @@
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from 'vuex'
 import alert from '../helper/alert'
+import Moment from 'moment'
 export default {
   mixins: [alert, currency],
   computed: {
@@ -131,6 +132,9 @@ export default {
       actionCancelReceiver: "transfer/actionCancelReceiver",
       actionCancelSender: "transfer/actionCancelSender",
     }),
+    changeTime (time) {
+      return (Moment(time).format("MMMM DD, YYYY - HH.mm"))
+    },
     allHistoryUser () {
       const data = {
         id: this.idUser,

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container-fluid bg-blue bg-accent vh-100">
-      <div class="container h-100">
+      <div class="container h-100 d-flex flex-column">
         <div class="d-md-flex justify-content-between position-static pt-5">
           <h4 class="text-white font-weight-bold">EZWallet</h4>
           <div class="d-none d-md-block">
@@ -21,7 +21,7 @@
             </button>
           </div>
         </div>
-        <div class="d-flex h-100 justify-content-center text-center">
+        <div class="d-flex justify-content-center h-100 text-center">
           <div class="align-self-center">
             <h1 class="font-weight-bold display-4 text-white">
               Awesome App<br />For Saving Time.
@@ -30,7 +30,11 @@
               We bring you a mobile app for banking problems that<br />
               oftenly wasting much of your times.
             </p>
-            <button class="btn btn-light text-blue" style="border-radius: 12px">
+            <button
+              class="btn btn-light text-blue"
+              style="border-radius: 12px"
+              @click="$router.push('/login').catch((err) => {})"
+            >
               Try It Free
             </button>
           </div>
@@ -289,6 +293,11 @@ export default {
 <style scoped src="../assets/css/style.css">
 </style>
 <style scoped>
+@media screen and (max-width: 992px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+}
 .bg-accent {
   background-image: url("/assets/Vector2.svg");
   background-repeat: no-repeat;

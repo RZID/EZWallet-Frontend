@@ -1,7 +1,7 @@
 <template>
-  <div class="card shadow bg-0 border-0 h-100">
-    <div class="card-body">
-      <div class="d-flex justify-content-between pb-0">
+  <div class="card shadow bg-0 border-0">
+    <div class="card-body d-flex flex-column">
+      <div class="d-flex justify-content-between pb-0 mb-3">
         <h5 class="font-weight-bold">Transaction History</h5>
         <b-link @click="seeAll()" class="text-blue text-decoration-none"
           >See All</b-link
@@ -15,9 +15,15 @@
         "
         class="container py-2"
       >
-        <div v-for="(itm, idx) in allHistory" :key="idx">
+        <b-link
+          v-for="(itm, idx) in allHistory"
+          :key="idx"
+          class="text-dark text-decoration-none"
+          v-b-modal.modalHistory
+          @click="test(itm)"
+        >
           <!-- For mobile! -->
-          <div class="d-flex d-lg-none">
+          <div class="d-flex d-lg-none row">
             <div class="card w-100 mb-2 shadow border-0 h-content">
               <div class="card-body">
                 <div class="row no-gutters">
@@ -59,7 +65,7 @@
                         {{ itm.from_name }}
                       </h5>
                       <p v-if="itm.status === 1" class="text-muted m-0">
-                        pending
+                        Pending
                       </p>
                       <p v-else-if="itm.status === 2" class="text-muted m-0">
                         Transfer
@@ -68,32 +74,6 @@
                         Cancel
                       </p>
                       <p v-else class="text-muted m-0">Top UP</p>
-                      <!-- SHOW BUTTON -->
-                      <!-- show target -->
-                      <button
-                        @click="btcancelTarget(itm.id)"
-                        v-if="itm.status === 1 && itm.to_id === idUser"
-                        class="btn btn-danger mr-2"
-                      >
-                        Reject
-                      </button>
-                      <button
-                        @click="btaccept(itm.id)"
-                        v-if="itm.status === 1 && itm.to_id === idUser"
-                        class="btn btn-success"
-                      >
-                        Accept
-                      </button>
-                      <!-- show user -->
-                      <button
-                        @click="btcancelUser(itm.id)"
-                        v-if="itm.status === 1 && itm.to_id !== idUser"
-                        class="btn btn-warning"
-                      >
-                        <h6 class="m-0 text-white">
-                          <b-icon icon="x-square-fill"></b-icon> Cancel
-                        </h6>
-                      </button>
                     </div>
                     <div class="align-self-center">
                       <h6
@@ -188,30 +168,6 @@
                 <p v-else class="text-muted m-0">Top Up</p>
                 <!-- SHOW BUTTON -->
                 <!-- show target -->
-                <button
-                  @click="btcancelTarget(itm.id)"
-                  v-if="itm.status === 1 && itm.to_id === idUser"
-                  class="btn btn-danger mr-2"
-                >
-                  Reject
-                </button>
-                <button
-                  @click="btaccept(itm.id)"
-                  v-if="itm.status === 1 && itm.to_id === idUser"
-                  class="btn btn-success"
-                >
-                  Accept
-                </button>
-                <!-- show user -->
-                <button
-                  @click="btcancelUser(itm.id)"
-                  v-if="itm.status === 1 && itm.to_id !== idUser"
-                  class="btn btn-warning"
-                >
-                  <h6 class="m-0 text-white">
-                    <b-icon icon="x-square-fill"></b-icon> Cancel
-                  </h6>
-                </button>
               </div>
               <div class="align-self-center">
                 <h6
@@ -249,25 +205,32 @@
             </div>
           </div>
           <!-- End of for desktop -->
-        </div>
+        </b-link>
       </div>
-      <div v-else class="container text-center py-2">
-        <div class="row min-item">
-          <div class="col-12">
-            <h4>-- No transactions --</h4>
+      <div v-else class="text-center py-2 d-flex h-100">
+        <div class="align-self-center w-100">
+          <div class="">
+            <img src="/assets/notransaction.png" alt="" />
+            <h4 class="font-weight-bold my-3">It's Clear!</h4>
+            <p class="text-muted">You've never done a transaction so far</p>
           </div>
         </div>
       </div>
       <!-- End Of Item -->
     </div>
+    <modalHistory />
   </div>
 </template>
 
 <script>
 import currency from "../helper/currency";
 import { mapGetters, mapActions } from "vuex";
+import modalHistory from "./ModalHistory";
 import alert from '../helper/alert'
 export default {
+  components: {
+    modalHistory,
+  },
   mixins: [currency, alert],
   data () {
     return {
@@ -289,8 +252,12 @@ export default {
       actionSuccess: "transfer/actionSuccess",
       actionCancelReceiver: "transfer/actionCancelReceiver",
       actionCancelSender: "transfer/actionCancelSender",
-      dataUser: "users/actionGetUser"
+      dataUser: "users/actionGetUser",
+      detailHistory: 'history/detailHistory'
     }),
+    test (data) {
+      this.detailHistory(data)
+    },
     getDetailUser () {
       const data = {
         id: this.idUser,

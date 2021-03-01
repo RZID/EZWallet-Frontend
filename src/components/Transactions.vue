@@ -1,11 +1,13 @@
 <template>
-  <div class="card card-lg h-100 border-0 shadow">
+  <div class="card card-lg h-on-lg border-0 shadow">
     <div class="card-body p-0 p-lg-4">
-      <div class="container">
-        <div class="d-none d-lg-block">
-          <h5 class="font-weight-bold">Transaction History</h5>
+      <div class="container h-100 d-flex flex-column">
+        <div>
+          <div class="d-none d-lg-block">
+            <h5 class="font-weight-bold">Transaction History</h5>
+          </div>
+          <h6 class="font-weight-bold text-muted mb-3">This Week</h6>
         </div>
-        <h6 class="font-weight-bold text-muted mb-3">This Week</h6>
         <div v-if="msgErr !== 'Data unavailable'">
           <!-- Item -->
           <b-link
@@ -32,7 +34,7 @@
                         v-else
                         class="imgCenter"
                         :src="`${getURL}/images/${itm.from_image}`"
-                        :onerror="`this.onerror=null;this.src=${getURL}/images/default.png`"
+                        :onerror="`this.onerror=null;this.src='${getURL}/images/default.png'`"
                       />
                     </div>
                     <div class="col d-flex">
@@ -133,11 +135,13 @@
           </div>
           <!-- End Of Item -->
         </div>
-        <div v-else>
-          <div class="text-center">
-            <img src="/assets/notransaction.png" alt="" />
-            <h4 class="font-weight-bold">It's Clear!</h4>
-            <p class="text-muted">You've never done a transaction so far</p>
+        <div v-else class="h-100 d-flex">
+          <div class="align-self-center w-100 text-center">
+            <div>
+              <img src="/assets/notransaction.png" alt="" />
+              <h4 class="font-weight-bold my-3">It's Clear!</h4>
+              <p class="text-muted">You've never done a transaction so far</p>
+            </div>
           </div>
         </div>
       </div>
@@ -235,5 +239,10 @@ div.card {
 }
 .c-topup {
   color: #6379f4;
+}
+@media screen and (min-width: 992px) {
+  .h-on-lg {
+    height: 100%;
+  }
 }
 </style>
