@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container-fluid bg-blue bg-accent vh-100">
+    <div class="container-fluid bg-blue bg-accent min-vh-100">
       <div class="container h-100 d-flex flex-column">
         <div class="d-md-flex justify-content-between position-static pt-5">
           <h4 class="text-white font-weight-bold">EZWallet</h4>

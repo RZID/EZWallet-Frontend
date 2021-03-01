@@ -42,6 +42,11 @@ const modulHistory = {
     getAllHistoryUser (context, data) {
       return new Promise((resolve, reject) => {
         axios.get(`${context.rootState.setURL}/api/history/${data.id}?sort=${data.sort}&page=${data.page}&limit=${data.limit}`, { headers: { token: data.token } }).then((response) => {
+          response.data.data.map(el => {
+            if (el.from_id == 1) {
+              return el.from_name = 'Top Up'
+            }
+          })
           context.commit('setDataAllUser', response.data.data)
           context.commit('setTotalData', response.data.pagination.totalData)
           resolve(response.data.message)

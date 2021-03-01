@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row vh-100 no-gutters">
+    <div class="row min-vh-100 no-gutters">
       <div
         class="col-lg-7 bg-blue h-100 bg-accent overflow-auto d-none d-lg-flex px-5"
       >

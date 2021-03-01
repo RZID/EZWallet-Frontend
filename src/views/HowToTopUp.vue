@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light vh-100">
+  <div class="bg-light min-vh-100">
     <Nbar />
     <div class="container">
       <div class="row py-5">
