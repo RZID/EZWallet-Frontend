@@ -83,11 +83,11 @@ export default {
     },
     editImageUser (e) {
       const image = e.target.files[0];
-      this.imageUrl = "";
-      this.imageRaw = "";
       if (image["type"] !== "image/jpeg" && image["type"] !== "image/png") {
         this.ToastError('Please enter a jpg/jpeg/png image format!')
       } else {
+        this.imageUrl = '';
+        this.imageRaw = '';
         this.imageUrl = URL.createObjectURL(image);
         this.imageRaw = image;
         const fd = new FormData()
