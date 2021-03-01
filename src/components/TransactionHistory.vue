@@ -73,7 +73,7 @@
                       <p v-else-if="itm.status === 3" class="text-muted m-0">
                         Cancel
                       </p>
-                      <p v-else class="text-muted m-0">Top UP</p>
+                      <p v-else class="text-muted m-0">Top Up</p>
                     </div>
                     <div class="align-self-center">
                       <h6
