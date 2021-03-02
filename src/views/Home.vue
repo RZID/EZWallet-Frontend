@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container-fluid bg-blue bg-accent min-vh-100">
-      <div class="container h-100 d-flex flex-column">
+      <div class="container min-vh-100 d-flex flex-column">
         <div class="d-md-flex justify-content-between position-static pt-5">
           <h4 class="text-white font-weight-bold">EZWallet</h4>
           <div class="d-none d-md-block">
@@ -21,7 +21,7 @@
             </button>
           </div>
         </div>
-        <div class="d-flex justify-content-center h-100 text-center">
+        <div class="d-flex justify-content-center min-vh-100 text-center">
           <div class="align-self-center">
             <h1 class="font-weight-bold display-4 text-white">
               Awesome App<br />For Saving Time.
