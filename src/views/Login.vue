@@ -2,11 +2,13 @@
   <div>
     <div class="row min-vh-100 no-gutters">
       <div
-        class="col-7 bg-blue h-100 bg-accent overflow-auto d-none d-lg-flex px-5"
+        class="col-7 bg-blue min-vh-100 bg-accent overflow-auto d-none d-lg-flex px-5"
       >
         <LeftTemplate />
       </div>
-      <div class="col w-100 h-100 overflow-auto d-flex px-lg-5 phone-brand">
+      <div
+        class="col w-100 min-vh-100 overflow-auto d-flex px-lg-5 phone-brand"
+      >
         <div class="w-100 align-self-lg-center">
           <div class="d-flex d-lg-none h-brand">
             <h3
