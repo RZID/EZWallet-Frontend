@@ -15,13 +15,13 @@ EZ (Easy) Wallet is an application that provides a transfer feature between user
 ### How's the interface ?
 
 #### Desktop Interface
-![Desktop Interface](https://drive.google.com/file/d/1jXF6aXLb2ZxquK3GOrZumZfWb1eb8pSx/view?usp=sharing)
+![Desktop Interface](https://drive.google.com/uc?id=1jXF6aXLb2ZxquK3GOrZumZfWb1eb8pSx/view?usp=sharing)
 
 #### Tablet Interface
-![Tablet Interface](https://drive.google.com/file/d/15ltNz4aipYb1_TODnAa9_DuJC4QWlZjp/view?usp=sharing)
+![Tablet Interface](https://drive.google.com/uc?id=15ltNz4aipYb1_TODnAa9_DuJC4QWlZjp/view?usp=sharing)
 
 #### Mobile Interface
-![Mobile Interface](https://drive.google.com/file/d/1hz8U5_HMuIvSfuUpmfLM0MrE8WUtJYoK/view?usp=sharing)
+![Mobile Interface](https://drive.google.com/uc?id=1hz8U5_HMuIvSfuUpmfLM0MrE8WUtJYoK/view?usp=sharing)
 
 
 ### How To Use
