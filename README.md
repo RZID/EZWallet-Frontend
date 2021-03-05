@@ -38,3 +38,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### API EZWallet
+Checkout [here](https://github.com/RZID/EZWallet-Backend/tree/dev)
