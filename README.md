@@ -53,3 +53,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### API EZWallet
 Checkout [here](https://github.com/RZID/EZWallet-Backend/tree/dev)
+
+### Demo
+See [Demo](http://52.204.186.223:44577/)
