@@ -12,6 +12,18 @@ EZ (Easy) Wallet is an application that provides a transfer feature between user
 
 ---
 
+### How's the interface ?
+
+#### Desktop Interface
+![Desktop Interface](https://drive.google.com/uc?id=1jXF6aXLb2ZxquK3GOrZumZfWb1eb8pSx)
+
+#### Tablet Interface
+![Tablet Interface](https://drive.google.com/uc?id=15ltNz4aipYb1_TODnAa9_DuJC4QWlZjp)
+
+#### Mobile Interface
+![Mobile Interface](https://drive.google.com/uc?id=1hz8U5_HMuIvSfuUpmfLM0MrE8WUtJYoK)
+
+
 ### How To Use
 1. Clone this repository with git clone https://github.com/RZID/EZWallet-Frontend.
 2. Run ```npm install``` to install modules required.
@@ -38,3 +50,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### API EZWallet
+Checkout [here](https://github.com/RZID/EZWallet-Backend/tree/dev)
+
+### Demo
+See [Demo](http://52.204.186.223:44577/)
