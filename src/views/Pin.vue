@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="row min-vh-100 no-gutters">
-      <div
-        class="col-7 bg-blue h-100 bg-accent overflow-auto d-none d-lg-flex px-5"
-      >
+      <div class="col-7 bg-blue bg-accent overflow-auto d-none d-lg-flex px-5">
         <div class="container align-self-center">
           <h3 class="font-weight-bold text-white">EZWallet</h3>
           <div class="text-center">
@@ -22,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="col h-100 overflow-auto d-flex">
+      <div class="col overflow-auto d-flex">
         <div class="container align-self-center" v-if="role === 'fill'">
           <div class="px-5">
             <h4 class="font-weight-bold">
@@ -97,7 +95,7 @@
 <script>
 import PincodeInput from "vue-pincode-input";
 import { mapActions } from "vuex";
-import alert from '../helper/alert'
+import alert from "../helper/alert";
 export default {
   mixins: [alert],
   components: { PincodeInput },
@@ -113,25 +111,24 @@ export default {
     ...mapActions({
       actionSetPin: "auth/actionSetPin",
     }),
-    toConfirm () {
+    toConfirm() {
       this.role = "loading";
       const data = { pin: this.form.code };
       this.actionSetPin(data)
         .then((res) => {
           this.role = "success";
-          this.ToastSuccess(res)
+          this.ToastSuccess(res);
           this.$router.push("/dashboard");
         })
         .catch((err) => {
-          this.ToastError(err)
+          this.ToastError(err);
         });
     },
   },
 };
 </script>
 
-<style scoped src="../assets/css/style.css">
-</style>
+<style scoped src="../assets/css/style.css"></style>
 <style scoped>
 .btn-blue {
   background-color: #6379f4;
@@ -161,7 +158,7 @@ input:focus {
   outline: 0 none !important;
 }
 </style>
-<style >
+<style>
 div.vue-pincode-input-wrapper {
   width: 100%;
   display: flex;

@@ -136,8 +136,8 @@
 
 <script>
 import { mapActions } from "vuex";
-import LeftTemplate from '../components/LeftTemplate'
-import alert from '../helper/alert'
+import LeftTemplate from "../components/LeftTemplate";
+import alert from "../helper/alert";
 export default {
   components: { LeftTemplate },
   mixins: [alert],
@@ -154,10 +154,12 @@ export default {
     ...mapActions({
       loginUser: "auth/loginUser",
     }),
-    toForgotPass () {
-      this.ToastError(`Sorry, this feature currently doesn't available (forgot password)`)
+    toForgotPass() {
+      this.ToastError(
+        `Sorry, this feature currently doesn't available (forgot password)`
+      );
     },
-    login () {
+    login() {
       const data = {
         email: this.form.email,
         password: this.form.pw,
@@ -167,26 +169,31 @@ export default {
           if (res.pin === false) {
             this.$router.push("/setPin");
           } else {
-            this.ToastSuccess('Welcome back!')
+            this.ToastSuccess("Welcome back!");
             this.$router.push("/dashboard");
           }
         })
         .catch((err) => {
           if (err === "Email not found") {
-            this.ToastError(`Sorry, email that you entered is'nt registered in our system`)
+            this.ToastError(
+              `Sorry, email that you entered is'nt registered in our system`
+            );
           } else if (err === "Login failed, please check your password") {
-            this.ToastError(`Oops, you've entered wrong password`)
+            this.ToastError(`Oops, you've entered wrong password`);
+          } else if (
+            err === `Your account isn't activated yet! Check your email!`
+          ) {
+            this.ToastError(err);
           } else {
             console.log(err);
           }
-        })
-    }
-  }
+        });
+    },
+  },
 };
 </script>
 
-<style scoped src="../assets/css/style.css">
-</style>
+<style scoped src="../assets/css/style.css"></style>
 <style scoped>
 @media screen and (max-width: 992px) {
   .phone-brand {
