@@ -1,6 +1,6 @@
 # EZ WALLET
 
-EZ (Easy) Wallet is an application that provides a transfer feature between users. This is the frontend service for this app. You can see the backend service [here](https://github.com/RZID/EZWallet-Backend/tree/dev). Visit the following link [EZWallet](http://52.204.186.223:44577)
+EZ (Easy) Wallet is an application that provides a transfer feature between users. This is the frontend service for this app. You can see the backend service [here](https://github.com/RZID/EZWallet-Backend).
 
 ### Modules
 
@@ -65,6 +65,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 Checkout [here](https://github.com/RZID/EZWallet-Backend/tree/dev)
 
-### Demo
+### Documentation
 
-See [Demo](http://52.204.186.223:44577/)
+- [Demo](http://52.204.186.223:44577/)
+- [Backend](https://github.com/RZID/EZWallet-Backend)
